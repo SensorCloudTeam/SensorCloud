@@ -1,0 +1,49 @@
+<html>
+<style>
+#container {
+	margin: auto;
+	text-align: center; //
+	border: 1px solid;
+	margin-top: 60px;
+}</style>
+<body>
+	<div id="container">
+		<h1>注册新用户</h1>
+
+		<div id="register">
+			<form id="registerFrm" method="post" action="../php/common/actions.php?action=register">
+				<div>
+					<input type="text"
+						id="email" name="email"/>
+					<div class="tips">
+						<label id="email_tips"><font color="red">请输入邮件地址</font></label>
+					</div>
+				</div>
+				<div>
+					<input type="text" id="name" name="name"/>
+					<div class="tips">
+						<label id="name_tips">昵称为选填项</label>
+					</div>
+				</div>
+				<div>
+					<input type="password" id="pass" name="pass">
+					<div class="tips">
+						<label id="pass_tips"><font color="red">请输入密码</font></label>
+					</div>
+				</div>
+				<div>
+					<input type="password" id="pass2" name="pass2">
+					<div class="tips">
+						<label id="pass2_tips"><font color="red">请确认密码</font></label>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div>
+			<button type="button"  onclick="submit()">确认注册</button>
+		</div>
+		<br>
+		<div class="ap_privacy_footer"></div>
+	</div>
+</body>
+</html>
