@@ -29,7 +29,7 @@
                     <a class="brand" href="<?php echo $this->url('home') ?>"><?php echo $this->translate('SensorCloud传感云平台') ?></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li class="active"><a href="/../Application/view/application/register.html"><?php echo $this->translate('注册') ?></a></li>
+                            <li class="active"><a href="<?php echo $this->url('application',  array('action'=>'register'));?>"><?php echo $this->translate('注册') ?></a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                     <div class="nav-collapse collapse">
@@ -40,7 +40,7 @@
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container" align="right">
             <?php echo $this->content; ?>
             <hr>
             <footer>
