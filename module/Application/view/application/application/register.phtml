@@ -1,49 +1,36 @@
-<html>
-<style>
-#container {
-	margin: auto;
-	text-align: center; //
-	border: 1px solid;
-	margin-top: 60px;
-}</style>
-<body>
-	<div id="container">
-		<h1>注册新用户</h1>
+<div style="text-align:center;">
 
-		<div id="register">
-			<form id="registerFrm" method="post" action="../php/common/actions.php?action=register">
-				<div>
-					<input type="text"
-						id="email" name="email"/>
-					<div class="tips">
-						<label id="email_tips"><font color="red">请输入邮件地址</font></label>
-					</div>
-				</div>
-				<div>
-					<input type="text" id="name" name="name"/>
-					<div class="tips">
-						<label id="name_tips">昵称为选填项</label>
-					</div>
-				</div>
-				<div>
-					<input type="password" id="pass" name="pass">
-					<div class="tips">
-						<label id="pass_tips"><font color="red">请输入密码</font></label>
-					</div>
-				</div>
-				<div>
-					<input type="password" id="pass2" name="pass2">
-					<div class="tips">
-						<label id="pass2_tips"><font color="red">请确认密码</font></label>
-					</div>
-				</div>
-			</form>
-		</div>
-		<div>
-			<button type="button"  onclick="submit()">确认注册</button>
-		</div>
-		<br>
-		<div class="ap_privacy_footer"></div>
-	</div>
-</body>
-</html>
+   <?php
+   $title = '新用户注册';
+   $this->headTitle($title);
+   ?>
+   <h1><?php echo $this->escapeHtml($title); ?></h1>
+   <?php
+    $form = $this->form;
+    $form->setAttribute('action', $this->url('application', array('action' => 'register')));
+    $form->prepare();
+    echo $this->form()->openTag($form);
+    ?>
+    
+    <div>
+       <div>     
+           <label><font color = "red">请输入邮件</font><?php echo $this->formRow($form->get('email'));?></label>
+       </div>
+       <div>     
+           <label>昵称为选填<?php echo $this->formRow($form->get('uname'));?></label>
+       </div>
+       <div>     
+           <label><font color = "red">请输入密码</font><?php echo $this->formRow($form->get('password'));?></label>
+       </div>
+       <div>     
+           <label><font color = "red">请确认密码</font><?php echo $this->formRow($form->get('password2'));?></label>
+       </div>
+       <div>     
+           <label><font color = "red">是否发布方？</font><?php echo $this->formradio($form->get('poster'),\Zend\form\view\helper\FormRadio::LABEL_PREPEND);?></label>
+       </div>
+       <div><?php echo $this->formSubmit($form->get('submit'));
+                  echo $this->form()->closeTag()?>
+       </div>
+    </div>
+    
+</div>
