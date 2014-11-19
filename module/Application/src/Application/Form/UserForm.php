@@ -17,7 +17,7 @@ class UserForm extends Form
                 'label' => 'email:',),
         ));
         $this->add(array(
-            'name' => 'uname',
+            'name' => 'username',
             'type' => 'Text',
         ));
         $this->add(array(

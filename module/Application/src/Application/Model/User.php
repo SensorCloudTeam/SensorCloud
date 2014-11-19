@@ -13,7 +13,7 @@ use Zend\Form\Annotation\Options;
 class User implements InputFilterAwareInterface
 {
     public $email;
-    public $uname;
+    public $username;
     public $password;
     public $password2;
     public $poster;
@@ -22,7 +22,7 @@ class User implements InputFilterAwareInterface
     public function exchangeArray($data)
     {
         $this->email     = (isset($data['email']))     ? $data['email']     : null;
-        $this->uname = (isset($data['uname'])) ? $data['uname'] : null;
+        $this->username = (isset($data['username'])) ? $data['username'] : null;
         $this->password  = (isset($data['password']))  ? $data['password']  : null;
         $this->password2 = (isset($data['password2']))  ? $data['password2']   : null;
         $this->poster = (isset($data['poster']))   ? $data['poster']   : null;
@@ -68,6 +68,25 @@ class User implements InputFilterAwareInterface
             )));
             
             $inputFilter->add($factory->createInput(array(
+            		'name'       =>  'username',
+            		'required'   =>  true,
+            		'filters'    =>  array(
+            				array('name' => 'StripTags'),
+            				array('name' => 'StringTrim'),
+            		) ,
+            		'validators' =>  array(
+            				array(
+            						'name'  =>  'not_empty',
+            						'options'  =>  array(
+            								'message'  => array(
+            										\Zend\Validator\NotEmpty::IS_EMPTY  =>  '邮箱不得为空！',
+            								),
+            						),
+            				),
+            		),
+            )));
+            
+            $inputFilter->add($factory->createInput(array(
                 'name'       =>  'password',
                 'required'   =>  true,
                 'validators' =>  array(
@@ -90,31 +109,6 @@ class User implements InputFilterAwareInterface
                     ),
                 ),
             )));
-            
-            $inputFilter->add($factory->createInput(array(
-                'name'       =>  'password2',
-                'required'   =>  true,
-                'validators' =>  array(
-                    array(
-                        'name'  =>  'not_empty',  
-                        'options'  =>  array(
-                            'message'  => array(
-                                  \Zend\Validator\NotEmpty::IS_EMPTY  =>  '密码不得为空！',
-                             ),
-                         ),
-                    ),
-                    array(
-                        'name'        =>  'string_length',
-                        'options'     =>  array(
-                            'min'     =>  6, 
-                            'messages' =>  array(
-                            	'stringLengthTooShort' => '密码长度不得少于6位！'
-                            ),
-                         ),
-                    ),
-                ),
-            )));
-            
 
 
             $this->inputFilter = $inputFilter;

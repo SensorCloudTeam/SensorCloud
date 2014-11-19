@@ -32,27 +32,27 @@ class UserTable
     {
     	$data = array(
     			'email' => $user->email,
-    			'name'  => $user->uname,
+    			'id'  => $user->username,
     	        'password' => sha1($user->password),
     	        'poster'   => $user->poster,
     	);
     
-    	$name = $user->uname;
-    	if (!$name == null) {
+    	$username = $user->username;
+    	if (!$username == null) {
     	
     		$this->tableGateway->insert($data);
     	} else {
-    		if ($this->getUser($name)) {
-    			$this->tableGateway->update($data, array('name' => $name));
+    		if ($this->getUser($username)) {
+    			$this->tableGateway->update($data, array('id' => $username));
     		} else {
-    			throw new \Exception('Form email does not exist');
+    			throw new \Exception('Form username does not exist');
     		}
     	}
     }
     
-    public function deleteUser($email)
+    public function deleteUser($username)
     {
-    	$this->tableGateway->delete(array('email' => $email));
+    	$this->tableGateway->delete(array('id' => $username));
     }
 }
     

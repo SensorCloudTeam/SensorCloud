@@ -14,10 +14,10 @@
     
     <div>
        <div>     
-           <label><font color = "red">请输入邮件</font><?php echo $this->formRow($form->get('email'));?></label>
+           <label><font color = "red">请输入邮箱</font><?php echo $this->formRow($form->get('email'));?></label>
        </div>
        <div>     
-           <label>昵称为选填<?php echo $this->formRow($form->get('uname'));?></label>
+           <label><FONT color = "red">设置用户名</FONT><?php echo $this->formRow($form->get('username'));?></label>
        </div>
        <div>     
            <label><font color = "red">请输入密码</font><?php echo $this->formRow($form->get('password'));?></label>
@@ -26,7 +26,7 @@
            <label><font color = "red">请确认密码</font><?php echo $this->formRow($form->get('password2'));?></label>
        </div>
        <div>     
-           <label><font color = "red">是否发布方？</font><?php echo $this->formradio($form->get('poster'),\Zend\form\view\helper\FormRadio::LABEL_PREPEND);?></label>
+           <label><font color = "red">是否为发布方？</font><?php echo $this->formradio($form->get('poster'),\Zend\form\view\helper\FormRadio::LABEL_PREPEND);?></label>
        </div>
        <div><?php echo $this->formSubmit($form->get('submit'));
                   echo $this->form()->closeTag()?>
