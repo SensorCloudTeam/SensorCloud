@@ -14,6 +14,7 @@ use Zend\View\Model\ViewModel;
 use Application\Model\User;
 use Application\Model\UserTable;
 use Application\Form\UserForm;
+use Application\Form\LoginForm;
 
 class IndexController extends AbstractActionController
 {
@@ -32,7 +33,22 @@ class IndexController extends AbstractActionController
         	$user = new User();
         	$form->setInputFilter($user->getInputFilter());
         	$form->setData($request->getPost());
-
+        	
+        	if(!$form->isValid()){
+        		$user->exchangeArray($form->getData());
+        		if(!$user->emailFilter1->isValid()){
+        			echo "<script>alert('email不得为空！')</script>";
+        		}
+        		if(!$user->emailFilter2->isValid()){
+        			echo "<script>alert('email格式错误！')</script>";
+        		}
+        		if(!$user->passwordFilter1->isValid()){
+        			echo "<script>alert('密码不得为空！')</script>";
+        		}
+        		if(!$user->passwordFilter2->isValid()){
+        			echo "<script>alert('密码长度不得少于6位！')</script>";
+        		}
+        	}
         	if ($form->isValid()) {
         		$user->exchangeArray($form->getData());
         		if($user->password != $user->password2){
@@ -44,6 +60,7 @@ class IndexController extends AbstractActionController
         		return $this->redirect()->toRoute('home');
         		}
             }
+         
         }
         return array('form' => $form);
     }
@@ -55,5 +72,14 @@ class IndexController extends AbstractActionController
     		$this->userTable = $sm->get('Application\Model\UserTable');
     	}
     	return $this->userTable;
+    }
+    
+    public function loginAction()
+    {
+        $form = new LoginForm();
+        
+        $request = $this->getRequest();
+     
+        return array('form' => $form);
     }
 }

@@ -17,6 +17,10 @@ class User implements InputFilterAwareInterface
     public $password;
     public $password2;
     public $poster;
+    public $emailFilter1;
+    public $emailFilter2;
+    public $passwordFilter1;
+    public $passwordFilter2;
     protected $inputFilter;                       // <-- Add this variable
  
     public function exchangeArray($data)
@@ -40,7 +44,7 @@ class User implements InputFilterAwareInterface
             $inputFilter = new InputFilter();      
             $factory = new Factory();
             
-            $inputFilter->add($factory->createInput(array(
+            $this->emailFilter1=$factory->createInput(array(
             		'name'       =>  'email',
             		'required'   =>  true,
                     'filters'    =>  array(
@@ -50,25 +54,12 @@ class User implements InputFilterAwareInterface
             		'validators' =>  array(
             				array(
             						'name'  =>  'not_empty',
-            						'options'  =>  array(
-            								'message'  => array(
-            										\Zend\Validator\NotEmpty::IS_EMPTY  =>  '邮箱不得为空！',
-            								),
-            						),
-            				),
-            				array(
-            						'name'        =>  'EmailAddress',
-            						'options'     =>  array(
-            								'messages' =>  array(
-            										'emailAddressInvalidFormat' => '邮箱格式不正确！'
-            								),
-            						),
             				),
             		),
-            )));
+            ));
             
-            $inputFilter->add($factory->createInput(array(
-            		'name'       =>  'username',
+            $this->emailFilter2=$factory->createInput(array(
+            		'name'       =>  'email',
             		'required'   =>  true,
             		'filters'    =>  array(
             				array('name' => 'StripTags'),
@@ -76,41 +67,39 @@ class User implements InputFilterAwareInterface
             		) ,
             		'validators' =>  array(
             				array(
-            						'name'  =>  'not_empty',
-            						'options'  =>  array(
-            								'message'  => array(
-            										\Zend\Validator\NotEmpty::IS_EMPTY  =>  '邮箱不得为空！',
-            								),
-            						),
+            						'name'        =>  'EmailAddress',
             				),
             		),
-            )));
+            ));
             
-            $inputFilter->add($factory->createInput(array(
+            $this->passwordFilter1 = $factory->createInput(array(
                 'name'       =>  'password',
                 'required'   =>  true,
                 'validators' =>  array(
                     array(
                         'name'  =>  'not_empty',  
-                        'options'  =>  array(
-                            'message'  => array(
-                                  \Zend\Validator\NotEmpty::IS_EMPTY  =>  '密码不得为空！',
-                             ),
-                         ),
                     ),
+                ),
+            ));
+            
+            $this->passwordFilter2 = $factory->createInput(array(
+                'name'       =>  'password',
+                'required'   =>  true,
+                'validators' =>  array(
                     array(
                         'name'        =>  'string_length',
                         'options'     =>  array(
                             'min'     =>  6, 
-                            'messages' =>  array(
-                            	'stringLengthTooShort' => '密码长度不得少于6位！'
-                            ),
                          ),
                     ),
                 ),
-            )));
-
-
+            ));
+        
+            $inputFilter->add($this->emailFilter1);
+            $inputFilter->add($this->emailFilter2);
+            $inputFilter->add($this->passwordFilter1);
+            $inputFilter->add($this->passwordFilter2);
+ 
             $this->inputFilter = $inputFilter;
             }
             

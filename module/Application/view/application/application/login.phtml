@@ -1,0 +1,26 @@
+<div style="text-align:center;">
+
+   <?php
+   $title = '用户登录';
+   $this->headTitle($title);
+   ?>
+   <h1><?php echo $this->escapeHtml($title); ?></h1>
+   <?php
+    $form = $this->form;
+    $form->prepare();
+    echo $this->form()->openTag($form);
+    ?>
+    
+    <div>
+       <div>     
+           <label><font color = "red">请输入注册邮箱</font><?php echo $this->formRow($form->get('email'));?></label>
+       </div>
+       <div>     
+           <label><FONT color = "red">请输入您的密码</FONT><?php echo $this->formRow($form->get('password'));?></label>
+       </div>
+       <div><?php echo $this->formSubmit($form->get('login'));
+                  echo $this->form()->closeTag()?>
+       </div>
+    </div>
+    
+</div>
