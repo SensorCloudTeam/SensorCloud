@@ -10,10 +10,8 @@ class LoginForm extends Form
         parent::__construct('login');
         $this->setAttribute('method', 'post');
         $this->add(array(
-            'name' => 'email',
+            'name' => 'username',
             'type' => 'Text',
-            'option' => array(
-                'label' => 'email:',),
         ));
       
         $this->add(array(

@@ -15,6 +15,7 @@ use Application\Model\User;
 use Application\Model\UserTable;
 use Application\Form\UserForm;
 use Application\Form\LoginForm;
+use Application\Model\Login;
 
 class IndexController extends AbstractActionController
 {
@@ -34,30 +35,18 @@ class IndexController extends AbstractActionController
         	$form->setInputFilter($user->getInputFilter());
         	$form->setData($request->getPost());
         	
-        	if(!$form->isValid()){
-        		$user->exchangeArray($form->getData());
-        		if(!$user->emailFilter1->isValid()){
-        			echo "<script>alert('email不得为空！')</script>";
-        		}
-        		if(!$user->emailFilter2->isValid()){
-        			echo "<script>alert('email格式错误！')</script>";
-        		}
-        		if(!$user->passwordFilter1->isValid()){
-        			echo "<script>alert('密码不得为空！')</script>";
-        		}
-        		if(!$user->passwordFilter2->isValid()){
-        			echo "<script>alert('密码长度不得少于6位！')</script>";
-        		}
-        	}
         	if ($form->isValid()) {
         		$user->exchangeArray($form->getData());
-        		if($user->password != $user->password2){
+        		if ($this->getUserTable()->isExist($user->username)) {
+        			echo "<script>alert('此用户名已存在！')</script>";
+        		}
+        		elseif($user->password != $user->password2){
         		    echo "<script>alert('两次密码不一致！')</script>";
         		}
         		else{
-        	    $this->getUserTable()->saveUser($user);
-        		// Redirect to list of albums
-        		return $this->redirect()->toRoute('home');
+        	        $this->getUserTable()->saveUser($user);
+        	        echo "<script>alert('注册成功！将跳转到登录页面')</script>";
+        	        return $this->redirect()->toRoute('application',array('action'=>'login'));
         		}
             }
          
@@ -79,6 +68,27 @@ class IndexController extends AbstractActionController
         $form = new LoginForm();
         
         $request = $this->getRequest();
+        if ($request->isPost()) {
+        	$login = new Login();
+        	$form->setInputFilter($login->getInputFilter());
+        	$form->setData($request->getPost());
+        	 
+        	if ($form->isValid()) {
+        		$login->exchangeArray($form->getData());
+        		if (!$this->getUserTable()->isExist($login->username)) {
+        			echo "<script>alert('此用户名不存在！')</script>";
+        		}
+        		else{
+        		    if($this->getUserTable()->rightPass($login->username,$login->password)){
+        		        return $this->redirect()->toRoute('home');
+        		    }
+        		    else{
+        		        echo "<script>alert('密码错误！')</script>";
+        		    }
+        		}
+        	}
+        	 
+        }
      
         return array('form' => $form);
     }

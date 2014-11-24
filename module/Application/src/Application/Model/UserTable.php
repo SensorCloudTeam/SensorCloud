@@ -2,6 +2,9 @@
 namespace Application\Model;
  
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\ResultSet\ResultSetInterface;
+use Zend\Db\ResultSet\AbstractResultSet;
  
 class UserTable
 {
@@ -18,14 +21,14 @@ class UserTable
         return $resultSet;
     }
  
-    public function getUser($uname)
+    public function isExist($username)
     {
-        $rowset = $this->tableGateway->select(array('name' => $uname));
+        $rowset = $this->tableGateway->select(array('id' => $username));
         $row = $rowset->current();
         if (!$row) {
-            throw new \Exception("Could not find row $uname");
+            return false;
         }
-        return $row;
+        return true;
     }
     
     public function saveUser(User $user)
@@ -36,23 +39,21 @@ class UserTable
     	        'password' => sha1($user->password),
     	        'poster'   => $user->poster,
     	);
-    
-    	$username = $user->username;
-    	if (!$username == null) {
-    	
-    		$this->tableGateway->insert($data);
-    	} else {
-    		if ($this->getUser($username)) {
-    			$this->tableGateway->update($data, array('id' => $username));
-    		} else {
-    			throw new \Exception('Form username does not exist');
-    		}
-    	}
+    	$this->tableGateway->insert($data);
     }
     
-    public function deleteUser($username)
+    public function rightPass($username,$password)
     {
-    	$this->tableGateway->delete(array('id' => $username));
+        $rowset = $this->tableGateway->select(array('id'=>$username));
+        $row = (array)$rowset->current();
+        if(sha1($password) == $row['password']){
+            return true;
+        }
+        else{
+            return false;
+        }
+        
     }
+    
 }
     

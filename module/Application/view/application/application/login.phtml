@@ -13,10 +13,10 @@
     
     <div>
        <div>     
-           <label><font color = "red">请输入注册邮箱</font><?php echo $this->formRow($form->get('email'));?></label>
+           <label><font color = "red">请输入用户名</font><?php echo $this->formRow($form->get('username'));?></label>
        </div>
        <div>     
-           <label><FONT color = "red">请输入您的密码</FONT><?php echo $this->formRow($form->get('password'));?></label>
+           <label><FONT color = "red">请输入密码</FONT><?php echo $this->formRow($form->get('password'));?></label>
        </div>
        <div><?php echo $this->formSubmit($form->get('login'));
                   echo $this->form()->closeTag()?>
