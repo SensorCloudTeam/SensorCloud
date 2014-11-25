@@ -66,6 +66,8 @@ return array(
             'application/index/index' => __DIR__ . '/../view/application/application/index.phtml',
             'application/index/register' => __DIR__ . '/../view/application/application/register.phtml',
             'application/index/login' => __DIR__ . '/../view/application/application/login.phtml', 
+            'application/index/addsink' => __DIR__ . '/../view/application/application/addsink.phtml',
+            'application/index/usercenter' => __DIR__ . '/../view/application/application/usercenter.phtml',            
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ),

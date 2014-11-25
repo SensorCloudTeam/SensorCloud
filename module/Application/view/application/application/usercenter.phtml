@@ -1,0 +1,13 @@
+<div style="text-align:center;">
+
+   <?php
+   $title = '用户信息';
+   $this->headTitle($title);
+   ?>
+   <h1><?php echo $this->escapeHtml($title); ?></h1>
+    
+    <div>
+       <a href="<?php echo $this->url('application',  array('action'=>'addsink'));?>"><input type="button" value="添加节点"></input></a>
+    </div>
+    
+</div>

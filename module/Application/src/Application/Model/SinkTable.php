@@ -6,7 +6,7 @@ use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\ResultSet\ResultSetInterface;
 use Zend\Db\ResultSet\AbstractResultSet;
  
-class UserTable
+class SinkTable
 {
     protected $tableGateway;
  
@@ -20,27 +20,16 @@ class UserTable
         $resultSet = $this->tableGateway->select();
         return $resultSet;
     }
- 
-    public function isExist($username)
-    {
-        $rowset = $this->tableGateway->select(array('id' => $username));
-        $row = $rowset->current();
-        if (!$row) {
-            return false;
-        }
-        return true;
-    }
     
-    public function saveUser(User $user)
+    public function saveSink(Sink $sink)
     {
     	$data = array(
-    			'email' => $user->email,
-    			'id'  => $user->username,
-    	        'password' => sha1($user->password),
-    	        'poster'   => $user->poster,
+    			'user_id' => $sink->user_id,
+    			'id'  => $sink->id,
+    	        'name'   => $sink->name,
     	);
     	$this->tableGateway->insert($data);
     }
-    
+      
 }
     

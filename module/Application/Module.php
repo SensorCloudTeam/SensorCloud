@@ -13,8 +13,11 @@ use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Application\Model\User;
 use Application\Model\UserTable;
+use Application\Model\Sink;
+use Application\Model\SinkTable;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Authentication\AuthenticationService;
 
 class Module
 {
@@ -56,6 +59,22 @@ class Module
     						$resultSetPrototype = new ResultSet();
     						$resultSetPrototype->setArrayObjectPrototype(new User());
     						return new TableGateway('user', $dbAdapter, null, $resultSetPrototype);
+    					},
+    					'Application\Model\SinkTable' =>  function($sm) {
+    						$tableGateway = $sm->get('SinkTableGateway');
+    						$table = new SinkTable($tableGateway);
+    						return $table;
+    					},
+    					'SinkTableGateway' => function ($sm) {
+    						$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+    						$resultSetPrototype = new ResultSet();
+    						$resultSetPrototype->setArrayObjectPrototype(new Sink());
+    						return new TableGateway('sink', $dbAdapter, null, $resultSetPrototype);
+    					},
+    					'db_adapter' => function($sm) {
+    						$dbAdapter   = $sm->get('Zend\Db\Adapter\Adapter');
+    						
+    						return $dbAdapter;
     					},
     			),
     	);
