@@ -17,7 +17,8 @@ class Sink implements InputFilterAwareInterface
  
     public function exchangeArray($data)
     {
-        $this->user_id     = (isset($data['user_id']))     ? $data['user_id']     : null;
+        $session = new \Zend\Session\Container('user');
+        $this->user_id     =(isset($_SESSION["username"]))? $_SESSION["username"] : null;
         $this->name  = (isset($data['name']))  ? $data['name']  : null;
         $this->id   =  $this->randPass(8);
     }
@@ -41,8 +42,8 @@ class Sink implements InputFilterAwareInterface
             $inputFilter = new InputFilter();      
             $factory = new Factory();
             
-            $useridFilter=$factory->createInput(array(
-            		'name'       =>  'user_id',
+            $nameFilter=$factory->createInput(array(
+            		'name'       =>  'name',
             		'required'   =>  true,
             		'filters'    =>  array(
             				array('name' => 'StripTags'),
@@ -53,7 +54,7 @@ class Sink implements InputFilterAwareInterface
             						'name'  =>  'not_empty',
             						'options' =>  array(
             								'messages' =>  array(
-            										\Zend\Validator\NotEmpty::IS_EMPTY => '用户名不得为空！'
+            										\Zend\Validator\NotEmpty::IS_EMPTY => '节点名称不得为空！'
             								),
             						),
             				),
@@ -61,7 +62,7 @@ class Sink implements InputFilterAwareInterface
             ));
          
         
-            $inputFilter->add($useridFilter);
+            $inputFilter->add($nameFilter);
  
             $this->inputFilter = $inputFilter;
             }

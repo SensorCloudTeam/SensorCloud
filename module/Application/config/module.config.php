@@ -33,6 +33,19 @@ return array(
             				),
             		),
             ),
+            'poster' => array(
+            		'type'    => 'segment',
+            		'options' => array(
+            				'route'    => '/poster[/:action]',
+            				'constraints' => array(
+            						'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+            				),
+            				'defaults' => array(
+            						'controller' => 'Application\Controller\Poster',
+            						'action'     => 'poster',
+            				),
+            		),
+            ),
         ),
     ),
     'service_manager' => array(
@@ -52,7 +65,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
+            'Application\Controller\Index'  => 'Application\Controller\IndexController',
+            'Application\Controller\Poster' => 'Application\Controller\PosterController',
         ),
     ),
     'view_manager' => array(
@@ -66,8 +80,9 @@ return array(
             'application/index/index' => __DIR__ . '/../view/application/application/index.phtml',
             'application/index/register' => __DIR__ . '/../view/application/application/register.phtml',
             'application/index/login' => __DIR__ . '/../view/application/application/login.phtml', 
-            'application/index/addsink' => __DIR__ . '/../view/application/application/addsink.phtml',
-            'application/index/usercenter' => __DIR__ . '/../view/application/application/usercenter.phtml',            
+            'application/index/usercenter' => __DIR__ . '/../view/application/application/usercenter.phtml',
+            'application/index/logout' => __DIR__ . '/../view/application/application/index.phtml',
+            'application/poster/addsink' => __DIR__ . '/../view/application/application/addsink.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ),

@@ -14,7 +14,10 @@
         <!-- Scripts -->
         <?php echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
                                       ->prependFile($this->basePath() . '/js/bootstrap.min.js')
-                                      ->prependFile($this->basePath() . '/js/jquery.min.js') ?>
+                                      ->prependFile($this->basePath() . '/js/jquery.min.js')
+                                      ->prependFile($this->basepath() . '/js/jquery-1.7.2.min.js') ?>
+                                      
+        <?php $session = new \Zend\Session\Container('user');?>
 
     </head>
     <body>
@@ -27,16 +30,28 @@
                         <span class="icon-bar"></span>
                     </a>
                     <a class="brand" href="<?php echo $this->url('home') ?>"><?php echo $this->translate('SensorCloud传感云平台') ?></a>
-                    <div class="nav-collapse collapse">
-                        <ul class="nav">
-                            <li class="active"><a href="<?php echo $this->url('application',  array('action'=>'register'));?>"><?php echo $this->translate('注册') ?></a></li>
-                        </ul>
-                    </div><!--/.nav-collapse -->
-                    <div class="nav-collapse collapse">
-                        <ul class="nav">
-                            <li class="active"><a href="<?php echo $this->url('application',array('action'=>'login')); ?>"><?php echo $this->translate('登录') ?></a></li>
-                        </ul>
-                    </div><!--/.nav-collapse -->
+                    
+                    <?php   if(!isset($_SESSION["username"])){ ?>
+                       <div class="nav-collapse collapse">
+                          <ul class="nav">
+                              <li class="active"><a href="<?php echo $this->url('application',  array('action'=>'register'));?>"><?php echo $this->translate('注册') ?></a></li>
+                          </ul>
+                       </div><!--/.nav-collapse -->
+                       <div class="nav-collapse collapse">
+                          <ul class="nav">
+                              <li class="active"><a href="<?php echo $this->url('application',array('action'=>'login')); ?>"><?php echo $this->translate('登录') ?></a></li>
+                          </ul>
+                       </div><!--/.nav-collapse -->
+                     <?php }else{ ?>
+                       <div class="nav-collapse collapse">
+                          <ul class="nav">
+                              <li class="active"><a><?php echo $this->translate('欢迎您：')?></a></li>
+                              <li class="active"><a href="<?php echo $this->url('application',array('action'=>'usercenter')); ?>"><?php echo $_SESSION["username"] ?></a></li>
+                              <li class="active"><a href="<?php echo $this->url('application',array('action'=>'logout')); ?>"><?php echo $this->translate('退出登录')?></a></li>     
+                          </ul>
+                       </div><!--/.nav-collapse -->
+                     <?php }?>
+                    
                 </div>
             </div>
         </div>
