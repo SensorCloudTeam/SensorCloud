@@ -1,13 +1,36 @@
-<div style="text-align:center;">
 
-   <?php
-   $title = '用户信息';
-   $this->headTitle($title);
-   ?>
-   <h1><?php echo $this->escapeHtml($title); ?></h1>
-    
-    <div>
-       <a href="<?php echo $this->url('poster',  array('action'=>'addsink'));?>"><input type="button" value="添加节点"></input></a>
+<script type="text/javascript">
+$(function(){
+$(".subNav").click(function(){
+			$(this).toggleClass("currentDd").siblings(".subNav").removeClass("currentDd")
+			$(this).toggleClass("currentDt").siblings(".subNav").removeClass("currentDt")
+			
+			// 修改数字控制速度， slideUp(500)控制卷起速度
+			$(this).next(".navContent").slideToggle(500).siblings(".navContent").slideUp(500);
+	})	
+})
+</script>
+
+<!-- 代码 开始 -->
+<div class="row">
+   
+    <div class="subNavBox" style=" float:left; width:20%;">
+	    <div class="subNav currentDd">用户信息</div>
+     	<ul class="navContent " style="display:block">
+	        <li><a href="#">用户信息</a></li>
+	    	<li><a href="#">修改密码</a></li>
+    	</ul>
+	    <div class="subNav">发布节点</div>
+	    <ul class="navContent">
+		    <li><a href="#">我的节点</a></li>
+		    <li><a href="../poster/addsink">添加节点</a></li>
+    	</ul>
+    	<div class="subNav">传感器</div>
+    	<ul class="navContent">
+			<li><a href="#">我的传感器</a></li>
+			<li><a href="#">添加传感器</a></li>
+	    </ul>
     </div>
-    
+    <div style=" float:left; width:80%;">
+    </div>
 </div>

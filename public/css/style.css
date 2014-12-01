@@ -35,4 +35,13 @@ div.container a.brand {
     padding: 8px 20px 12px 40px;
 }
 
+/*主要样式*/
+.subNavBox{width:200px;border:solid 1px #e5e3da;margin:100px auto;}
+.subNav{border-bottom:solid 1px #e5e3da;cursor:pointer;font-weight:bold;font-size:14px;color:#999;line-height:28px;padding-left:10px;background-position:95% 50%;text-align:left}
+.subNav:hover{color:#277fc2;}
+.currentDd{color:#277fc2}
+.navContent{display: none;border-bottom:solid 1px #e5e3da;}
+.navContent li a{display:block;width:200px;heighr:28px;text-align:center;font-size:14px;line-height:28px;color:#333}
+.navContent li a:hover{color:#fff;background-color:#277fc2}
+
 
