@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>用户信息</title>
+<?php $session = new \Zend\Session\Container('user');?>
+</head>
+
+<body>
+<p>&nbsp;</p>
+<p align="center"><strong>用户信息</strong></p>
+<p>&nbsp;</p>
+<table width="400" border="1" align="center">
+  <tr>
+    <td width="117">用户名</td>
+    <td width="268"><?php echo $this->name ?></td>
+  </tr>
+  <tr>
+    <td>注册邮箱</td>
+    <td><?php echo $this->email ?></td>
+  </tr>
+  <tr>
+    <td>注册时间</td>
+    <td><?php echo $this->time ?></td>
+  </tr>
+  <tr>
+    <td>是否为发布者</td>
+    <td><?php if($this->name == 1) echo "是";
+                  else echo "否" ?></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -19,8 +19,6 @@
                                       
         <?php $session = new \Zend\Session\Container('user');?>
 
-    </head>
-    <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
@@ -46,7 +44,7 @@
                        <div class="nav-collapse collapse">
                           <ul class="nav">
                               <li class="active"><a><?php echo $this->translate('欢迎您：')?></a></li>
-                              <li class="active"><a href="<?php echo $this->url('application',array('action'=>'usercenter')); ?>"><?php echo $_SESSION["username"] ?></a></li>
+                              <li class="active"><a href="<?php echo $this->url('poster',array('action'=>'usercenter')); ?>"><?php echo $_SESSION["username"] ?></a></li>
                               <li class="active"><a href="<?php echo $this->url('application',array('action'=>'logout')); ?>"><?php echo $this->translate('退出登录')?></a></li>     
                           </ul>
                        </div><!--/.nav-collapse -->
@@ -55,6 +53,7 @@
                 </div>
             </div>
         </div>
+        </head>
         <?php echo $this->content; ?>
         <div class="container" align="right">
             <hr>
@@ -63,5 +62,5 @@
             </footer>
         </div> <!-- /container -->
         <?php echo $this->inlineScript() ?>
-    </body>
+    
 </html>

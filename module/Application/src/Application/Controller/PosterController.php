@@ -6,6 +6,7 @@ use Zend\View\Model\ViewModel;
 use Application\Model\Sink;
 use Application\Model\SinkTable;
 use Application\Form\SinkForm;
+use Zend\Session\Container;
 
 /**
  * PosterController
@@ -19,8 +20,51 @@ class PosterController extends AbstractActionController
 {
 
     protected $sinkTable;
+    protected  $userTable;
+    public function usercenterAction()
+    {
+    	$view = new ViewModel();
+    
+    	return $view;
+    }
+    
+    public function userframeAction()
+    {
+    	$view = new ViewModel();
+    	$view->setTerminal(true);
+    
+    	return $view;
+    }
+    
+    public function userguideAction()
+    {
+    	$view = new ViewModel();
+    	$view->setTerminal(true);
+    
+    	return $view;
+    }
+    
+    public function userinfoAction()
+    {
+    	$session = new Container('user');
+    	$username = $_SESSION["username"];
+    	$email = $this->getUserTable()->getEmail($username);
+    	$time = $this->getUserTable()->getTime($username);
+    	$poster = $this->getUserTable()->getPoster($username);
+        $view = new ViewModel(array(
+                                'name' => $username,
+                                'email' => $email,
+                                'time'  => $time,
+                                'poster' => $poster
+        ));
+    	$view->setTerminal(true);
+    
+    	return $view;
+    }
+    
     public function addsinkAction()
     {
+      
     	$form = new SinkForm();
     
     	$request = $this->getRequest();
@@ -36,7 +80,21 @@ class PosterController extends AbstractActionController
     		}
     		 
     		}
-    		return array('form' => $form);
+    		
+    		$view = new ViewModel(array(
+    		                        "form" => $form,
+    		));
+    		$view->setTerminal(true);
+    		return $view;
+    }
+    
+    public function getUserTable()
+    {
+    	if ($this->userTable == null) {
+    		$sm = $this->getServiceLocator();
+    		$this->userTable = $sm->get('Application\Model\UserTable');
+    	}
+    	return $this->userTable;
     }
     
     public function getSinkTable()

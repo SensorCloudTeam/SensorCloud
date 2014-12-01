@@ -1,0 +1,24 @@
+
+   <?php
+   $title = '添加发布节点';
+   $this->headTitle($title);
+   ?>
+   <?php
+    $form = $this->form;
+    $form->prepare();
+    echo $this->form()->openTag($form);
+    ?>
+       
+<body>
+<p>&nbsp;</p>
+<p align="center"><strong>添加发布结点</strong></p>
+<p>&nbsp;</p>
+   <div  align="center">     
+       <label><FONT color = "red">请输入节点名称</FONT><?php echo $this->formRow($form->get('name'));?></label>
+       <p>&nbsp;</p>
+       <div><?php echo $this->formSubmit($form->get('addsink'));
+                  echo $this->form()->closeTag()?>
+       </div>
+    </div>
+       
+</body>

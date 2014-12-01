@@ -101,7 +101,7 @@ class IndexController extends AbstractActionController
                     case Result::SUCCESS:
                         $session = new \Zend\Session\Container('user');
                         $_SESSION["username"] = $data["username"];
-                        $this->redirect()->toRoute('application',array('action'=>'usercenter'));
+                        $this->redirect()->toRoute('poster',array('action'=>'usercenter'));
                         break;
                     default:
                         break;
@@ -109,11 +109,6 @@ class IndexController extends AbstractActionController
         	}
         }
         return array('form' => $form);
-    }
-    
-    public function usercenterAction()
-    {
-    	return new ViewModel();
     }
     
     public function logoutAction()

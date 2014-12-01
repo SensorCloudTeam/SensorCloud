@@ -16,6 +16,7 @@ class User implements InputFilterAwareInterface
     public $username;
     public $password;
     public $password2;
+    public $reg_time;
     public $poster;
     protected $inputFilter;                       // <-- Add this variable
  

@@ -42,5 +42,36 @@ class UserTable
     	$this->tableGateway->insert($data);
     }
     
+    public function getEmail($username)
+    {
+        $rowset = $this->tableGateway->select(array('id' => $username));
+        
+        $row = $rowset->current();
+        if (!$row) {
+        	return null;
+        }
+        return $row->email;
+    }
+    
+    public function getTime($username)
+    {
+    	$rowset = $this->tableGateway->select(array('id' => $username));
+    	$row = $rowset->current();
+    	if (!$row) {
+    		return null;
+    	}
+    	return $row->reg_time;
+    }
+    
+    public function getPoster($username)
+    {
+    	$rowset = $this->tableGateway->select(array('id' => $username));
+    	$row = $rowset->current();
+    	if (!$row) {
+    		return null;
+    	}
+    	return $row->poster;
+    }
+    
 }
     
