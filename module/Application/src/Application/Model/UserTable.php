@@ -53,6 +53,16 @@ class UserTable
         return $row->email;
     }
     
+    public function getPass($username)
+    {
+    	$rowset = $this->tableGateway->select(array('id' => $username));
+    
+    	$row = $rowset->current();
+    	if (!$row) {
+    		return null;
+    	}
+    	return $row->password;
+    }
     public function getTime($username)
     {
     	$rowset = $this->tableGateway->select(array('id' => $username));
@@ -71,6 +81,13 @@ class UserTable
     		return null;
     	}
     	return $row->poster;
+    }
+    
+    public function changePass($username,$password){
+        $data = array(
+            'password' => sha1($password),
+        );
+        $this->tableGateway->update($data,array('id'=> $username));
     }
     
 }

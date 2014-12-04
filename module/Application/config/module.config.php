@@ -85,6 +85,7 @@ return array(
             'application/poster/userframe' => __DIR__ . '/../view/application/poster/userframe.phtml',
             'application/poster/userguide' => __DIR__ . '/../view/application/poster/userguide.phtml',
             'application/poster/userinfo' => __DIR__ . '/../view/application/poster/userinfo.phtml',
+            'application/poster/changepass' => __DIR__ . '/../view/application/poster/changepass.phtml',
             'application/poster/addsink' => __DIR__ . '/../view/application/poster/addsink.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
