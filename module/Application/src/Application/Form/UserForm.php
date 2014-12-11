@@ -13,8 +13,6 @@ class UserForm extends Form
         $this->add(array(
             'name' => 'email',
             'type' => 'Text',
-            'option' => array(
-                'label' => 'email:',),
         ));
         $this->add(array(
             'name' => 'username',
@@ -38,9 +36,6 @@ class UserForm extends Form
                     '0'  =>  '否',
                  ),
             ),
-            'attributes' => array(
-            		'value' => '0' //set checked to '1'
-            )
         ));
 
         $this->add(array(

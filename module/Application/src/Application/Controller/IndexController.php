@@ -1,35 +1,32 @@
 <?php
-/**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- */
 
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Application\Model\User;
-use Application\Model\UserTable;
-use Application\Form\UserForm;
-use Application\Model\Login;
-use Application\Form\LoginForm;
 use Zend\Authentication\Storage\Session as SessionStorage;
 use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Adapter\DbTable;
 use Zend\Authentication\Result;
 use Zend\Session\Container;
+use Application\Model\User;
+use Application\Form\UserForm;
+use Application\Model\Login;
+use Application\Form\LoginForm;
+use Application\Model\Changepass;
+use Application\Form\ChangepassForm;
+
 
 class IndexController extends AbstractActionController
 {
     protected $userTable;
+    
     public function indexAction()
     {
         return new ViewModel();
     }
     
+    /*用户注册*/
     public function registerAction()
     {
         $form = new UserForm();
@@ -42,15 +39,17 @@ class IndexController extends AbstractActionController
         	
         	if ($form->isValid()) {
         		$user->exchangeArray($form->getData());
-        		if ($this->getUserTable()->isExist($user->username)) {
-        			echo "<script>alert('此用户名已存在！')</script>";
+        		if ($this->getUserTable()->isRegisted($user->email)) {
+        		    echo "<script>alert('此邮箱已被注册！')</script>";
+        		}elseif($this->getUserTable()->isExist($user->username)){
+        		    echo "<script>alert('此用户名已存在！')</script>";
         		}
         		elseif($user->password != $user->password2){
         		    echo "<script>alert('两次密码不一致！')</script>";
         		}
         		else{
         	        $this->getUserTable()->saveUser($user);
-        	        echo "<script>alert('注册成功！将跳转到登录页面');parent.location.href='/SensorCloud/public/application/login';</script>";        	
+        	        echo "<script>alert('注册成功！将跳转到登录页面');window.location.href='/SensorCloud/public/application/login';</script>";        	
         		}
             }
          
@@ -58,15 +57,7 @@ class IndexController extends AbstractActionController
         return array('form' => $form);
     }
     
-    public function getUserTable()
-    {
-    	if ($this->userTable == null) {
-    		$sm = $this->getServiceLocator();
-    		$this->userTable = $sm->get('Application\Model\UserTable');
-    	}
-    	return $this->userTable;
-    }
-    
+    /*用户登录*/
     public function loginAction()
     {
         $form = new LoginForm();
@@ -101,7 +92,7 @@ class IndexController extends AbstractActionController
                     case Result::SUCCESS:
                         $session = new \Zend\Session\Container('user');
                         $_SESSION["username"] = $data["username"];
-                        $this->redirect()->toRoute('poster',array('action'=>'usercenter'));
+                        $this->redirect()->toRoute('application',array('action'=>'usercenter'));
                         break;
                     default:
                         break;
@@ -111,11 +102,96 @@ class IndexController extends AbstractActionController
         return array('form' => $form);
     }
     
+    /*用户注销*/
     public function logoutAction()
     {
         $session = new Container('user');
         unset($_SESSION["username"]);
         session_destroy();
         echo "<script>alert('已退出登录');</script>";  
+    }
+    
+    /*用户中心*/
+    public function usercenterAction()
+    {
+    	$view = new ViewModel();
+    
+    	return $view;
+    }
+    
+    public function userframeAction()
+    {
+    	$view = new ViewModel();
+    	$view->setTerminal(true);
+    
+    	return $view;
+    }
+    
+    public function userguideAction()
+    {
+    	$view = new ViewModel();
+    	$view->setTerminal(true);
+    
+    	return $view;
+    }
+    
+    /*用户信息*/
+    public function userinfoAction()
+    {
+    	$session = new Container('user');
+    	$username = $_SESSION["username"];
+    	$email = $this->getUserTable()->getEmail($username);
+    	$time = $this->getUserTable()->getTime($username);
+    	$poster = $this->getUserTable()->getPoster($username);
+    	$view = new ViewModel(array(
+    			'name' => $username,
+    			'email' => $email,
+    			'time'  => date("Y-m-d H:i:s",$time),
+    			'poster' => $poster,
+    	));
+    	$view->setTerminal(true);
+    
+    	return $view;
+    }
+    
+    /*修改密码*/
+    public function changepassAction()
+    {
+    	$form = new ChangepassForm();
+    
+    	$request = $this->getRequest();
+    	if ($request->isPost()) {
+    		$changepass = new Changepass();
+    		$form->setInputFilter($changepass->getInputFilter());
+    		$form->setData($request->getPost());
+    
+    		if ($form->isValid()) {
+    			$changepass->exchangeArray($form->getData());
+    			$session = new Container('user');
+    			$username = $_SESSION["username"];
+    			if($this->getUserTable()->getPass($username) != sha1($changepass->oldpassword)){
+    				echo "<script>alert('旧密码不正确！')</script>";
+    			}elseif($changepass->newpassword != $changepass->newpassword2){
+    				echo "<script>alert('两次密码不一致！')</script>";
+    			}else{
+    				$this->getUserTable()->changePass($username,$changepass->newpassword);
+    				echo "<script>alert('密码修改成功！')</script>";
+    			}
+    		}
+    	}
+    	$view = new ViewModel(array(
+    			"form" => $form,
+    	));
+    	$view->setTerminal(true);
+    	return $view;
+    }
+    
+    public function getUserTable()
+    {
+    	if ($this->userTable == null) {
+    		$sm = $this->getServiceLocator();
+    		$this->userTable = $sm->get('Application\Model\UserTable');
+    	}
+    	return $this->userTable;
     }
 }

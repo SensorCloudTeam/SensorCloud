@@ -36,9 +36,10 @@ return array(
             'poster' => array(
             		'type'    => 'segment',
             		'options' => array(
-            				'route'    => '/poster[/:action]',
+            				'route'    => '/poster[/:action][/:id]',
             				'constraints' => array(
             						'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+            						'id'     => '[a-zA-z0-9]*',
             				),
             				'defaults' => array(
             						'controller' => 'Application\Controller\Poster',
@@ -81,11 +82,12 @@ return array(
             'application/index/register' => __DIR__ . '/../view/application/application/register.phtml',
             'application/index/login' => __DIR__ . '/../view/application/application/login.phtml', 
             'application/index/logout' => __DIR__ . '/../view/application/application/index.phtml',
-            'application/poster/usercenter' => __DIR__ . '/../view/application/poster/usercenter.phtml',
-            'application/poster/userframe' => __DIR__ . '/../view/application/poster/userframe.phtml',
-            'application/poster/userguide' => __DIR__ . '/../view/application/poster/userguide.phtml',
-            'application/poster/userinfo' => __DIR__ . '/../view/application/poster/userinfo.phtml',
-            'application/poster/changepass' => __DIR__ . '/../view/application/poster/changepass.phtml',
+            'application/index/usercenter' => __DIR__ . '/../view/application/application/usercenter.phtml',
+            'application/index/userframe' => __DIR__ . '/../view/application/application/userframe.phtml',
+            'application/index/userguide' => __DIR__ . '/../view/application/application/userguide.phtml',
+            'application/index/userinfo' => __DIR__ . '/../view/application/application/userinfo.phtml',
+            'application/index/changepass' => __DIR__ . '/../view/application/application/changepass.phtml',
+            'application/poster/mysink' => __DIR__ . '/../view/application/poster/mysink.phtml',
             'application/poster/addsink' => __DIR__ . '/../view/application/poster/addsink.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',

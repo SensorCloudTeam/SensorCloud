@@ -41,18 +41,19 @@ background: linear-gradient(top,#42a4e0,#2e88c0);
     <div class="hero-unit" style="text-align:center;">
          <h1><?php echo sprintf($this->translate('Welcome to %sSensorCloud%s'), '<span class="zf-green">', '</span>') ?></h1> 
     </div>
-
-    <div>
-         <div style=" float:left; width:50%; text-align:center;">
-            <button type="button" class="button blue"><?php echo $this->translate('数据订阅') ?></button>
-         </div>
-         <div style=" float:left; width:50%; text-align:center;">
-             <button type="button" class="button blue"><?php echo $this->translate('数据发布') ?></button>
-         </div>
-    </div>
-    
-  <!--百度地图容器-->
-    <div style="height:550px;border:#ccc solid 1px;" id="dituContent"></div>
+  <table width="100%" height="550" border="0" align = "center" >
+  <tr>
+    <td width="80%" align="center"><div style="height:550px;border:#ccc solid 1px;width:90%" id="dituContent" ></div></td>
+    <td width="20%" align="center"><table width="90%" height="550" border="0" align ="center">
+      <tr>
+        <td><button type="button" class="button blue"><?php echo $this->translate('服务订阅') ?></button></td>
+      </tr>
+      <tr>
+        <td> <button type="button" class="button blue"><?php echo $this->translate('服务发布') ?></button></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
     
     <script type="text/javascript">
     //创建和初始化地图函数：

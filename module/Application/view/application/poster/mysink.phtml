@@ -1,0 +1,43 @@
+<?php
+// module/Album/view/album/album/index.phtml:
+ 
+$title = '我的发布结点';
+$this->headTitle($title);
+?>
+<p>&nbsp;</p>
+<p align="center"><strong>我的发布结点</strong></p>
+<p>&nbsp;</p>
+
+<?php if(count($sinks)==0){?>
+<p align="center">当前没有发布结点</p>
+<?php }else{ ?>
+<table border="1" align="center" bgcolor = "#99CCFF" >
+<tr>
+    <th width="110">结点名称</th>
+    <th width="110">结点ID</th>
+    <th width="117">结点位置</th>
+    <th width="50">&nbsp;</th>
+</tr>
+<?php foreach ($sinks as $sink) : ?>
+<tr>
+    <td><?php echo $sink->name;?></td>
+    <td><?php echo $sink->id;?></td>
+    <td><?php echo $sink->location;?></td>
+    <td>
+        <script language="javascript">
+         function delcfm() {
+            if (!confirm("确认删除该结点？")) {
+                 window.event.returnValue = false;
+             }
+         }
+        </script>
+        <a href="<?php echo $this->url('poster',
+            array('action'=>'deletesink','id' => $sink->id));?>" onClick="delcfm()">删除</a>
+    </td>
+</tr>
+<?php endforeach; ?>
+</table>
+<?php }?>
+<p align="center">
+    <a href="<?php echo $this->url('poster', array('action'=>'addsink'));?>">添加发布结点</a>
+</p>

@@ -31,12 +31,23 @@ class UserTable
         return true;
     }
     
+    public function isRegisted($email)
+    {
+    	$rowset = $this->tableGateway->select(array('email' => $email));
+    	$row = $rowset->current();
+    	if (!$row) {
+    		return false;
+    	}
+    	return true;
+    }
+    
     public function saveUser(User $user)
     {
     	$data = array(
     			'email' => $user->email,
     			'id'  => $user->username,
     	        'password' => sha1($user->password),
+    	        'reg_time' => $user->reg_time,
     	        'poster'   => $user->poster,
     	);
     	$this->tableGateway->insert($data);

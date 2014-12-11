@@ -15,9 +15,9 @@ class SinkTable
         $this->tableGateway = $tableGateway;
     }
  
-    public function fetchAll()
+    public function fetchAll($username)
     {
-        $resultSet = $this->tableGateway->select();
+        $resultSet = $this->tableGateway->select(array('user_id' => $username));
         return $resultSet;
     }
     
@@ -29,6 +29,10 @@ class SinkTable
     	        'name'   => $sink->name,
     	);
     	$this->tableGateway->insert($data);
+    }
+    
+    public function deleteSink($id){
+        $this->tableGateway->delete(array('id' => $id));
     }
       
 }

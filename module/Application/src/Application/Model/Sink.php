@@ -19,16 +19,19 @@ class Sink implements InputFilterAwareInterface
     {
         $session = new \Zend\Session\Container('user');
         $this->user_id     =(isset($_SESSION["username"]))? $_SESSION["username"] : null;
+        $id = $this->randPass(8);
+        $this->id  = $id;
         $this->name  = (isset($data['name']))  ? $data['name']  : null;
-        $this->id   =  $this->randPass(8);
     }
     
+
     public function randPass($length)
     {
     	$randStr = str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZqwertyuioplkjhgfdsazxcvbnm1234567890');
     	$rand = substr($randStr,0,$length);
     	return $rand;
     }
+  
  
     // Add content to these methods:
     public function setInputFilter(InputFilterInterface $inputFilter)

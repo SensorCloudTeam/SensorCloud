@@ -43,8 +43,8 @@
                      <?php }else{ ?>
                        <div class="nav-collapse collapse">
                           <ul class="nav">
-                              <li class="active"><a><?php echo $this->translate('欢迎您：')?></a></li>
-                              <li class="active"><a href="<?php echo $this->url('poster',array('action'=>'usercenter')); ?>"><?php echo $_SESSION["username"] ?></a></li>
+                              <li class="active"><a><?php echo $_SESSION["username"];echo $this->translate(', 欢迎您!');?></a></li>
+                              <li class="active"><a href="<?php echo $this->url('application',array('action'=>'usercenter')); ?>"><?php echo $this->translate('用户中心') ?></a></li>
                               <li class="active"><a href="<?php echo $this->url('application',array('action'=>'logout')); ?>"><?php echo $this->translate('退出登录')?></a></li>     
                           </ul>
                        </div><!--/.nav-collapse -->

@@ -3,97 +3,29 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Application\Model\Sink;
-use Application\Model\SinkTable;
-use Application\Form\SinkForm;
 use Zend\Session\Container;
-use Application\Model\Changepass;
-use Application\Form\ChangepassForm;
+use Application\Model\Sink;
+use Application\Form\SinkForm;
 
-/**
- * PosterController
- *
- * @author
- *
- * @version
- *
- */
 class PosterController extends AbstractActionController
 {
 
     protected $sinkTable;
-    protected  $userTable;
-    public function usercenterAction()
+
+    /*获取发布结点列表*/
+    public function mysinkAction()
     {
-    	$view = new ViewModel();
-    
-    	return $view;
-    }
-    
-    public function userframeAction()
-    {
-    	$view = new ViewModel();
-    	$view->setTerminal(true);
-    
-    	return $view;
-    }
-    
-    public function userguideAction()
-    {
-    	$view = new ViewModel();
-    	$view->setTerminal(true);
-    
-    	return $view;
-    }
-    
-    public function userinfoAction()
-    {
-    	$session = new Container('user');
-    	$username = $_SESSION["username"];
-    	$email = $this->getUserTable()->getEmail($username);
-    	$time = $this->getUserTable()->getTime($username);
-    	$poster = $this->getUserTable()->getPoster($username);
-        $view = new ViewModel(array(
-                                'name' => $username,
-                                'email' => $email,
-                                'time'  => $time,
-                                'poster' => $poster
+        $session = new Container('user');
+        $username = $_SESSION["username"];
+    	$view = new ViewModel(array(
+            'sinks' => $this->getSinkTable()->fetchAll($username),
         ));
     	$view->setTerminal(true);
     
     	return $view;
     }
     
-    public function changepassAction()
-    {
-        $form = new ChangepassForm();
-        
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-        	$changepass = new Changepass();
-        	$form->setInputFilter($changepass->getInputFilter());
-        	$form->setData($request->getPost());
-        
-        	if ($form->isValid()) {
-        		$changepass->exchangeArray($form->getData());
-        		$session = new Container('user');
-        		$username = $_SESSION["username"];
-        		if($this->getUserTable()->getPass($username) != sha1($changepass->oldpassword)){
-        		    echo "<script>alert('旧密码不正确！')</script>";
-        		}elseif($changepass->newpassword != $changepass->newpassword2){
-        		    echo "<script>alert('两次密码不一致！')</script>";
-        		}else{
-        		    $this->getUserTable()->changePass($username,$changepass->newpassword);
-        		}		 
-        	}
-        }
-	    $view = new ViewModel(array(
-    		                        "form" => $form,
-    	));
-    	$view->setTerminal(true);
-    	return $view;      
-    }
-    
+    /*添加发布结点*/
     public function addsinkAction()
     {
       
@@ -108,7 +40,7 @@ class PosterController extends AbstractActionController
     		if ($form->isValid()) {
     			$sink->exchangeArray($form->getData());
     			$this->getSinkTable()->saveSink($sink);
-    			echo "<script>alert('您的设备号为 $sink->id')</script>";
+    			echo "<script>alert('您的设备号为 $sink->id');window.location.href='/SensorCloud/public/poster/mysink';</script>";
     		}
     		 
     		}
@@ -120,13 +52,14 @@ class PosterController extends AbstractActionController
     		return $view;
     }
     
-    public function getUserTable()
+    /*删除发布结点*/
+    public function deletesinkAction()
     {
-    	if ($this->userTable == null) {
-    		$sm = $this->getServiceLocator();
-    		$this->userTable = $sm->get('Application\Model\UserTable');
-    	}
-    	return $this->userTable;
+        $id = $this->params()->fromRoute('id',0);
+        if($id){
+            $this->getSinkTable()->deleteSink($id);     
+        }
+        $this->redirect()->toRoute('poster',array('action' => 'mysink'));
     }
     
     public function getSinkTable()

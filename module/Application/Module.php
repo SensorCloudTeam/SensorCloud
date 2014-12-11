@@ -57,7 +57,6 @@ class Module
     					'UserTableGateway' => function ($sm) {
     						$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
     						$resultSetPrototype = new ResultSet();
-    						$resultSetPrototype->setArrayObjectPrototype(new User());
     						return new TableGateway('user', $dbAdapter, null, $resultSetPrototype);
     					},
     					'Application\Model\SinkTable' =>  function($sm) {
@@ -68,7 +67,6 @@ class Module
     					'SinkTableGateway' => function ($sm) {
     						$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
     						$resultSetPrototype = new ResultSet();
-    						$resultSetPrototype->setArrayObjectPrototype(new Sink());
     						return new TableGateway('sink', $dbAdapter, null, $resultSetPrototype);
     					},
     					'db_adapter' => function($sm) {

@@ -10,7 +10,7 @@
 <p>&nbsp;</p>
 <p align="center"><strong>用户信息</strong></p>
 <p>&nbsp;</p>
-<table width="400" border="1" align="center">
+<table width="400" border="1" align="center" bgcolor = "#99CCFF" >
   <tr>
     <td width="117">用户名</td>
     <td width="268"><?php echo $this->name ?></td>
@@ -25,7 +25,7 @@
   </tr>
   <tr>
     <td>是否为发布者</td>
-    <td><?php if($this->name == 1) echo "是";
+    <td><?php if($this->poster == 1) echo "是";
                   else echo "否" ?></td>
   </tr>
 </table>

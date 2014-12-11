@@ -26,6 +26,7 @@ class User implements InputFilterAwareInterface
         $this->username = (isset($data['username'])) ? $data['username'] : null;
         $this->password  = (isset($data['password']))  ? $data['password']  : null;
         $this->password2 = (isset($data['password2']))  ? $data['password2']   : null;
+        $this->reg_time = time();
         $this->poster = (isset($data['poster']))   ? $data['poster']   : null;
     }
  
