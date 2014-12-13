@@ -39,7 +39,7 @@ class PosterController extends AbstractActionController
     		 
     		if ($form->isValid()) {
     			$sink->exchangeArray($form->getData());
-    			$this->getSinkTable()->saveSink($sink);
+    			$this->getSinkTable()->addSink($sink);
     			echo "<script>alert('您的设备号为 $sink->id');window.location.href='/SensorCloud/public/poster/mysink';</script>";
     		}
     		 

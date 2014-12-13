@@ -1,3 +1,5 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <div style="text-align:center;">
 
    <?php
@@ -16,7 +18,7 @@
            <label><font color = "red">请输入您的用户名</font><?php echo $this->formRow($form->get('username'));?></label>
        </div>
        <div>     
-           <label><FONT color = "red">&nbsp&nbsp&nbsp请输入您的密码</FONT><?php echo $this->formRow($form->get('password'));?></label>
+           <label><FONT color = "red">请输入您的密码&nbsp;&nbsp;&nbsp;&nbsp;</FONT><?php echo $this->formRow($form->get('password'));?></label>
        </div>
        <div><?php echo $this->formSubmit($form->get('login'));
                   echo $this->form()->closeTag()?>

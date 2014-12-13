@@ -47,6 +47,20 @@ return array(
             				),
             		),
             ),
+            'subscriber' => array(
+            		'type'    => 'segment',
+            		'options' => array(
+            				'route'    => '/subscriber[/:action][/:id]',
+            				'constraints' => array(
+            						'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+            						'id'     => '[a-zA-z0-9]*',
+            				),
+            				'defaults' => array(
+            						'controller' => 'Application\Controller\Subscriber',
+            						'action'     => 'subscriber',
+            				),
+            		),
+            ),
         ),
     ),
     'service_manager' => array(
@@ -68,6 +82,7 @@ return array(
         'invokables' => array(
             'Application\Controller\Index'  => 'Application\Controller\IndexController',
             'Application\Controller\Poster' => 'Application\Controller\PosterController',
+            'Application\Controller\Subscriber' => 'Application\Controller\SubscriberController',
         ),
     ),
     'view_manager' => array(

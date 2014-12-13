@@ -2,9 +2,6 @@
 namespace Application\Model;
  
 use Zend\Db\TableGateway\TableGateway;
-use Zend\Db\ResultSet\ResultSet;
-use Zend\Db\ResultSet\ResultSetInterface;
-use Zend\Db\ResultSet\AbstractResultSet;
  
 class SinkTable
 {
@@ -21,7 +18,7 @@ class SinkTable
         return $resultSet;
     }
     
-    public function saveSink(Sink $sink)
+    public function addSink(Sink $sink)
     {
     	$data = array(
     			'user_id' => $sink->user_id,

@@ -6,9 +6,6 @@ use Zend\InputFilter\Factory;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
-use Zend\Validator;
-use Zend\Form\Annotation\Input;
-use Zend\Form\Annotation\Options;
 
 class User implements InputFilterAwareInterface
 {
