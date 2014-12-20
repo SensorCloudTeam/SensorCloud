@@ -5,12 +5,23 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Session\Container;
 use Application\Model\Sink;
+use Application\Model\Sensor;
 use Application\Form\SinkForm;
+use Application\Form\SensorForm;
 
 class PosterController extends AbstractActionController
 {
 
     protected $sinkTable;
+    protected $sensorTable;
+    
+    /*服务发布首页*/
+    public function posterindexAction()
+    {
+    	$view = new ViewModel();
+    
+    	return $view;
+    }
 
     /*获取发布结点列表*/
     public function mysinkAction()
@@ -62,6 +73,54 @@ class PosterController extends AbstractActionController
         $this->redirect()->toRoute('poster',array('action' => 'mysink'));
     }
     
+    public function mysensorAction()
+    {
+    	$id = $this->params()->fromRoute('sink_id',0);
+    	$view = new ViewModel(array(
+    			'sensors' => $this->getSensorTable()->fetchAll($id),
+    	        'sink_id' => $id,
+    	));
+    	$view->setTerminal(true);
+    
+    	return $view;
+    }
+    
+    public function addsensorAction()
+    {
+        $form = new SensorForm();
+        $sink_id = $sink_id = $this->params()->fromRoute('sink_id',0);
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+        	$sensor = new Sensor();
+        	$form->setInputFilter($sensor->getInputFilter());
+        	$form->setData($request->getPost());
+        	 
+        	if ($form->isValid()) {
+        		$sensor->exchangeArray($form->getData());
+        		$this->getSensorTable()->addSensor($sensor,$sink_id);
+        		$this->redirect()->toRoute('poster',array('action' => 'mysensor','sink_id' => $sink_id));
+        	}
+        	 
+        	}
+        
+        	$view = new ViewModel(array(
+        	"form" => $form,
+        	));
+        	$view->setTerminal(true);
+        	return $view;
+    }
+    
+    /*删除传感器*/
+    public function deletesensorAction()
+    {
+    	$sink_id = $this->params()->fromRoute('sink_id',0);
+    	$sensor_id = $this->params()->fromRoute('sensor_id',0);
+    	if($sensor_id){
+    		$this->getSensorTable()->deleteSensor($sensor_id);
+    	}
+    	$this->redirect()->toRoute('poster',array('action' => 'mysensor','sink_id' => $sink_id));
+    }
+    
     public function getSinkTable()
     {
     if ($this->sinkTable == null) {
@@ -69,5 +128,14 @@ class PosterController extends AbstractActionController
     		$this->sinkTable = $sm->get('Application\Model\SinkTable');
     	}
     	return $this->sinkTable;
+    }
+    
+    public function getSensorTable()
+    {
+    	if ($this->sensorTable == null) {
+    		$sm = $this->getServiceLocator();
+    		$this->sensorTable = $sm->get('Application\Model\SensorTable');
+    	}
+    	return $this->sensorTable;
     }
 }

@@ -64,15 +64,13 @@ a{ color:#333; text-decoration:none;}
              <li class="cur">
                 <a class="one"><strong>订阅中心</strong></a>
                 <ul>
-                    <li><a target = "show" href="">我订阅的服务</a></li>
-                    <li><a target = "show" href="">去订阅服务</a></li>
+                    <li><a target = "show" href="../subscriber/mysubscription">我订阅的服务</a></li>
                 </ul>
             </li>
              <li class="cur">
                 <a class="one"><strong>服务发布</strong></a>
                 <ul>
                     <li><a target = "show" href="../poster/mysink">我的发布结点</a></li>
-                    <li><a target = "show" href="../poster/addsink">添加发布结点</a></li>
                 </ul>
             </li>
         </ul>
@@ -82,7 +80,7 @@ a{ color:#333; text-decoration:none;}
 <script>
 $(function(){
 	var verNav = $(".bl-vernav"),
-		line = verNav.siblings(".auxline")
+		line = verNav.siblings(".auxline"),
 		verNavFisrt = verNav.children("li:first-child"),
 		curY = verNav.children("li.cur").position().top;
 		
@@ -95,7 +93,7 @@ $(function(){
 	})
 	.end()
 	.mouseleave(function(){
-		line.stop(true,true).animate({top:curY},300)	
+		line.stop(true,true).animate({top:curY},300);	
 	}).trigger("mouseleave");
 });
 </script>

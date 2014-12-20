@@ -11,44 +11,29 @@ class SensorForm extends Form
         parent::__construct('sensor');
         $this->setAttribute('method', 'post');
         $this->add(array(
-            'name' => 'email',
-            'type' => 'Text',
-            'option' => array(
-                'label' => 'email:',),
-        ));
-        $this->add(array(
-            'name' => 'username',
+            'name' => 'name',
             'type' => 'Text',
         ));
-        $this->add(array(
-            'name' => 'password',
-            'type' => 'Password',
-        ));
-        $this->add(array(
-        	'name' => 'password2',
-        	'type' => 'Password', 
-        ));
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Radio',
-            'name' => 'poster',
-            'options' =>array(
-                'label'  =>  '是否为信息发布方？',
-                'value_options' =>  array(
-                    '1'  =>  '是',
-                    '0'  =>  '否',
-                 ),
-            ),
-            'attributes' => array(
-            		'value' => '0' //set checked to '1'
-            )
-        ));
+         $this->add(array(
+             'type' => 'Zend\Form\Element\Select',
+             'name' => 'type',
+             'options' => array(
+                     'label' => '选择传感器类型',
+                     'value_options' => array(
+                             '1' => '温度',
+                             '2' => '湿度',
+                             '3' => 'PH',
+                             '4' => '车流量',
+                     ),
+             )
+     ));
 
         $this->add(array(
-            'name' => 'submit',
+            'name' => 'addsensor',
             'type' => 'Submit',
             'attributes' => array(
-                'value' => '注册',
-                'id' => 'registerbutton',
+                'value' => '添加传感器',
+                'id' => 'addsensorbutton',
             ),
         ));
     }

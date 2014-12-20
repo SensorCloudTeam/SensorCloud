@@ -14,14 +14,14 @@ class SinkTable
  
     public function fetchAll($username)
     {
-        $resultSet = $this->tableGateway->select(array('user_id' => $username));
+        $resultSet = $this->tableGateway->select(array('puser_id' => $username));
         return $resultSet;
     }
     
     public function addSink(Sink $sink)
     {
     	$data = array(
-    			'user_id' => $sink->user_id,
+    			'puser_id' => $sink->user_id,
     			'id'  => $sink->id,
     	        'name'   => $sink->name,
     	);

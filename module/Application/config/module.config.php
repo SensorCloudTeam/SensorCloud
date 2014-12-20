@@ -36,10 +36,11 @@ return array(
             'poster' => array(
             		'type'    => 'segment',
             		'options' => array(
-            				'route'    => '/poster[/:action][/:id]',
+            				'route'    => '/poster[/:action][/:sink_id][/:sensor_id]',
             				'constraints' => array(
             						'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-            						'id'     => '[a-zA-z0-9]*',
+            						'sink_id'     => '[a-zA-z0-9]*',
+            						'sensor_id'     => '[a-zA-z0-9]*',
             				),
             				'defaults' => array(
             						'controller' => 'Application\Controller\Poster',
@@ -104,6 +105,10 @@ return array(
             'application/index/changepass' => __DIR__ . '/../view/application/application/changepass.phtml',
             'application/poster/mysink' => __DIR__ . '/../view/application/poster/mysink.phtml',
             'application/poster/addsink' => __DIR__ . '/../view/application/poster/addsink.phtml',
+            'application/poster/mysensor' => __DIR__ . '/../view/application/poster/mysensor.phtml',
+            'application/poster/addsensor' => __DIR__ . '/../view/application/poster/addsensor.phtml',
+            'application/subscriber/subscriberindex' => __DIR__ . '/../view/application/subscriber/subscriberindex.phtml',
+            'application/subscriber/mysubscription' => __DIR__ . '/../view/application/subscriber/mysubscription.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ),

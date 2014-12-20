@@ -6,6 +6,8 @@ use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Application\Model\UserTable;
 use Application\Model\SinkTable;
+use Application\Model\SubscriptionTable;
+use Application\Model\SensorTable;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 
@@ -58,6 +60,35 @@ class Module
     						$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
     						$resultSetPrototype = new ResultSet();
     						return new TableGateway('sink', $dbAdapter, null, $resultSetPrototype);
+    					},
+    					'Application\Model\SubscriptionTable' =>  function($sm) {
+    						$subscriptiontableGateway = $sm->get('SubscriptionTableGateway');
+    						$sensortableGateway = $sm->get('SensorTableGateway');
+    						$typetableGateway = $sm->get('TypeTableGateway');
+    						$sinktableGateway = $sm->get('SinkTableGateway');
+    						$table = new SubscriptionTable($subscriptiontableGateway,$sensortableGateway,$typetableGateway,$sinktableGateway);
+    						return $table;
+    					},
+    					'SubscriptionTableGateway' => function ($sm) {
+    						$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+    						$resultSetPrototype = new ResultSet();
+    						return new TableGateway('subscription', $dbAdapter, null, $resultSetPrototype);
+    					},
+    					'Application\Model\SensorTable' =>  function($sm) {
+    						$sensortableGateway = $sm->get('SensorTableGateway');
+    						$typetableGateway = $sm->get('TypeTableGateway');
+    						$table = new SensorTable($sensortableGateway,$typetableGateway);
+    						return $table;
+    					},
+    					'SensorTableGateway' => function ($sm) {
+    						$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+    						$resultSetPrototype = new ResultSet();
+    						return new TableGateway('sensor', $dbAdapter, null, $resultSetPrototype);
+    					},
+    					'TypeTableGateway' => function ($sm) {
+    						$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+    						$resultSetPrototype = new ResultSet();
+    						return new TableGateway('type', $dbAdapter, null, $resultSetPrototype);
     					},
     					'db_adapter' => function($sm) {
     						$dbAdapter   = $sm->get('Zend\Db\Adapter\Adapter');

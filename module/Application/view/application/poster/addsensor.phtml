@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+   <?php
+   $title = '添加传感器';
+   $this->headTitle($title);
+   ?>
+   <?php
+    $form = $this->form;
+    $form->prepare();
+    echo $this->form()->openTag($form);
+    ?>
+       
+<body>
+<p>&nbsp;</p>
+<p align="center"><strong>添加传感器</strong></p>
+<p>&nbsp;</p>
+   <div >  
+       <div  align="center"><label><FONT color = "red">&nbsp;请输入传感器名称</FONT><?php echo $this->formRow($form->get('name'));?></label></div>   
+       <div>
+            <table border="0" align="center" width="100%" >
+                <tr>
+                      <td width="50%" align="right"><FONT color = "red">请选择传感器类型&nbsp;&nbsp;</FONT></td>
+                      <td width="50%" align="left">&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $this->formSelect($form->get('type'));?></td>
+                </tr>
+             </table>
+        </div>
+       <p>&nbsp;</p>
+       <div  align="center"><?php echo $this->formSubmit($form->get('addsensor'));
+                  echo $this->form()->closeTag()?>
+       </div>
+   </div>
+       
+</body>

@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<?php
+$title = '我的传感器';
+$this->headTitle($title);
+?>
+<p>&nbsp;</p>
+<p align="center"><strong>传感器列表</strong></p>
+<p>&nbsp;</p>
+
+<?php $sensors = $this->sensors; 
+      if(count($sensors)==0){?>
+<p align="center">此结点下没有传感器</p>
+<?php }else{ ?>
+<table border="1" align="center" bgcolor = "#99CCFF" >
+<tr>
+    <th width="110">传感器名称</th>
+    <th width="110">传感器类型</th>
+    <th width="50">&nbsp;</th>
+</tr>
+<?php foreach ($sensors as $sensor) : ?>
+<tr>
+    <td><?php echo $sensor->name;?></td>
+    <td><?php echo $sensor->type;?></td>
+    <td>
+        <script language="javascript">
+         function delcfm() {
+            if (!confirm("确认删除该传感器？")) {
+                 window.event.returnValue = false;
+             }
+         }
+        </script>
+        <a href="<?php echo $this->url('poster',
+            array('action'=>'deletesensor','sink_id' => $sensor->sink_id,'sensor_id' => $sensor->id));?>" onClick="delcfm()">删除</a>
+    </td>
+</tr>
+<?php endforeach; ?>
+</table>
+<?php }?>
+<div align="center" style="margin-top:15px; ">
+     <button type="button" onclick="window.location.href = '<?php echo $this->url('poster',
+                array('action'=>'addsensor','sink_id' => $this->sink_id));?>'"><?php echo $this->translate('添加一个传感器') ?></button>
+</div>

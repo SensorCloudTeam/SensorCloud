@@ -1,7 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <?php
-// module/Album/view/album/album/index.phtml:
- 
 $title = '我的发布结点';
 $this->headTitle($title);
 ?>
@@ -9,7 +7,8 @@ $this->headTitle($title);
 <p align="center"><strong>我的发布结点</strong></p>
 <p>&nbsp;</p>
 
-<?php if(count($sinks)==0){?>
+<?php $sinks = $this->sinks;
+      if(count($sinks)==0){?>
 <p align="center">当前没有发布结点</p>
 <?php }else{ ?>
 <table border="1" align="center" bgcolor = "#99CCFF" >
@@ -25,6 +24,8 @@ $this->headTitle($title);
     <td><?php echo $sink->id;?></td>
     <td><?php echo $sink->location;?></td>
     <td>
+    <a href="<?php echo $this->url('poster',
+            array('action'=>'mysensor','sink_id' => $sink->id));?>">查看</a>
         <script language="javascript">
          function delcfm() {
             if (!confirm("确认删除该结点？")) {
@@ -33,12 +34,13 @@ $this->headTitle($title);
          }
         </script>
         <a href="<?php echo $this->url('poster',
-            array('action'=>'deletesink','id' => $sink->id));?>" onClick="delcfm()">删除</a>
+            array('action'=>'deletesink','sink_id' => $sink->id));?>" onClick="delcfm()">删除</a>
     </td>
 </tr>
 <?php endforeach; ?>
 </table>
 <?php }?>
-<p align="center">
-    <a href="<?php echo $this->url('poster', array('action'=>'addsink'));?>">添加发布结点</a>
-</p>
+<div align="center" style="margin-top:15px; ">
+     <button type="button" onclick="parent.parent.location.href = '<?php echo $this->url('poster',
+                array('action'=>'posterindex'));?>'"><?php echo $this->translate('添加一个节点') ?></button>
+</div>

@@ -42,10 +42,12 @@ background: linear-gradient(top,#42a4e0,#2e88c0);
     <td width="80%" align="center"><div style="height:550px;border:#ccc solid 1px;width:90%" id="dituContent" ></div></td>
     <td width="20%" align="center"><table width="90%" height="550" border="0" align ="center">
       <tr>
-        <td><button type="button" class="button blue"><?php echo $this->translate('服务订阅') ?></button></td>
+        <td><button type="button" class="button blue" onclick="window.location.href = '<?php echo $this->url('subscriber',
+                array('action'=>'subscriberindex'));?>'"><?php echo $this->translate('服务订阅') ?></button></td>
       </tr>
       <tr>
-        <td> <button type="button" class="button blue"><?php echo $this->translate('服务发布') ?></button></td>
+        <td> <button type="button" class="button blue" onclick="window.location.href = '<?php echo $this->url('poster',
+                array('action'=>'posterindex'));?>'"><?php echo $this->translate('服务发布') ?></button></td>
       </tr>
     </table></td>
   </tr>
