@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<body>
+<p>&nbsp;</p>
+
+<div style="padding-left: 100px">
+<a href="<?php echo $this->url('home',
+            array('action'=>'index'));?>">首页</a>
+<bdo>- > </bdo> 
+<a href="<?php echo $this->url('subscriber',array('action' => 'subscriberindex'));?>">服务订阅</a> 
+<bdo>- > 结点信息</bdo>
+</div>
+
+<div align="center">
+<p>&nbsp;</p>
+<label><strong>结点信息</strong></label>
+<p>&nbsp;</p>
+
+<p>名字：<?php echo $this->sink->name ?></p>
+<p>位置：（<?php echo $this->sink->longitude ?>,<?php echo $this->sink->latitude ?>)</p>
+<p>发布者：<?php echo $this->sink->puser_id ?></p>
+<p>&nbsp;</p>
+</div>
+
+<div align="center">
+<p>&nbsp;</p>
+<label><strong>传感器列表</strong></label>
+<p>&nbsp;</p>
+
+
+<?php $sensors = $this->sensors; 
+      if(count($sensors)==0){?>
+<p align="center">此结点下没有传感器</p>
+<?php }else{ ?>
+<table border="1" align="center" bgcolor = "#99CCFF" >
+<tr>
+    <th width="110">传感器名称</th>
+    <th width="110">传感器类型</th>
+    <th width="50">&nbsp;</th>
+</tr>
+<?php foreach ($sensors as $sensor) : ?>
+<tr>
+    <td><?php echo $sensor->name;?></td>
+    <td><?php echo $sensor->type;?></td> 
+    <td>   
+        <a href="<?php echo $this->url('poster',
+            array('action'=>'deletesensor','sink_id' => $sensor->sink_id,'sensor_id' => $sensor->id));?>" >订阅</a>
+    </td>
+</tr>
+<?php endforeach; ?>
+</table>
+<?php }?>
+</div>
+</body>
+</html>

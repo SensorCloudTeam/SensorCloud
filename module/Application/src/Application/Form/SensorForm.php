@@ -14,19 +14,34 @@ class SensorForm extends Form
             'name' => 'name',
             'type' => 'Text',
         ));
-         $this->add(array(
-             'type' => 'Zend\Form\Element\Select',
-             'name' => 'type',
-             'options' => array(
-                     'label' => '选择传感器类型',
-                     'value_options' => array(
-                             '1' => '温度',
-                             '2' => '湿度',
-                             '3' => 'PH',
-                             '4' => '车流量',
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'type_id',
+            'options' => array(
+                    'label' => '选择传感器类型',
+                    'value_options' => array(
+                            '1' => '温度',
+                            '2' => '湿度',
+                            '3' => 'PH值',
+                            '4' => '光照强度',
+                            '5' => '车流量',
+                            '6' => '图片',
+                            '7' => '视频' ,
+                            '8' => '自定义数值类型',
                      ),
              )
-     ));
+        ));
+        $this->add(array(
+       		'type' => 'Zend\Form\Element\Radio',
+       		'name' => 'post',
+       		'options' =>array(
+       		         'label'  =>  '是否发布？',
+         			 'value_options' =>  array(
+         				    '1'  =>  '是',
+         					'0'  =>  '否',
+         				),
+         		),
+         ));
 
         $this->add(array(
             'name' => 'addsensor',

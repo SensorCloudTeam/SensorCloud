@@ -6,7 +6,10 @@ $this->headTitle($title);
 <p>&nbsp;</p>
 <p align="center"><strong>传感器列表</strong></p>
 <p>&nbsp;</p>
-
+<a href="<?php echo $this->url('poster',
+            array('action'=>'mysink'));?>">结点列表</a>
+<a>- > <?php echo $this->sink_name?></a> 
+ <p>&nbsp;</p>
 <?php $sensors = $this->sensors; 
       if(count($sensors)==0){?>
 <p align="center">此结点下没有传感器</p>
@@ -15,12 +18,38 @@ $this->headTitle($title);
 <tr>
     <th width="110">传感器名称</th>
     <th width="110">传感器类型</th>
+    <th width="110">是否已发布？</th>
+    <th width="60">&nbsp;</th>
     <th width="50">&nbsp;</th>
 </tr>
 <?php foreach ($sensors as $sensor) : ?>
 <tr>
     <td><?php echo $sensor->name;?></td>
     <td><?php echo $sensor->type;?></td>
+    <td><?php if($sensor->post == 1) echo "是";
+                  else echo "否" ?></td>
+    <td><?php if($sensor->post == 0) {?>
+    <script language="javascript">
+         function postcfm() {
+            if (!confirm("确认发布该服务？")) {
+                 window.event.returnValue = false;
+             }
+         }
+        </script>
+           <a href="<?php echo $this->url('poster',
+            array('action'=>'postsensor','sink_id' => $sensor->sink_id,'sensor_id' => $sensor->id));?>" onClick="postcfm()">发布</a>
+           <?php }else{?>
+           <script language="javascript">
+         function canpostcfm() {
+            if (!confirm("确认取消发布该服务？")) {
+                 window.event.returnValue = false;
+             }
+         }
+        </script>
+           <a href="<?php echo $this->url('poster',
+            array('action'=>'canclepostsensor','sink_id' => $sensor->sink_id,'sensor_id' => $sensor->id));?>" onClick="canpostcfm()">取消发布</a>
+            <?php }?>
+     </td>
     <td>
         <script language="javascript">
          function delcfm() {

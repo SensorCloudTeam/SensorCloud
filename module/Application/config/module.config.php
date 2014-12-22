@@ -51,10 +51,11 @@ return array(
             'subscriber' => array(
             		'type'    => 'segment',
             		'options' => array(
-            				'route'    => '/subscriber[/:action][/:id]',
+            				'route'    => '/subscriber[/:action][/:sink_id][/:sensor_id]',
             				'constraints' => array(
             						'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-            						'id'     => '[a-zA-z0-9]*',
+            						'sink_id'     => '[a-zA-z0-9]*',
+            						'sensor_id'     => '[a-zA-z0-9]*',
             				),
             				'defaults' => array(
             						'controller' => 'Application\Controller\Subscriber',
@@ -108,6 +109,7 @@ return array(
             'application/poster/mysensor' => __DIR__ . '/../view/application/poster/mysensor.phtml',
             'application/poster/addsensor' => __DIR__ . '/../view/application/poster/addsensor.phtml',
             'application/subscriber/subscriberindex' => __DIR__ . '/../view/application/subscriber/subscriberindex.phtml',
+            'application/subscriber/sinkinfo' => __DIR__ . '/../view/application/subscriber/sinkinfo.phtml',
             'application/subscriber/mysubscription' => __DIR__ . '/../view/application/subscriber/mysubscription.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',

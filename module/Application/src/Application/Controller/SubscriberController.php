@@ -8,11 +8,25 @@ use Zend\Session\Container;
 class SubscriberController extends AbstractActionController
 {
     protected $subscriptionTable;
+    protected $sensorTable;
     
     /*服务订阅首页*/
     public function subscriberindexAction()
     {
-    	$view = new ViewModel();
+    	$view = new ViewModel(array(
+    	    'sinks' => $this->getSubscriptionTable()->fetchAllSink(),
+    	));
+    
+    	return $view;
+    }
+    
+    public function sinkinfoAction()
+    {
+        $sink_id = $this->params()->fromRoute('sink_id',0);
+    	$view = new ViewModel(array(
+    	        'sink' => $this->getSubscriptionTable()->getSink($sink_id),
+    			'sensors' => $this->getSensorTable()->fetchAll($sink_id),
+    	));
     
     	return $view;
     }
@@ -22,7 +36,7 @@ class SubscriberController extends AbstractActionController
         $session = new Container('user');
         $username = $_SESSION["username"];
         $view = new ViewModel(array(
-        		'subscriptions' => $this->getSubscriptionTable()->fetchAll($username),
+        		'subscriptions' => $this->getSubscriptionTable()->fetch($username),
         ));
         $view->setTerminal(true);
         
@@ -46,5 +60,14 @@ class SubscriberController extends AbstractActionController
     		$this->subscriptionTable = $sm->get('Application\Model\SubscriptionTable');
     	}
     	return $this->subscriptionTable;
+    }
+    
+    public function getSensorTable()
+    {
+    	if ($this->sensorTable == null) {
+    		$sm = $this->getServiceLocator();
+    		$this->sensorTable = $sm->get('Application\Model\SensorTable');
+    	}
+    	return $this->sensorTable;
     }
 }

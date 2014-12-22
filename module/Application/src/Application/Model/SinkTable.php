@@ -18,6 +18,17 @@ class SinkTable
         return $resultSet;
     }
     
+    public function getName($sink_id)
+    {
+        $rowset = $this->tableGateway->select(array('id' => $sink_id));
+    
+    	$row = $rowset->current();
+    	if (!$row) {
+    		return null;
+    	}
+    	return $row->name;
+    }
+    
     public function addSink(Sink $sink)
     {
     	$data = array(

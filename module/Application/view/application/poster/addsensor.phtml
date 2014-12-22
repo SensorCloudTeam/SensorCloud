@@ -14,16 +14,25 @@
 <p>&nbsp;</p>
 <p align="center"><strong>添加传感器</strong></p>
 <p>&nbsp;</p>
+<a href="<?php echo $this->url('poster',
+            array('action'=>'mysink'));?>">结点列表</a>
+<a>- > </a> 
+<a href="<?php echo $this->url('poster',array('action' => 'mysensor','sink_id' => $this->sink_id));?>"><?php echo $this->sink_name?></a> 
+<a>- > 添加传感器</a> 
+ <p>&nbsp;</p>
    <div >  
        <div  align="center"><label><FONT color = "red">&nbsp;请输入传感器名称</FONT><?php echo $this->formRow($form->get('name'));?></label></div>   
        <div>
             <table border="0" align="center" width="100%" >
                 <tr>
                       <td width="50%" align="right"><FONT color = "red">请选择传感器类型&nbsp;&nbsp;</FONT></td>
-                      <td width="50%" align="left">&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $this->formSelect($form->get('type'));?></td>
+                      <td width="50%" align="left">&nbsp;<?php echo $this->formSelect($form->get('type_id'));?></td>
                 </tr>
              </table>
         </div>
+        <div align="center">     
+           <label><font color = "red">现在是否发布？</font><?php echo $this->formradio($form->get('post'),\Zend\form\view\helper\FormRadio::LABEL_PREPEND);?></label>
+       </div>
        <p>&nbsp;</p>
        <div  align="center"><?php echo $this->formSubmit($form->get('addsensor'));
                   echo $this->form()->closeTag()?>

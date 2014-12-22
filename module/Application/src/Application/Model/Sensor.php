@@ -11,12 +11,14 @@ class Sensor implements InputFilterAwareInterface
 {
     public $name;
     public $type_id;
+    public $post;
     protected $inputFilter;                       // <-- Add this variable
  
     public function exchangeArray($data)
     {
         $this->name  = (isset($data['name']))  ? $data['name']  : null;
         $this->type_id = (isset($data['type_id']))  ? $data['type_id']  : null;
+        $this->post  = (isset($data['post'])) ? $data['post']  : null;
     }
     
  

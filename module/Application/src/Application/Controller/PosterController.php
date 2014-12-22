@@ -75,10 +75,12 @@ class PosterController extends AbstractActionController
     
     public function mysensorAction()
     {
-    	$id = $this->params()->fromRoute('sink_id',0);
+    	$sink_id = $this->params()->fromRoute('sink_id',0);
+    	$sink_name = $this->getSinkTable()->getName($sink_id);
     	$view = new ViewModel(array(
-    			'sensors' => $this->getSensorTable()->fetchAll($id),
-    	        'sink_id' => $id,
+    			'sensors' => $this->getSensorTable()->fetchAll($sink_id),
+    	        'sink_id' => $sink_id,
+    	        'sink_name' => $sink_name,
     	));
     	$view->setTerminal(true);
     
@@ -89,6 +91,7 @@ class PosterController extends AbstractActionController
     {
         $form = new SensorForm();
         $sink_id = $sink_id = $this->params()->fromRoute('sink_id',0);
+        $sink_name = $this->getSinkTable()->getName($sink_id);
         $request = $this->getRequest();
         if ($request->isPost()) {
         	$sensor = new Sensor();
@@ -104,10 +107,32 @@ class PosterController extends AbstractActionController
         	}
         
         	$view = new ViewModel(array(
-        	"form" => $form,
+        	      'form' => $form,
+        	      'sink_id' => $sink_id,
+        	      'sink_name' => $sink_name,
         	));
         	$view->setTerminal(true);
         	return $view;
+    }
+    
+    public function postsensorAction()
+    {
+    	$sink_id = $this->params()->fromRoute('sink_id',0);
+    	$sensor_id = $this->params()->fromRoute('sensor_id',0);
+    	if($sensor_id){
+    		$this->getSensorTable()->postSensor($sensor_id);
+    	}
+    	$this->redirect()->toRoute('poster',array('action' => 'mysensor','sink_id' => $sink_id));
+    }
+    
+    public function canclepostsensorAction()
+    {
+    	$sink_id = $this->params()->fromRoute('sink_id',0);
+    	$sensor_id = $this->params()->fromRoute('sensor_id',0);
+    	if($sensor_id){
+    		$this->getSensorTable()->canclepostSensor($sensor_id);
+    	}
+    	$this->redirect()->toRoute('poster',array('action' => 'mysensor','sink_id' => $sink_id));
     }
     
     /*删除传感器*/
