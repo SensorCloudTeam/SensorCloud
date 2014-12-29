@@ -25,6 +25,17 @@ class SensorTable
         return $resultSet;
     }
     
+    public function fetchAllPosted($sink_id)
+    {
+    	$select = new Select();
+    	$select->from('sensor')
+    	       ->join('type', 'type.id = sensor.type_id', array('type' => 'name'))
+    	       ->where(array('sink_id' => $sink_id,'post'=>'1'));
+    
+    	$resultSet = $this->sensortableGateway->selectWith($select);
+    	return $resultSet;
+    }
+    
     public function addSensor($sensor,$sink_id)
     {
         $select = new Select();
@@ -71,5 +82,28 @@ class SensorTable
         $this->sensortableGateway->delete(array('id' => $id));
     }
       
+    public function getMsg($sensor_id)
+    {
+	    $select = new Select();
+    	$select->from('sensor')
+    	       ->join('type', 'type.id = sensor.type_id', array('type' => 'name','symbol' =>'unit_symbol'))
+    	       ->where(array('sensor.id' => $sensor_id));
+    
+    	$resultSet = $this->sensortableGateway->selectWith($select);
+        $row = $resultSet->current();
+        if(!$row){
+            $message = "";
+        }else{
+            $title = "SensorCloud订阅数据:";
+            $sensor_name = $row->name;
+            $sensor_type = $row->type;
+            $sensor_value = $row->value;
+            $sensor_symbol = $row->symbol;
+            
+            $message = $title."\n".$sensor_name.' '.$sensor_type.': '.$sensor_value.$sensor_symbol;
+            
+        }
+        return $message;
+    }
 }
     

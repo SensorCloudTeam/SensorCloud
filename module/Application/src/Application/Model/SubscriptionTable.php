@@ -48,12 +48,24 @@ class SubscriptionTable
         $select->from('subscription')
                ->join('sensor', 'subscription.sensor_id = sensor.id', array('sensor_name' => 'name'))
                ->join('type', 'type.id = sensor.type_id', array('type' => 'name'))
-               ->join('sink', 'sink.id = sensor.sink_id', array('lon' => 'longitude','lat' => 'latitude','puser_id'))
-               ->where(array('user_id' => $username));
+               ->join('sink', 'sink.id = sensor.sink_id', array('lon' => 'longitude','lat' => 'latitude','puser_id' => 'user_id'))
+               ->where(array('subscription.user_id' => $username));
         
         $resultSet = $this->subscriptiontableGateway->selectWith($select);
         
         return $resultSet;
+    }
+    
+    public function subscribe($subscription)
+    {
+        $session = new \Zend\Session\Container('user');
+        $user_id =$_SESSION["username"];
+        $data = array(
+        		'sensor_id' => $subscription->sensor_id,
+        		'user_id'  => $user_id,
+        		'address'   => $subscription->address,
+        );
+        $this->subscriptiontableGateway->insert($data);
     }
     
     public function deleteSubscription($id){

@@ -1,55 +1,138 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<script type="text/javascript"></script>
+<style>
+.black_overlay{
+display: none;
+position: absolute;
+top: 0%;
+left: 0%;
+width: 100%;
+height: 100%;
+background-color: black;
+z-index:1001;
+-moz-opacity: 0.8;
+opacity:.80;
+filter: alpha(opacity=80);
+}
+.white_content {
+display: none;
+position: absolute;
+top: 30%;
+left: 30%;
+width: 40%;
+height: 45%;
+border: 16px solid #99CCFF;
+background-color: white;
+z-index:1002;
+
+}
+
+</style>
+<script type="text/javascript">
+//弹出隐藏层
+function ShowDiv(show_div,bg_div){
+document.getElementById(show_div).style.display='block';
+document.getElementById(bg_div).style.display='block' ;
+var bgdiv = document.getElementById(bg_div);
+bgdiv.style.width = document.body.scrollWidth;
+// bgdiv.style.height = $(document).height();
+$("#"+bg_div).height($(document).height());
+};
+//关闭弹出层
+function CloseDiv(show_div,bg_div)
+{
+document.getElementById(show_div).style.display='none';
+document.getElementById(bg_div).style.display='none';
+};
+</script>
 <body>
-<p>&nbsp;</p>
+	<p>&nbsp;</p>
 
-<div style="padding-left: 100px">
-<a href="<?php echo $this->url('home',
-            array('action'=>'index'));?>">首页</a>
-<bdo>- > </bdo> 
-<a href="<?php echo $this->url('subscriber',array('action' => 'subscriberindex'));?>">服务订阅</a> 
-<bdo>- > 结点信息</bdo>
-</div>
+	<div style="padding-left: 100px">
+		<a		href="<?php echo $this->url('home', array(
+		                                        'action' => 'index'));?>">首页</a>
+		<bdo>- > </bdo>
+		<a
+			href="<?php echo $this->url('subscriber',array('action' => 'subscriberindex'));?>">服务订阅</a>
+		<bdo>- > 结点信息</bdo>
+	</div>
 
-<div align="center">
-<p>&nbsp;</p>
-<label><strong>结点信息</strong></label>
-<p>&nbsp;</p>
+	<div align="center">
+		<p>&nbsp;</p>
+		<label><strong>结点信息</strong></label>
+		<p>&nbsp;</p>
 
-<p>名字：<?php echo $this->sink->name ?></p>
-<p>位置：（<?php echo $this->sink->longitude ?>,<?php echo $this->sink->latitude ?>)</p>
-<p>发布者：<?php echo $this->sink->puser_id ?></p>
-<p>&nbsp;</p>
-</div>
+		<p>名字：<?php echo $this->sink->name ?></p>
+		<p>位置：(<?php echo $this->sink->latitude ?>,<?php echo $this->sink->longitude ?>)</p>
+		<p>发布者：<?php echo $this->sink->user_id ?></p>
+		<p>&nbsp;</p>
+	</div>
 
-<div align="center">
-<p>&nbsp;</p>
-<label><strong>传感器列表</strong></label>
-<p>&nbsp;</p>
+	<div align="center">
+		<p>&nbsp;</p>
+		<label><strong>传感器列表</strong></label>
+		<p>&nbsp;</p>
+    <?php 
+    $sensors = $this->sensors;
+    if (count($sensors) == 0) {
+    ?>
+    <p align="center">此结点下没有传感器</p>
+    <?php }else{ ?>
+        <table border="0" align="center" bgcolor="#99CCFF">
+			<tr>
+				<th width="110">传感器名称</th>
+				<th width="110">传感器类型</th>
+				<th width="50">&nbsp;</th>
+			</tr>
+			<?php foreach ($sensors as $sensor) : ?>
+			<tr>
+				<td><?php echo $sensor->name;?></td>
+				<td><?php echo $sensor->type;?></td>
+				<td><input id="Button1" type="button" value="订阅" onclick="ShowDiv('MyDiv','fade')" />
+				</td>
+			</tr>
+	<?php
+    $form = $this->form;
+    $form->prepare();
+    echo $this->form()->openTag($form);
+    ?>
+          <!--弹出层时背景层DIV-->
+       <div id="fade" class="black_overlay"></div>
+       <div id="MyDiv" class="white_content" align="center">
+           <div style="text-align: right; cursor: default; height: 40px;">
+           <span style="font-size: 16px;" onclick="CloseDiv('MyDiv','fade')">关闭</span>
+           </div>
+            <div>     
+           <label><font color = "red">推送方式</font><?php echo $this->formSelect($form->get('send_method'));?></label>
+           </div>
+           <div>     
+           <label><FONT color = "red">推送地址</FONT><?php echo $this->formRow($form->get('address'));?></label>
+           </div>
+           <div>     
+           <label><font color = "red">过滤条件</font><?php echo $this->formSelect($form->get('filter'));?></label>
+           </div>
+           <div>     
+           <label><font color = "red">条件阈值</font><?php echo $this->formRow($form->get('threshold_value'));?></label>
+           </div>
+           <div>     
+           <label><font color = "red">推送频率</font><?php echo $this->formSelect($form->get('send_frequency'));?></label>
+           </div>
+           <div>     
+           <label><?php $sensor_id = $form->get('sensor_id');
+                 $sensor_id->setValue($sensor->id);;echo $this->formHidden($form->get('sensor_id'));?></label>
+           </div>
 
+           <div><?php echo $this->formSubmit($form->get('subscribe'));
+                  echo $this->form()->closeTag()?>
+           </div>  
+       
+    </div>
+			<?php endforeach; ?>
+		</table>
+		<?php }?>
 
-<?php $sensors = $this->sensors; 
-      if(count($sensors)==0){?>
-<p align="center">此结点下没有传感器</p>
-<?php }else{ ?>
-<table border="1" align="center" bgcolor = "#99CCFF" >
-<tr>
-    <th width="110">传感器名称</th>
-    <th width="110">传感器类型</th>
-    <th width="50">&nbsp;</th>
-</tr>
-<?php foreach ($sensors as $sensor) : ?>
-<tr>
-    <td><?php echo $sensor->name;?></td>
-    <td><?php echo $sensor->type;?></td> 
-    <td>   
-        <a href="<?php echo $this->url('poster',
-            array('action'=>'deletesensor','sink_id' => $sensor->sink_id,'sensor_id' => $sensor->id));?>" >订阅</a>
-    </td>
-</tr>
-<?php endforeach; ?>
-</table>
-<?php }?>
-</div>
+	</div>
+	  
 </body>
 </html>

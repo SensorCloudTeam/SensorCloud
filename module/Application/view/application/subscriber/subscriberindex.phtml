@@ -18,7 +18,7 @@ foreach ($sinks as $sink) : ?>
     <td><a href="<?php echo $this->url('subscriber',
             array('action'=>'sinkinfo','sink_id' => $sink->id));?>"><?php echo $sink->name;?></a></td>
     <td><?php echo $sink->id;?></td>
-    <td>(<?php echo $sink->longitude;?>,<?php echo $sink->latitude;?>)</td>
+    <td>(<?php echo $sink->latitude;?>,<?php echo $sink->longitude;?>)</td>
 </tr>
 <?php endforeach; ?>
 </table>

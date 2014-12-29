@@ -14,7 +14,7 @@ class SinkTable
  
     public function fetchAll($username)
     {
-        $resultSet = $this->tableGateway->select(array('puser_id' => $username));
+        $resultSet = $this->tableGateway->select(array('user_id' => $username));
         return $resultSet;
     }
     
@@ -32,7 +32,7 @@ class SinkTable
     public function addSink(Sink $sink)
     {
     	$data = array(
-    			'puser_id' => $sink->user_id,
+    			'user_id' => $sink->user_id,
     			'id'  => $sink->id,
     	        'name'   => $sink->name,
     	);
