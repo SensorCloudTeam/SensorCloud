@@ -56,6 +56,21 @@ class SubscriptionTable
         return $resultSet;
     }
     
+    public function getsubnum($username)
+    {
+        $select = new Select();
+        $select->from('subscription')
+        ->columns(array(
+        		'count' => new \Zend\Db\Sql\Expression('COUNT(sensor_id)')))
+        		->where(array('user_id' => $username));
+        
+        $resultSet = $this->subscriptiontableGateway->selectWith($select);
+        $row = $resultSet->current();
+        
+        return $row->count;
+        
+    }
+    
     public function subscribe($subscription)
     {
         $session = new \Zend\Session\Container('user');

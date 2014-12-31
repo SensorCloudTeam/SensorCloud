@@ -6,11 +6,13 @@ use Zend\Db\Sql\Select;
 class SensorTable
 {
     protected $sensortableGateway;
+    protected $sinktableGateway;
     protected $typetableGateway;
  
-    public function __construct($sensortableGateway, $typetableGateway)
+    public function __construct($sensortableGateway,$sinktableGateway, $typetableGateway)
     {
         $this->sensortableGateway = $sensortableGateway;
+        $this->sinktableGateway = $sinktableGateway;
         $this->typetableGateway = $typetableGateway;
     }
  
@@ -34,6 +36,38 @@ class SensorTable
     
     	$resultSet = $this->sensortableGateway->selectWith($select);
     	return $resultSet;
+    }
+    
+    public function getsensornum($username)
+    {
+    	$select = new Select();
+    	
+    	$select->from('sensor')
+    	       ->columns(array(
+    			       'count' => new \Zend\Db\Sql\Expression('COUNT(sensor.id)')))
+    	       ->join('sink', 'sink.id = sensor.sink_id', array())
+           	   ->where(array('sink.user_id' => $username));
+     
+    	$resultSet = $this->sensortableGateway->selectWith($select);
+    	$row = $resultSet->current();
+    
+    	return $row->count;
+    }
+    
+    public function getpostnum($username)
+    {
+        $select = new Select();
+         
+        $select->from('sensor')
+        ->columns(array(
+        		'count' => new \Zend\Db\Sql\Expression('COUNT(sensor.id)')))
+        		->join('sink', 'sink.id = sensor.sink_id', array())
+        		->where(array('sink.user_id' => $username,'post' => '1'));
+         
+        $resultSet = $this->sensortableGateway->selectWith($select);
+        $row = $resultSet->current();
+        
+        return $row->count;
     }
     
     public function addSensor($sensor,$sink_id)

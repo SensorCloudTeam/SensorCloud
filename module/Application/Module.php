@@ -76,8 +76,9 @@ class Module
     					},
     					'Application\Model\SensorTable' =>  function($sm) {
     						$sensortableGateway = $sm->get('SensorTableGateway');
+    						$sinktableGateway = $sm->get('SinkTableGateway');
     						$typetableGateway = $sm->get('TypeTableGateway');
-    						$table = new SensorTable($sensortableGateway,$typetableGateway);
+    						$table = new SensorTable($sensortableGateway,$sinktableGateway,$typetableGateway);
     						return $table;
     					},
     					'SensorTableGateway' => function ($sm) {

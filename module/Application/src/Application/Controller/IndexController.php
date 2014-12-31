@@ -20,6 +20,9 @@ use Application\Form\ChangepassForm;
 class IndexController extends AbstractActionController
 {
     protected $userTable;
+    protected $subscriptionTable;
+    protected $sinkTable;
+    protected $sensorTable;
     
     public function indexAction()
     {
@@ -135,6 +138,28 @@ class IndexController extends AbstractActionController
     	return $view;
     }
     
+    public function mycenterAction()
+    {
+    	$session = new Container('user');
+    	$username = $_SESSION["username"];
+    	
+    	$sub_num = $this->getSubscriptionTable()->getsubnum($username);
+    	$sink_num = $this->getSinkTable()->getsinknum($username);
+    	$sensor_num = $this->getSensorTable()->getsensornum($username);
+    	$post_num = $this->getSensorTable()->getpostnum($username);
+    	$view = new ViewModel(array(
+    			'name' => $username,
+    			'sub_num' => $sub_num,
+    			'sink_num'  => $sink_num,
+    			'sensor_num' => $sensor_num,
+    	        'post_num' => $post_num,
+    	));
+    
+    	$view->setTerminal(true);
+    	return $view;
+    }
+    
+    
     /*用户信息*/
     public function userinfoAction()
     {
@@ -193,5 +218,32 @@ class IndexController extends AbstractActionController
     		$this->userTable = $sm->get('Application\Model\UserTable');
     	}
     	return $this->userTable;
+    }
+    
+    public function getSubscriptionTable()
+    {
+    	if ($this->subscriptionTable == null) {
+    		$sm = $this->getServiceLocator();
+    		$this->subscriptionTable = $sm->get('Application\Model\SubscriptionTable');
+    	}
+    	return $this->subscriptionTable;
+    }
+    
+    public function getSinkTable()
+    {
+    	if ($this->sinkTable == null) {
+    		$sm = $this->getServiceLocator();
+    		$this->sinkTable = $sm->get('Application\Model\SinkTable');
+    	}
+    	return $this->sinkTable;
+    }
+    
+    public function getSensorTable()
+    {
+    	if ($this->sensorTable == null) {
+    		$sm = $this->getServiceLocator();
+    		$this->sensorTable = $sm->get('Application\Model\SensorTable');
+    	}
+    	return $this->sensorTable;
     }
 }

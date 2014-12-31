@@ -66,9 +66,9 @@ class PosterController extends AbstractActionController
     /*删除发布结点*/
     public function deletesinkAction()
     {
-        $id = $this->params()->fromRoute('id',0);
-        if($id){
-            $this->getSinkTable()->deleteSink($id);     
+        $sink_id = $this->params()->fromRoute('sink_id',0);
+        if($sink_id){
+            $this->getSinkTable()->deleteSink($sink_id);     
         }
         $this->redirect()->toRoute('poster',array('action' => 'mysink'));
     }

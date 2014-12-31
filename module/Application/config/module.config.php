@@ -102,6 +102,7 @@ return array(
             'application/index/usercenter' => __DIR__ . '/../view/application/application/usercenter.phtml',
             'application/index/userframe' => __DIR__ . '/../view/application/application/userframe.phtml',
             'application/index/userguide' => __DIR__ . '/../view/application/application/userguide.phtml',
+            'application/index/mycenter' => __DIR__ . '/../view/application/application/mycenter.phtml',
             'application/index/userinfo' => __DIR__ . '/../view/application/application/userinfo.phtml',
             'application/index/changepass' => __DIR__ . '/../view/application/application/changepass.phtml',
             'application/poster/mysink' => __DIR__ . '/../view/application/poster/mysink.phtml',
