@@ -26,7 +26,11 @@ class IndexController extends AbstractActionController
     
     public function indexAction()
     {
-        return new ViewModel();
+        $view = new ViewModel(array(
+    	    'sinks' => $this->getSubscriptionTable()->fetchAllSink(),
+    	));
+    
+    	return $view;
     }
     
     /*用户注册*/

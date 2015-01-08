@@ -5,20 +5,56 @@
 <p>&nbsp;</p>
 
  
-<table border="1" align="center" >
-<tr>
-    <th width="110">结点名称</th>
-    <th width="110">结点ID</th>
-    <th width="117">结点位置</th>
-</tr>
-<?php 
-$sinks = $this->sinks;
-foreach ($sinks as $sink) : ?>
-<tr>
-    <td><a href="<?php echo $this->url('subscriber',
-            array('action'=>'sinkinfo','sink_id' => $sink->id));?>"><?php echo $sink->name;?></a></td>
-    <td><?php echo $sink->id;?></td>
-    <td>(<?php echo $sink->latitude;?>,<?php echo $sink->longitude;?>)</td>
-</tr>
-<?php endforeach; ?>
-</table>
+<!--引用百度地图API-->
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=EZfQrPMLSMR4YvDnDMwO9r81"></script>
+
+<div style="height:650px;border:#ccc solid 1px;width:100%" id="allmap" ></div>
+
+<script type="text/javascript">
+var map = new BMap.Map("allmap");            
+var centerPoint = new BMap.Point(110.404, 37.915);
+var testPoint = new BMap.Point(116.404,39.915);
+map.centerAndZoom(centerPoint,5);                     
+map.enableScrollWheelZoom();  
+
+var centerMarker = new BMap.Marker(centerPoint);
+var testMarker = new BMap.Marker(testPoint);
+map.addOverlay(centerMarker);
+map.addOverlay(testMarker);
+
+var tilelayer=new BMap.TileLayer();
+tilelayer.getTilesUrl=function(){
+ return "layer.gif";
+};
+map.addTileLayer(tilelayer);
+
+</script>
+
+<?php  $sinks = $this->sinks;
+foreach ($sinks as $sink) :?>
+<?php
+echo "<script> 
+var name = \"$sink->name\";
+var longitude = \"$sink->longitude\";
+var altitude = \"$sink->latitude\";
+var point = new BMap.Point(longitude, altitude);
+var marker = new BMap.Marker(point); 
+marker.addEventListener(\"mouseover\",function(){
+		var label = new BMap.Label(\"$sink->name\",{offset:new BMap.Size(20,-10)});
+		marker.setLabel(label);
+	});
+	marker.addEventListener(\"click\",function(e){
+		showSinkInfo(\"$sink->id\");
+	});
+map.addOverlay(marker);
+ </script>";
+?>
+	
+<?php endforeach;?>
+<script type="text/javascript">
+function showSinkInfo(sink_id){
+	var url = "/SensorCloud/public/subscriber/sinkinfo/";
+	url += sink_id;
+	window.location.href=url;
+}
+</script>

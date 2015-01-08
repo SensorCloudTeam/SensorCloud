@@ -7,7 +7,8 @@ $this->headTitle($title);
 <p align="center"><strong>我订阅的服务</strong></p>
 <p>&nbsp;</p>
 
-<?php if(count($subscriptions)==0){?>
+<?php   $subscriptions = $this->subscriptions;
+        if(count($subscriptions)==0){?>
 <p align="center">当前没有订阅服务</p>
 <?php }else{ ?>
 <table border="1" align="center" bgcolor = "#99CCFF" >

@@ -5,7 +5,7 @@
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/library/MarkerTool/1.2/src/MarkerTool_min.js"></script>
 <style type="text/css">
-    /* ÑùÊ½Ñ¡ÔñÃæ°åÏà¹Øcss */
+    /* ï¿½ï¿½Ê½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½css */
     #divStyle {
         width: 280px;
         height: 160px;
@@ -39,7 +39,7 @@
         background:url('http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/icon.gif');
     }
 
-    /* infowindowÏà¹Øcss */
+    /* infowindowï¿½ï¿½ï¿½css */
     .common {
         font-size: 12px;
     }
@@ -50,8 +50,8 @@
 </head>
 <body>
 <div style="width:520px;height:340px;border:1px solid gray" id="container"></div>
-<input type="button" value="Ñ¡Ôñ±ê×¢" onclick="openStylePnl()" />
-<input type="button" value="¹Ø±Õ" onclick="mkrTool.close()" />
+<input type="button" value="Ñ¡ï¿½ï¿½ï¿½×¢" onclick="openStylePnl()" />
+<input type="button" value="ï¿½Ø±ï¿½" onclick="mkrTool.close()" />
 <div id="divStyle" >
     <ul>
         <li>
@@ -95,30 +95,30 @@ var map = new BMap.Map("container");
 map.centerAndZoom(new BMap.Point(116.404, 39.915), 12);
 map.enableScrollWheelZoom();
 
-//Æ´½ÓinfowindowÄÚÈÝ×Ö´®
+//Æ´ï¿½ï¿½infowindowï¿½
 var html = [];
-html.push('<span style="font-size:12px">½ÚµãÐÅÏ¢: </span><br/>');
+html.push('<span style="font-size:12px">ï¿½Úµï¿½ï¿½ï¿½Ï¢: </span><br/>');
 html.push('<table border="0" cellpadding="1" cellspacing="1" >');
 html.push('  <tr>'); 
-html.push('      <td align="left" class="common">Ãû ³Æ£º</td>');
+html.push('      <td align="left" class="common">ï¿½ï¿½ ï¿½Æ£ï¿½</td>');
 html.push('      <td colspan="2"><input type="text" maxlength="50" size="18"  id="txtName"></td>');
 html.push('	     <td valign="top"><span class="star">*</span></td>');
 html.push('  </tr>');
 html.push('  <tr>');
-html.push('      <td align="left" class="common">Ãè Êö£º</td>');
+html.push('      <td align="left" class="common">ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</td>');
 html.push('      <td colspan="2"><textarea rows="2" cols="15"  id="areaDesc"></textarea></td>');
 html.push('	     <td valign="top"></td>');
 html.push('  </tr>');
 html.push('  <tr>');
 html.push('	     <td  align="center" colspan="3">');
-html.push('          <input type="button" name="btnOK"  onclick="fnOK()" value="»ñµÃÉè±¸ºÅ">&nbsp;&nbsp;');
-html.push('		     <input type="button" name="btnClear" onclick="fnClear();" value="³·Ïú">');
+html.push('          <input type="button" name="btnOK"  onclick="fnOK()" value="ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½">&nbsp;&nbsp;');
+html.push('		     <input type="button" name="btnClear" onclick="fnClear();" value="ï¿½ï¿½ï¿½ï¿½">');
 html.push('	     </td>');
 html.push('  </tr>');
 html.push('</table>');	
 
 var infoWin = new BMap.InfoWindow(html.join(""), {offset: new BMap.Size(0, -10)});
-var curMkr = null; // ¼ÇÂ¼µ±Ç°Ìí¼ÓµÄMkr
+var curMkr = null; // ï¿½ï¿½Â¼ï¿½ï¿½Ç°ï¿½ï¿½Óµï¿½Mkr
 
 var mkrTool = new BMapLib.MarkerTool(map, {autoClose: true});
 mkrTool.addEventListener("markend", function(evt){ 
@@ -127,15 +127,15 @@ mkrTool.addEventListener("markend", function(evt){
     curMkr = mkr;
 });
 
-//´ò¿ªÑùÊ½Ãæ°å
+//ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½
 function openStylePnl(){
     document.getElementById("divStyle").style.display = "block";
 }
 
-//Ñ¡ÔñÑùÊ½
+//Ñ¡ï¿½ï¿½ï¿½ï¿½Ê½
 function selectStyle(index){
-    mkrTool.open(); //´ò¿ª¹¤¾ß 
-    var icon = BMapLib.MarkerTool.SYS_ICONS[index]; //ÉèÖÃ¹¤¾ßÑùÊ½£¬Ê¹ÓÃÏµÍ³Ìá¹©µÄÑùÊ½BMapLib.MarkerTool.SYS_ICONS[0] -- BMapLib.MarkerTool.SYS_ICONS[23]
+    mkrTool.open(); //ï¿½ò¿ª¹ï¿½ï¿½ï¿½ 
+    var icon = BMapLib.MarkerTool.SYS_ICONS[index]; //ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½Ê¹ï¿½ï¿½ÏµÍ³ï¿½á¹©ï¿½ï¿½ï¿½ï¿½Ê½BMapLib.MarkerTool.SYS_ICONS[0] -- BMapLib.MarkerTool.SYS_ICONS[23]
     mkrTool.setIcon(icon); 
     document.getElementById("divStyle").style.display = "none";    
 }
@@ -146,13 +146,13 @@ function get()
    document.getElementById("txtName").value=name; 
 }
 
-//Ìá½»Êý¾Ý
+//ï¿½á½»ï¿½ï¿½ï¿½
 function fnOK(){
     var name = encodeHTML(document.getElementById("txtName").value);
     var desc = encodeHTML(document.getElementById("areaDesc").value);
 
     if(!name){
-        alert("Ãû³Æ±ØÐëÌîÐ´");    
+        alert("ï¿½ï¿½Æ±ï¿½ï¿½ï¿½ï¿½ï¿½Ð´");    
         return;
     }
 
@@ -162,7 +162,7 @@ function fnOK(){
 //     	    url,  {method: 'post', parameters: pars, onComplete: showResponse});
        
     if(curMkr){
-        //ÉèÖÃlabel
+        //ï¿½ï¿½ï¿½ï¿½label
         var lbl = new BMap.Label(name, {offset: new BMap.Size(1, 1)});
         lbl.setStyle({border: "solid 1px gray"});
         curMkr.setLabel(lbl);        
@@ -171,7 +171,7 @@ function fnOK(){
         map.closeInfoWindow();
     }
 
-    //ÔÚ´ËÓÃ»§¿É½«Êý¾ÝÌá½»µ½ºóÌ¨Êý¾Ý¿âÖÐ
+    //ï¿½Ú´ï¿½ï¿½Ã»ï¿½ï¿½É½ï¿½ï¿½ï¿½ï¿½ï¿½á½»ï¿½ï¿½ï¿½ï¿½Ì¨ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½
     <?php
     		$conn = new mysqli("localhost","root","123456","wsn");
     		if(mysqli_connect_errno()){
@@ -186,12 +186,12 @@ function fnOK(){
     ?>
 }
 
-//ÊäÈëÐ£Ñé
+//ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½
 function encodeHTML(a){
 	return a.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
-//ÖØÌîÊý¾Ý
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 function fnClear(){
     document.getElementById("txtName").value = "";
     document.getElementById("areaDesc").value = "";

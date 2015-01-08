@@ -19,6 +19,12 @@ class SinkTable
         return $resultSet;
     }
     
+    public function fetchAllSinks()
+    {
+        $resultSet = $this->tableGateway->select();
+        return $resultSet;
+    } 
+    
     public function getsinknum($username)
     {
         $select = new Select();

@@ -61,9 +61,6 @@ data.forEach(function(e){
 		marker.setLabel(label);
 	});
 	map.addEventListener("click",function(e){
-		<?php 
-		
-		?>
 	});
 	map.addOverlay(marker);
 })
