@@ -18,9 +18,30 @@ class PosterController extends AbstractActionController
     /*服务发布首页*/
     public function posterindexAction()
     {
-    	$view = new ViewModel();
+    	$form = new SinkForm();
     
-    	return $view;
+    	$session = new Container('user');
+    	$username = $_SESSION["username"];
+    	
+    	$request = $this->getRequest();
+    	if ($request->isPost()) {
+    		$sink = new Sink();
+    		$form->setInputFilter($sink->getInputFilter());
+    		$form->setData($request->getPost());
+    		 
+    		if ($form->isValid()) {
+    			$sink->exchangeArray($form->getData());
+    			$this->getSinkTable()->addSink($sink);
+    			echo "<script>alert('您的设备号为：$sink->id');window.location.href='/SensorCloud/public/application/usercenter';</script>";
+    		}
+    		}
+    		
+    		$view = new ViewModel(array(
+    		     "form" => $form,
+    		    'sinks' => $this->getSinkTable()->fetchAll($username),
+    		));
+    		
+    		return $view;
     }
 
     /*获取发布结点列表*/
@@ -34,33 +55,6 @@ class PosterController extends AbstractActionController
     	$view->setTerminal(true);
     
     	return $view;
-    }
-    
-    /*添加发布结点*/
-    public function addsinkAction()
-    {
-      
-    	$form = new SinkForm();
-    
-    	$request = $this->getRequest();
-    	if ($request->isPost()) {
-    		$sink = new Sink();
-    		$form->setInputFilter($sink->getInputFilter());
-    		$form->setData($request->getPost());
-    		 
-    		if ($form->isValid()) {
-    			$sink->exchangeArray($form->getData());
-    			$this->getSinkTable()->addSink($sink);
-    			echo "<script>alert('您的设备号为 $sink->id');window.location.href='/SensorCloud/public/poster/mysink';</script>";
-    		}
-    		 
-    		}
-    		
-    		$view = new ViewModel(array(
-    		                        "form" => $form,
-    		));
-    		$view->setTerminal(true);
-    		return $view;
     }
     
     /*删除发布结点*/
@@ -122,6 +116,7 @@ class PosterController extends AbstractActionController
     	if($sensor_id){
     		$this->getSensorTable()->postSensor($sensor_id);
     	}
+    	
     	$this->redirect()->toRoute('poster',array('action' => 'mysensor','sink_id' => $sink_id));
     }
     
@@ -132,6 +127,7 @@ class PosterController extends AbstractActionController
     	if($sensor_id){
     		$this->getSensorTable()->canclepostSensor($sensor_id);
     	}
+    	
     	$this->redirect()->toRoute('poster',array('action' => 'mysensor','sink_id' => $sink_id));
     }
     

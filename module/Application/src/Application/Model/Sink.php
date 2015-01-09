@@ -21,6 +21,8 @@ class Sink implements InputFilterAwareInterface
         $id = $this->randPass(8);
         $this->id  = $id;
         $this->name  = (isset($data['name']))  ? $data['name']  : null;
+        $this->longitude  = (isset($data['longitude']))  ? $data['longitude']  : null;
+        $this->latitude  = (isset($data['latitude']))  ? $data['latitude']  : null;
     }
     
 

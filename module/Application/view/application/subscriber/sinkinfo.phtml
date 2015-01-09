@@ -120,7 +120,7 @@ document.getElementById(bg_div).style.display='none';
            </div>
            <div>     
            <label><?php $sensor_id = $form->get('sensor_id');
-                 $sensor_id->setValue($sensor->id);;echo $this->formHidden($form->get('sensor_id'));?></label>
+                 $sensor_id->setValue($sensor->id);echo $this->formHidden($form->get('sensor_id'));?></label>
            </div>
 
            <div><?php echo $this->formSubmit($form->get('subscribe'));

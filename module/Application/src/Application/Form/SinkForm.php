@@ -22,12 +22,22 @@ class SinkForm extends Form
             'name' => 'id',
             'type' => 'Text',
         ));
+         $this->add(array(
+        		'name' => 'longitude',
+        		'type' => 'Hidden',
+                'value' => "121.412158",
+        ));
+         $this->add(array(
+         		'name' => 'latitude',
+         		'type' => 'Hidden',
+                'value' => "31.23613",
+         ));
 
         $this->add(array(
             'name' => 'addsink',
             'type' => 'Submit',
             'attributes' => array(
-                'value' => '添加节点',
+                'value' => '获得设备号',
                 'id' => 'addsinkbutton',
             ),
         ));

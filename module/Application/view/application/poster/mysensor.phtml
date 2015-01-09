@@ -7,20 +7,20 @@ $this->headTitle($title);
 <p align="center"><strong>传感器列表</strong></p>
 <p>&nbsp;</p>
 <a href="<?php echo $this->url('poster',
-            array('action'=>'mysink'));?>">结点列表</a>
+            array('action'=>'mysink'));?>">节点列表</a>
 <a>- > <?php echo $this->sink_name?></a> 
  <p>&nbsp;</p>
 <?php $sensors = $this->sensors; 
       if(count($sensors)==0){?>
-<p align="center">此结点下没有传感器</p>
+<p align="center">此节点下没有传感器</p>
 <?php }else{ ?>
 <table border="1" align="center" bgcolor = "#99CCFF" >
 <tr>
     <th width="110">传感器名称</th>
     <th width="110">传感器类型</th>
     <th width="110">是否已发布？</th>
-    <th width="60">&nbsp;</th>
-    <th width="50">&nbsp;</th>
+    <th width="70">&nbsp;</th>
+    <th width="70">&nbsp;</th>
 </tr>
 <?php foreach ($sensors as $sensor) : ?>
 <tr>
@@ -33,6 +33,15 @@ $this->headTitle($title);
          function postcfm() {
             if (!confirm("确认发布该服务？")) {
                  window.event.returnValue = false;
+             }
+            else{
+                postsuc();
+            }
+         }
+         function postsuc(){
+             if(confirm("发布成功！")){
+                 window.href="<?php echo $this->url('poster',
+                     array('action'=>'mysensor','sink_id' => $sensor->sink_id));?>"
              }
          }
         </script>

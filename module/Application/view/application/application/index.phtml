@@ -5,6 +5,8 @@ body{
     background: #f5faff;
 	margin:0;padding:0;
 }
+#l-map{height:100%;width:78%;float:left;border-right:2px solid #bcbcbc;}
+#r-result{height:100%;width:20%;float:left;}
 .demo_con{
 width: 960px;
 margin:40px auto 0;
@@ -83,7 +85,7 @@ var altitude = \"$sink->latitude\";
 var point = new BMap.Point(longitude, altitude);
 var marker = new BMap.Marker(point); 
 marker.addEventListener(\"mouseover\",function(){
-		var label = new BMap.Label(\"$sink->name\",{offset:new BMap.Size(20,-10)});
+		var label = new BMap.Label(name,{offset:new BMap.Size(20,-10)});
 		marker.setLabel(label);
 	});
 	marker.addEventListener(\"click\",function(e){
