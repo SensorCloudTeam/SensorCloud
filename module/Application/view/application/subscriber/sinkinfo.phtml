@@ -55,12 +55,12 @@ document.getElementById(bg_div).style.display='none';
 		<bdo>- > </bdo>
 		<a
 			href="<?php echo $this->url('subscriber',array('action' => 'subscriberindex'));?>">服务订阅</a>
-		<bdo>- > 结点信息</bdo>
+		<bdo>- > 节点信息</bdo>
 	</div>
 
 	<div align="center">
 		<p>&nbsp;</p>
-		<label><strong>结点信息</strong></label>
+		<label><strong>节点信息</strong></label>
 		<p>&nbsp;</p>
 
 		<p>名字：<?php echo $this->sink->name ?></p>
@@ -77,7 +77,7 @@ document.getElementById(bg_div).style.display='none';
     $sensors = $this->sensors;
     if (count($sensors) == 0) {
     ?>
-    <p align="center">此结点下没有传感器</p>
+    <p align="center">此节点下没有传感器</p>
     <?php }else{ ?>
         <table border="0" align="center" bgcolor="#99CCFF">
 			<tr>
