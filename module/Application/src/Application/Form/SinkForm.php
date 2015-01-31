@@ -25,12 +25,10 @@ class SinkForm extends Form
          $this->add(array(
         		'name' => 'longitude',
         		'type' => 'Hidden',
-                'value' => "121.412158",
         ));
          $this->add(array(
          		'name' => 'latitude',
          		'type' => 'Hidden',
-                'value' => "31.23613",
          ));
 
         $this->add(array(

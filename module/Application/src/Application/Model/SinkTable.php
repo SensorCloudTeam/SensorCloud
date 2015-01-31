@@ -56,8 +56,8 @@ class SinkTable
     			'user_id' => $sink->user_id,
     			'id'  => $sink->id,
     	        'name'   => $sink->name,
-    	        'longitude' =>"121.412158",
-    	        'latitude' =>"31.23613",
+    	        'longitude' =>$sink->longitude,
+    	        'latitude' =>$sink->latitude,
     	);
     	$this->tableGateway->insert($data);
     }

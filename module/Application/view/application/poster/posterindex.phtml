@@ -106,94 +106,53 @@ var centerPoint = new BMap.Point(110.404, 37.915);
 map.centerAndZoom(centerPoint,5); 
 map.enableScrollWheelZoom();
 
-//ƴ��infowindow�
-var html = [];
-html.push('<span style="font-size:12px">节点信息: </span><br/>');
-html.push('<table border="0" cellpadding="1" cellspacing="1" >');
-html.push('  <tr>'); 
-html.push('      <td align="left" class="common">名称：</td>');
-html.push('      <td colspan="2"><?php echo $this->formRow($form->get('name'));echo $this->formHidden($form->get('longitude'));
-                echo $this->formHidden($form->get('latitude')); ?></td>');
-html.push('	     <td valign="top"><span class="star">*</span></td>');
-html.push('  </tr>');
-html.push('  <tr>');
-html.push('      <td align="left" class="common">描述：</td>');
-html.push('      <td colspan="2"><textarea rows="2" cols="15"  id="areaDesc"></textarea></td>');
-html.push('	     <td valign="top"></td>');
-html.push('  </tr>');
-html.push('  <tr>');
-html.push('	     <td  align="center" colspan="3">');
-html.push('          <?php echo $this->formSubmit($form->get('addsink')); echo $this->form()->closeTag()?>');
-html.push('		     <input type="button" name="btnClear" onclick="fnClear();" value="撤销">');
-html.push('	     </td>');
-html.push('  </tr>');
-html.push('</table>');	
-
-var infoWin = new BMap.InfoWindow(html.join(""), {offset: new BMap.Size(0, -10)});
 var curMkr = null; // 记录当前添加的Mkr
-var mkrTool = new BMapLib.MarkerTool(map, {autoClose: true});
+var mkrTool = new BMapLib.MarkerTool(map,{followText: "选择节点位置",autoClose: true});
 mkrTool.addEventListener("markend", function(evt){ 
-    var mkr = evt.marker;
-    mkr.openInfoWindow(infoWin);
-    curMkr = mkr;
+	curMkr = evt.marker;
+
+	var html = [];
+	html.push('<span style="font-size:12px">节点信息: </span><br/>');
+	html.push('<table border="0" cellpadding="1" cellspacing="1" >');
+	html.push('  <tr>'); 
+	html.push('      <td align="left" class="common">名称：</td>');
+	html.push('      <td colspan="2"><?php echo $this->formRow($form->get('name'));
+	                                        $longitude = $form->get('longitude');
+	                                        $longitude->setValue("131");//设置经度，无法获取当前位置。。
+	                                       echo $this->formHidden($form->get('longitude'));
+	                                       $latitude = $form->get('latitude');
+	                                       $latitude->setValue("32");//纬度
+	                echo $this->formHidden($form->get('latitude')); ?></td>');
+	html.push('	     <td valign="top"><span class="star">*</span></td>');
+	html.push('  </tr>');
+	html.push('  <tr>');
+	html.push('      <td align="left" class="common">描述：</td>');
+	html.push('      <td colspan="2"><textarea rows="2" cols="15"  id="areaDesc"></textarea></td>');
+	html.push('	     <td valign="top"></td>');
+	html.push('  </tr>');
+	html.push('  <tr>');
+	html.push('	     <td  align="center" colspan="3">');
+	html.push('          <?php echo $this->formSubmit($form->get('addsink')); echo $this->form()->closeTag()?>');
+	html.push('	     </td>');
+	html.push('  </tr>');
+	html.push('</table>');	
+	var infoWin = new BMap.InfoWindow(html.join(""), {offset: new BMap.Size(0, -10)});
+    curMkr.openInfoWindow(infoWin);
+    
 });
 
-//����ʽ���
+
 function openStylePnl(){
     document.getElementById("divStyle").style.display = "block";
 }
 
-//ѡ����ʽ
 function selectStyle(index){
-    mkrTool.open(); //�򿪹��� 
-    var icon = BMapLib.MarkerTool.SYS_ICONS[index]; //���ù�����ʽ��ʹ��ϵͳ�ṩ����ʽBMapLib.MarkerTool.SYS_ICONS[0] -- BMapLib.MarkerTool.SYS_ICONS[23]
+    mkrTool.open(); 
+    var icon = BMapLib.MarkerTool.SYS_ICONS[index]; 
     mkrTool.setIcon(icon); 
     document.getElementById("divStyle").style.display = "none";    
 }
 
-function get() 
-{ 
-   var name=document.getElementById('txtName').value; 
-   document.getElementById("txtName").value=name; 
-}
-
-//�ύ���
-function fnOK(){
-    var name = encodeHTML(document.getElementById("txtName").value);
-    var desc = encodeHTML(document.getElementById("areaDesc").value);
-
-    if(!name){
-        alert("名称必须填写");    
-        return;
-    }
-
-//     var url = 'test.php';
-//     var pars =  'name=' + name;
-//     var myAjax = new Ajax.Request(
-//     	    url,  {method: 'post', parameters: pars, onComplete: showResponse});
-       
-    if(curMkr){
-        //����label
-        var lbl = new BMap.Label(name, {offset: new BMap.Size(1, 1)});
-        lbl.setStyle({border: "solid 1px gray"});
-        curMkr.setLabel(lbl);        
-    }
-    if(infoWin.isOpen()){
-        map.closeInfoWindow();
-    }
-
-}
-
-//����У��
-function encodeHTML(a){
-	return a.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-}
-
-//�������
-function fnClear(){
-    document.getElementById("txtName").value = "";
-    document.getElementById("areaDesc").value = "";
-}
 </script>
 
 
@@ -206,10 +165,7 @@ var longitude = \"$sink->longitude\";
 var altitude = \"$sink->latitude\";
 var point = new BMap.Point(longitude, altitude);
 var marker = new BMap.Marker(point); 
-marker.addEventListener(\"mouseover\",function(){
-		var label = new BMap.Label(\"$sink->name\",{offset:new BMap.Size(20,-10)});
-		marker.setLabel(label);
-	});
+marker.setTitle(name);
 map.addOverlay(marker);
  </script>";
 ?>

@@ -12,6 +12,8 @@ class Sink implements InputFilterAwareInterface
     public $user_id;
     public $id;
     public $name;
+    public $longitude;
+    public $latitude;
     protected $inputFilter;                       // <-- Add this variable
  
     public function exchangeArray($data)

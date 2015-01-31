@@ -83,15 +83,12 @@ var name = \"$sink->name\";
 var longitude = \"$sink->longitude\";
 var altitude = \"$sink->latitude\";
 var point = new BMap.Point(longitude, altitude);
-var marker = new BMap.Marker(point); 
-marker.addEventListener(\"mouseover\",function(){
-		var label = new BMap.Label(name,{offset:new BMap.Size(20,-10)});
-		marker.setLabel(label);
-	});
-	marker.addEventListener(\"click\",function(e){
-		showSinkInfo(\"$sink->id\");
-	});
-map.addOverlay(marker);
+var marker = new BMap.Marker(point);
+marker.setTitle(name);
+marker.addEventListener(\"click\",function(e){
+	showSinkInfo(\"$sink->id\");
+});
+map.addOverlay(marker); 
  </script>";
 ?>
 	
