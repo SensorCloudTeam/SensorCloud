@@ -57,24 +57,9 @@ class Subscription implements InputFilterAwareInterface
             				),
             		),
             ));
- 
-            $thresholdFilter = $factory->createInput(array(
-                'name'       =>  'threshold_value',
-                'required'   =>  true,
-                'validators' =>  array(
-                    array(
-                        'name'  =>  'not_empty', 
-                        'options' =>  array(
-                        		'messages' =>  array(
-                        				\Zend\Validator\NotEmpty::IS_EMPTY => '阈值不得为空！'
-                        		 ),
-                        ),
-                    ),
-                 ),
-            ));          
+         
         
             $inputFilter->add($addressFilter);
-            $inputFilter->add($thresholdFilter);
  
             $this->inputFilter = $inputFilter;
             }

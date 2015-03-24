@@ -116,17 +116,40 @@ class SensorTable
         $this->sensortableGateway->delete(array('id' => $id));
     }
       
-    public function getMsg($sensor_id)
+    public function getMsg($sensor_id,$filter,$threshold_value)
     {
 	    $select = new Select();
-    	$select->from('sensor')
+	    $select->from('sensor')
     	       ->join('type', 'type.id = sensor.type_id', array('type' => 'name','symbol' =>'unit_symbol'))
     	       ->where(array('sensor.id' => $sensor_id));
-    
+	    
+	    switch ($filter){
+	    	case 0:
+	    	    break;
+	    	case 1:
+	    	    $select->where->greaterThan('value', $threshold_value);
+	    	    break;
+	    	case 2:
+	    	    $select->where->lessThan('value', $threshold_value);
+	    	    break;
+	    	case 3:
+	    	    $select->where->greaterThanOrEqualTo('value', $threshold_value);
+	    	    break;
+	    	case 4:
+	    	    $select->where->lessThanOrEqualTo('value', $threshold_value);
+	    	    break;
+	    	case 5:
+	    	    $select->where->equalTo('value', $threshold_value);
+	    	    break;	   
+	    	case 6:
+	    	    $select->where->notEqualTo('value', $threshold_value);
+	    	    break; 	    
+	    }
+	    
     	$resultSet = $this->sensortableGateway->selectWith($select);
         $row = $resultSet->current();
         if(!$row){
-            $message = "";
+            $message = "当前没有您需要的数据";
         }else{
             $title = "SensorCloud订阅数据:";
             $sensor_name = $row->name;
@@ -134,8 +157,7 @@ class SensorTable
             $sensor_value = $row->value;
             $sensor_symbol = $row->symbol;
             
-            $message = $title."\n".$sensor_name.' '.$sensor_type.': '.$sensor_value.$sensor_symbol;
-            
+            $message = $title."\n".$sensor_name.' '.$sensor_type.': '.$sensor_value.$sensor_symbol;       
         }
         return $message;
     }

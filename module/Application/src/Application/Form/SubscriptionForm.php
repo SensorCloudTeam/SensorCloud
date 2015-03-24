@@ -34,6 +34,7 @@ class SubscriptionForm extends Form
         		'options' => array(
         				'label' => '过滤条件',
         				'value_options' => array(
+        				        '0' => '无',
         						'1' => '大于',
         						'2' => '小于',
         						'3' => '大于等于',

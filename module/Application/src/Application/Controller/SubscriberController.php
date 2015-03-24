@@ -45,7 +45,9 @@ class SubscriberController extends AbstractActionController
     		if ($form->isValid()) {
     			$data = $form->getData();
     			$sensor_id = $data['sensor_id'];
-    			$body = $this->getSensorTable()->getMsg($sensor_id);
+    			$filter = $data['filter'];
+    			$threshold_value = $data['threshold_value'];
+    			$body = $this->getSensorTable()->getMsg($sensor_id,$filter,$threshold_value);
     			$subscription->exchangeArray($data);
     			if ($data['send_frequency']=='5') {
     				$session = new Container('user');
