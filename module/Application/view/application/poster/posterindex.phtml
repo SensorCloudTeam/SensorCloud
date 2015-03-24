@@ -108,22 +108,22 @@ map.enableScrollWheelZoom();
 
 var curMkr = null; // 记录当前添加的Mkr
 var mkrTool = new BMapLib.MarkerTool(map,{followText: "选择节点位置",autoClose: true});
-mkrTool.addEventListener("markend", function(evt){ 
-	curMkr = evt.marker;
 
-	var html = [];
+mkrTool.addEventListener("markend", function(evt){ 
+    curMkr = evt.marker; 
+    var point = curMkr.getPosition();
+   
+    var html = [];
 	html.push('<span style="font-size:12px">节点信息: </span><br/>');
 	html.push('<table border="0" cellpadding="1" cellspacing="1" >');
 	html.push('  <tr>'); 
 	html.push('      <td align="left" class="common">名称：</td>');
-	html.push('      <td colspan="2"><?php echo $this->formRow($form->get('name'));
-	                                        $longitude = $form->get('longitude');
-	                                        $longitude->setValue("131");//设置经度，无法获取当前位置。。
-	                                       echo $this->formHidden($form->get('longitude'));
-	                                       $latitude = $form->get('latitude');
-	                                       $latitude->setValue("32");//纬度
-	                echo $this->formHidden($form->get('latitude')); ?></td>');
+	html.push('      <td colspan="2"> <input type = "text" id="name" name="name"> </td>');
 	html.push('	     <td valign="top"><span class="star">*</span></td>');
+	html.push(' </tr>');
+	html.push('  <tr>');
+	html.push('      <td ><input type="hidden" id = "longitude" name = "longitude" value="'+point.lng+'" > </td> '); 
+	html.push('      <td ><input type="hidden" id = "latitude" name = "latitude" value="'+point.lat+'" > </td> ');                
 	html.push('  </tr>');
 	html.push('  <tr>');
 	html.push('      <td align="left" class="common">描述：</td>');
@@ -138,9 +138,8 @@ mkrTool.addEventListener("markend", function(evt){
 	html.push('</table>');	
 	var infoWin = new BMap.InfoWindow(html.join(""), {offset: new BMap.Size(0, -10)});
     curMkr.openInfoWindow(infoWin);
-    
+	
 });
-
 
 function openStylePnl(){
     document.getElementById("divStyle").style.display = "block";
