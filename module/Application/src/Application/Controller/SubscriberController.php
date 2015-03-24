@@ -75,6 +75,34 @@ class SubscriberController extends AbstractActionController
     			else{
     				$this->getSubscriptionTable()->Subscribe($subscription);
     				echo "<script>alert('已成功订阅服务！');</script>";
+    				/*
+    				ignore_user_abort(); //即使Client断开(如关掉浏览器)，PHP脚本也可以继续执行.
+    				set_time_limit(0); // 执行时间为无限制，php默认的执行时间是30秒，通过set_time_limit(0)可以让程序无限制的执行下去
+    				$interval=60*1; // 每隔1分钟运行
+    				do{
+    				    $body = $this->getSensorTable()->getMsg($sensor_id,$filter,$threshold_value);
+    				    $session = new Container('user');
+    				    $username = $_SESSION["username"];
+    				    $msg = new Message();
+    				    $msg->setFrom("ECNU_Sei_Lab301@163.com","SensorCloud")
+    				    ->setTo($data['address'],$username)
+    				    ->setSubject("SensorCloud服务订阅")
+    				    ->setBody($body);
+    				    $smtpOpt = new SmtpOptions(array(
+    				    		'name' => 'smtp.163.com',
+    				    		'host' => 'smtp.163.com',
+    				    		'port' => 25,
+    				    		'connection_class' => 'login',
+    				    		'connection_config' => array(
+    				    				'username' => 'ECNU_Sei_Lab301@163.com',
+    				    				'password' => 'seilab301',),
+    				    			
+    				    ));
+    				    $trans = new Smtp();
+    				    $trans->setOptions($smtpOpt);
+    				    $trans->send($msg);
+    					sleep($interval); // 等待1分钟
+    				}while(true);*/
     			}
     			}
     	

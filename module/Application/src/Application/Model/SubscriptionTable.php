@@ -79,6 +79,9 @@ class SubscriptionTable
         		'sensor_id' => $subscription->sensor_id,
         		'user_id'  => $user_id,
         		'address'   => $subscription->address,
+                'send_frequency' => $subscription->send_frequency,
+                'filter'   => $subscription->filter,
+                'threshold_value'   => $subscription->threshold_value,
         );
         $this->subscriptiontableGateway->insert($data);
     }
