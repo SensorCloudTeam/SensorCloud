@@ -26,8 +26,20 @@ $this->headTitle($title);
     <td><?php echo $subscription->sensor_name;?></td>
     <td><?php echo $subscription->type;?></td>
     <td>(<?php echo $subscription->lat;?>,<?php echo $subscription->lon;?>)</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
+    <td><?php switch($subscription->filter){
+    	           case 0: echo "无";break;
+    	           case 1: echo "大于";break;
+    	           case 2: echo "小于";break;
+    	           case 3: echo "大于等于";break;
+    	           case 4: echo "小于等于";break;
+    	           case 5: echo "等于";break;
+    	           case 6: echo "不等于";break;}?><?php echo $subscription->threshold_value;?></td>
+    <td><?php switch($subscription->send_frequency){
+                     case 1: echo "一分钟一次";break;
+                     case 2: echo "一小时一次";break;
+                     case 3: echo "六小时一次";break;
+                     case 4: echo "一天一次";break;
+    }?></td>
     <td><?php echo $subscription->puser_id;?></td>
     <td>
         <script language="javascript">
