@@ -35,7 +35,7 @@ class SinkForm extends Form
             'name' => 'addsink',
             'type' => 'Submit',
             'attributes' => array(
-                'value' => '获得设备号',
+                'value' => '获得授权号',
                 'id' => 'addsinkbutton',
             ),
         ));
