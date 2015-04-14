@@ -167,6 +167,7 @@ class IndexController extends AbstractActionController
     /*用户信息*/
     public function userinfoAction()
     {
+        date_default_timezone_set('Asia/Taipei'); //设置默认的时区
     	$session = new Container('user');
     	$username = $_SESSION["username"];
     	$email = $this->getUserTable()->getEmail($username);
