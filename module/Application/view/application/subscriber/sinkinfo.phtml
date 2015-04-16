@@ -1,5 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<head>
+<link href="./css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+<script src="/SensorCloud/public/js/jquery.min.js"></script>
+<!-- Custom Theme files -->
+<link href="/SensorCloud/public/css/style.css" rel='stylesheet'
+	type='text/css' />
+</head>
 <script type="text/javascript"></script>
 <style>
 .black_overlay{
@@ -46,7 +53,11 @@ document.getElementById(show_div).style.display='none';
 document.getElementById(bg_div).style.display='none';
 };
 </script>
-<body>
+<body >
+    
+    <!-- <div class="col-md-2" > <img alt="" src="/SensorCloud/public/images/cloud.jpeg" style="height:650px"> </div>
+     -->
+    <div class="col-md-offset-2 col-md-6 " >
 	<p>&nbsp;</p>
 
 	<div style="padding-left: 100px">
@@ -58,28 +69,31 @@ document.getElementById(bg_div).style.display='none';
 		<bdo>- > 节点信息</bdo>
 	</div>
 
-	<div align="center">
-		<p>&nbsp;</p>
-		<label><strong>节点信息</strong></label>
-		<p>&nbsp;</p>
+    <div class="list-group">
+  <a href="#" class="list-group-item ">
+    <h4 class="list-group-item-heading">节点信息</h4>
+    <p class="list-group-item-text">
+       <table class="table table-bordered table-hover">
+        <tr><th>名字</th><td><?php echo $this->sink->name ?></td></tr>
+        <tr><th>位置</th><td>(<?php echo $this->sink->latitude ?>,<?php echo $this->sink->longitude ?>)</td></tr>
+        <tr><th>发布者</th><td><?php echo $this->sink->user_id ?></td></tr>
+        </table>
+    </p>
+  </a>
+  
 
-		<p>名字：<?php echo $this->sink->name ?></p>
-		<p>位置：(<?php echo $this->sink->latitude ?>,<?php echo $this->sink->longitude ?>)</p>
-		<p>发布者：<?php echo $this->sink->user_id ?></p>
-		<p>&nbsp;</p>
-	</div>
-
-	<div align="center">
-		<p>&nbsp;</p>
-		<label><strong>传感器列表</strong></label>
-		<p>&nbsp;</p>
-    <?php 
+  <a href="#" class="list-group-item ">
+ 
+    <h4 class="list-group-item-heading">传感器列表</h4>
+    <p class="list-group-item-text">
+        <table class="table table-bordered table-hover">
+        
+        <?php 
     $sensors = $this->sensors;
     if (count($sensors) == 0) {
     ?>
     <p align="center">此节点下没有传感器</p>
     <?php }else{ ?>
-        <table border="0" align="center" bgcolor="#99CCFF">
 			<tr>
 				<th width="110">传感器名称</th>
 				<th width="110">传感器类型</th>
@@ -92,7 +106,8 @@ document.getElementById(bg_div).style.display='none';
 				<td><input id="Button1" type="button" value="订阅" onclick="ShowDiv('MyDiv','fade')" />
 				</td>
 			</tr>
-	<?php
+			
+			<?php
     $form = $this->form;
     $form->prepare();
     echo $this->form()->openTag($form);
@@ -131,8 +146,21 @@ document.getElementById(bg_div).style.display='none';
 			<?php endforeach; ?>
 		</table>
 		<?php }?>
+       
+
+    </p>
+  </a>
+  
+  
+</div>
+
+
 
 	</div>
-	  
+	</div>
+	 <div class="col-md-2 " ></div>
+	<div class="clearfix"></div>
+	<!--  <div class="col-md-2" > <img alt="" src="/SensorCloud/public/images/cloud.jpeg" style="height:650px"> </div>
+-->
 </body>
 </html>

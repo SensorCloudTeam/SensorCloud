@@ -1,18 +1,4 @@
 @CHARSET "UTF-8";
-body {
-    padding-top: 60px;
-    padding-bottom: 40px;
-	background: url('../images/bg.png');	
-}
-.center{
-	position: relative;
-	margin-left:auto;
-	margin-right:auto;
-	width:80%;
-	align:center;
-}
-
-/*图窗样式*/
 .top-nav{
 		position: relative;
 		clear: both;
@@ -354,6 +340,4 @@ a.caption-btn:hover{
 
 /* slider#*/
 
-.linemargin{
-	margin-bottom:10px;
-}
+

@@ -1,34 +1,51 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<title>SensorCloud</title>
+<link href="/SensorCloud/public/css/bootstrap.css" rel='stylesheet'
+	type='text/css' />
+<script src="/SensorCloud/public/js/jquery.min.js"></script>
+<!-- Custom Theme files -->
+<link href="/SensorCloud/public/css/style.css" rel='stylesheet'
+	type='text/css' />
+<!-- Custom Theme files -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- webfonts -->
+<link href='http://fonts.googleapis.com/css?family=Arimo:400,700'
+	rel='stylesheet' type='text/css'>
+<!-- webfonts -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>基本信息</title>
+
 <?php $session = new \Zend\Session\Container('user');?>
 </head>
 
 <body>
+
+<div class="page-header">
+  <h3>基本信息 </h3>
+</div>
+
 <p>&nbsp;</p>
-<p align="center"><strong>基本信息</strong></p>
-<p>&nbsp;</p>
-<table width="400" border="1" align="center" bgcolor = "#99CCFF" >
-  <tr>
-    <td width="117">用户名</td>
-    <td width="268"><?php echo $this->name ?></td>
+<table class="table table-bordered table-hover"  align="center" bgcolor = "#99CCFF" >
+  <tr height="30">
+    <th width="217">用户名</th>
+    <td width="368"><?php echo $this->name ?></td>
   </tr>
-  <tr>
-    <td>注册邮箱</td>
+  <tr height="30">
+    <th>注册邮箱</th>
     <td><?php echo $this->email ?></td>
   </tr>
-  <tr>
-    <td>注册时间</td>
+  <tr height="30">
+    <th>注册时间</th>
     <td><?php echo $this->time ?></td>
   </tr>
-  <tr>
-    <td>是否为发布者</td>
+  <tr height="30">
+    <th>是否为发布者</th>
     <td><?php if($this->poster == 1) echo "是";
                   else echo "否" ?></td>
   </tr>
 </table>
+               
 <p>&nbsp;</p>
 </body>
 </html>

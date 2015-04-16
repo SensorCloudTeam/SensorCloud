@@ -47,13 +47,13 @@ a{ color:#333; text-decoration:none;}
 
 </head>
 
-<body style="padding:30px;">
+<body style="padding:30px 30px 30px 30px;">
 <div class="demobox">
     <br/>
     <div class="bl-vernav-warp">
     	<div class="auxline"></div>
         <ul class="bl-vernav vernav-level">
-            <li ><a class="one"><strong></strong></a></li>
+            <li hidden="true"><a class="one"><strong></strong></a></li>
             <li class="cur">
                 <a class="one"><strong>个人信息</strong></a>
                 <ul>
@@ -81,11 +81,11 @@ a{ color:#333; text-decoration:none;}
 $(function(){
 	var verNav = $(".bl-vernav"),
 		line = verNav.siblings(".auxline"),
-		verNavFisrt = verNav.children("li:first-child"),
+		verNavFisrt = verNav.children("li:first-child");
 		curY = verNav.children("li.cur").position().top;
 		
 	line.height(verNavFisrt.outerHeight()-1).width(verNavFisrt.outerWidth());//设置辅助线初始化高度和宽度，也可以直接用css设置好，这里就不用js计算了 
-
+    
 	verNav.find("li").mouseenter(function(){
 		var thisY = $(this).position().top;
 		line.stop(true,true).animate({top:thisY},200);

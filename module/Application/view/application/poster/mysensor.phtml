@@ -1,4 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<head>
+<link href="/SensorCloud/public/css/bootstrap.css" rel='stylesheet'
+	type='text/css' />
+<!-- Custom Theme files -->
+<link href="/SensorCloud/public/css/style.css" rel='stylesheet'
+	type='text/css' />
+<!-- Custom Theme files -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- webfonts -->
+<link href='http://fonts.googleapis.com/css?family=Arimo:400,700'
+	rel='stylesheet' type='text/css'>
+<!-- webfonts -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+</head>
 <?php
 $title = '我的传感器';
 $this->headTitle($title);
@@ -14,7 +29,7 @@ $this->headTitle($title);
       if(count($sensors)==0){?>
 <p align="center">此节点下没有传感器</p>
 <?php }else{ ?>
-<table border="1" align="center" bgcolor = "#99CCFF" >
+<table  class="table table-bordered table-hover"  align="center" bgcolor = "#99CCFF" >
 <tr>
     <th width="110">传感器名称</th>
     <th width="110">传感器类型</th>
@@ -78,3 +93,6 @@ $this->headTitle($title);
      <button type="button" onclick="window.location.href = '<?php echo $this->url('poster',
                 array('action'=>'addsensor','sink_id' => $this->sink_id));?>'"><?php echo $this->translate('添加一个传感器') ?></button>
 </div>
+
+<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+<script src="/SensorCloud/public/js/bootstrap.min.js"></script>

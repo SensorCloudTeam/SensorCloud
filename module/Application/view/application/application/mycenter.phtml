@@ -1,25 +1,52 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<head>
+<link href="/SensorCloud/public/css/bootstrap.css" rel='stylesheet'
+	type='text/css' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- webfonts -->
+<link href='http://fonts.googleapis.com/css?family=Arimo:400,700'
+	rel='stylesheet' type='text/css'>
+<!-- webfonts -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+</head>
 <title>用户中心</title>
 <?php $session = new \Zend\Session\Container('user');?>
 </head>
 
 <body>
-<p>&nbsp;</p>
-<p align="center"><strong>用户中心</strong></p>
-<p>&nbsp;</p>
-<p><strong>个人信息</strong></p>
-<div align="center">用户名： <?php echo $this->name?></div>
-<p>&nbsp;</p>
-<p><strong>订阅中心</strong></p>
-<div align="center">订阅服务个数： <?php echo $this->sub_num?></div>
-<p>&nbsp;</p>
-<p><strong>服务发布</strong></p>
-<div align="center">发布结点个数： <?php echo $this->sink_num?></div>
+<div class="page-header">
+  <h3>用户中心 </h3>
+</div>
+
+
+<div class="list-group">
+  <a href="#" class="list-group-item active">
+    <h4 class="list-group-item-heading">个人信息</h4>
+    <p class="list-group-item-text">
+        <div align="center">用户名： <?php echo $this->name?></div>
+    </p>
+  </a>
+  
+  <a href="#" class="list-group-item ">
+    <h4 class="list-group-item-heading">订阅中心</h4>
+    <p class="list-group-item-text">
+        <div align="center">订阅服务个数： <?php echo $this->sub_num?></div>
+    </p>
+  </a>
+  
+  <a href="#" class="list-group-item active">
+    <h4 class="list-group-item-heading">服务发布</h4>
+    <p class="list-group-item-text">
+        <div align="center">发布结点个数： <?php echo $this->sink_num?></div>
 <div align="center">注册服务个数： <?php echo $this->sensor_num?></div>
 <div align="center">发布服务个数： <?php echo $this->post_num?></div>
-<p>&nbsp;</p>
+    </p>
+  </a>
+</div>
 </body>
+<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+<script src="/SensorCloud/public/js/bootstrap.min.js"></script>
 </html>

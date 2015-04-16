@@ -1,14 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
+<!--  
 <p>&nbsp;</p>
 <p align="center"><strong>订阅首页</strong></p>
 <p>&nbsp;</p>
-
+-->
  
 <!--引用百度地图API-->
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=EZfQrPMLSMR4YvDnDMwO9r81"></script>
 
-<div style="height:650px;border:#ccc solid 1px;width:100%" id="allmap" ></div>
+<div style="height:600px;border:#ccc solid 1px;width:80%;margin-left:auto;margin-right:auto" id="allmap" ></div>
 
 <script type="text/javascript">
 var map = new BMap.Map("allmap");            
@@ -17,10 +17,13 @@ var testPoint = new BMap.Point(116.404,39.915);
 map.centerAndZoom(centerPoint,5);                     
 map.enableScrollWheelZoom();  
 
-var centerMarker = new BMap.Marker(centerPoint);
-var testMarker = new BMap.Marker(testPoint);
-//map.addOverlay(centerMarker);
-//map.addOverlay(testMarker);
+var myIcon = new BMap.Icon("http://api.map.baidu.com/mapCard/img/location.gif",new BMap.Size(100,190),{
+	anchor:new BMap.Size(7,25)
+});
+var centerMarker = new BMap.Marker(centerPoint,{icon:myIcon});
+var testMarker = new BMap.Marker(testPoint,{icon:myIcon});
+// map.addOverlay(centerMarker);
+// map.addOverlay(testMarker);
 
 var tilelayer=new BMap.TileLayer();
 tilelayer.getTilesUrl=function(){
@@ -38,7 +41,10 @@ var name = \"$sink->name\";
 var longitude = \"$sink->longitude\";
 var altitude = \"$sink->latitude\";
 var point = new BMap.Point(longitude, altitude);
-var marker = new BMap.Marker(point); 
+var myIcon = new BMap.Icon('http://api.map.baidu.com/mapCard/img/location.gif',new BMap.Size(14,23),{
+	anchor:new BMap.Size(7,25)
+});
+var marker = new BMap.Marker(point,{icon:myIcon}); 
 marker.setTitle(name);
 	marker.addEventListener(\"click\",function(e){
 		showSinkInfo(\"$sink->id\");
