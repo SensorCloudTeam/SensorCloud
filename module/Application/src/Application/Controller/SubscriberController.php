@@ -126,7 +126,7 @@ class SubscriberController extends AbstractActionController
     /*退订服务*/
     public function deletesubscriptionAction()
     {
-    	$id = $this->params()->fromRoute('id',0);
+    	$id = $this->params()->fromRoute('subscription_id',0);
     	if($id){
     		$this->getSubscriptionTable()->deleteSubscription($id);
     	}

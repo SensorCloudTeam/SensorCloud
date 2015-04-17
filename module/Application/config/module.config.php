@@ -51,11 +51,11 @@ return array(
             'subscriber' => array(
             		'type'    => 'segment',
             		'options' => array(
-            				'route'    => '/subscriber[/:action][/:sink_id][/:sensor_id]',
+            				'route'    => '/subscriber[/:action][/:sink_id][/:subscription_id]',
             				'constraints' => array(
             						'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
             						'sink_id'     => '[a-zA-z0-9]*',
-            						'sensor_id'     => '[a-zA-z0-9]*',
+            						'subscription_id'     => '[a-zA-z0-9]*',
             				),
             				'defaults' => array(
             						'controller' => 'Application\Controller\Subscriber',

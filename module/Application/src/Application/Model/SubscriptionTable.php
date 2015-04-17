@@ -48,7 +48,7 @@ class SubscriptionTable
         $select->from('subscription')
                ->join('sensor', 'subscription.sensor_id = sensor.id', array('sensor_name' => 'name'))
                ->join('type', 'type.id = sensor.type_id', array('type' => 'name'))
-               ->join('sink', 'sink.id = sensor.sink_id', array('lon' => 'longitude','lat' => 'latitude','puser_id' => 'user_id'))
+               ->join('sink', 'sink.id = sensor.sink_id', array('lon' => 'longitude','lat' => 'latitude','puser_id' => 'user_id','sink_id' => "id"))
                ->where(array('subscription.user_id' => $username));
         
         $resultSet = $this->subscriptiontableGateway->selectWith($select);
