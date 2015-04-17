@@ -6,10 +6,14 @@
 -->
  
 <!--引用百度地图API-->
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=EZfQrPMLSMR4YvDnDMwO9r81"></script>
 
+<ol class="breadcrumb">
+  <li><a href="<?php echo $this->url('home', array(
+		                                        'action' => 'index'));?>">首页</a></li>
+  <li class="active">服务订阅</li>
+</ol>
 <div style="height:600px;border:#ccc solid 1px;width:80%;margin-left:auto;margin-right:auto" id="allmap" ></div>
-
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=EZfQrPMLSMR4YvDnDMwO9r81"></script>
 <script type="text/javascript">
 var map = new BMap.Map("allmap");            
 var centerPoint = new BMap.Point(110.404, 37.915);
@@ -17,7 +21,7 @@ var testPoint = new BMap.Point(116.404,39.915);
 map.centerAndZoom(centerPoint,5);                     
 map.enableScrollWheelZoom();  
 
-var myIcon = new BMap.Icon("http://api.map.baidu.com/mapCard/img/location.gif",new BMap.Size(100,190),{
+var myIcon = new BMap.Icon("../images/marker.gif",new BMap.Size(100,190),{
 	anchor:new BMap.Size(7,25)
 });
 var centerMarker = new BMap.Marker(centerPoint,{icon:myIcon});
@@ -41,7 +45,7 @@ var name = \"$sink->name\";
 var longitude = \"$sink->longitude\";
 var altitude = \"$sink->latitude\";
 var point = new BMap.Point(longitude, altitude);
-var myIcon = new BMap.Icon('http://api.map.baidu.com/mapCard/img/location.gif',new BMap.Size(14,23),{
+var myIcon = new BMap.Icon('../images/marker.gif',new BMap.Size(14,23),{
 	anchor:new BMap.Size(7,25)
 });
 var marker = new BMap.Marker(point,{icon:myIcon}); 

@@ -18,13 +18,15 @@
 $title = '我的传感器';
 $this->headTitle($title);
 ?>
-<p>&nbsp;</p>
-<p align="center"><strong>传感器列表</strong></p>
-<p>&nbsp;</p>
-<a href="<?php echo $this->url('poster',
-            array('action'=>'mysink'));?>">节点列表</a>
-<a>- > <?php echo $this->sink_name?></a> 
- <p>&nbsp;</p>
+<div class="page-header" style="margin-top:-30px;">
+  <h3>传感器列表 </h3>
+</div>
+
+ <ol class="breadcrumb">
+  <li><a href="<?php echo $this->url('poster',
+            array('action'=>'mysink'));?>">节点列表</a></li>
+  <li class="active"><?php echo $this->sink_name?></li>
+</ol>
 <?php $sensors = $this->sensors; 
       if(count($sensors)==0){?>
 <p align="center">此节点下没有传感器</p>

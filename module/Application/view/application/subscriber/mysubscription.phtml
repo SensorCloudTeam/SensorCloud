@@ -19,8 +19,8 @@ $title = '我订阅的服务';
 $this->headTitle($title);
 ?>
 
-<div class="page-header">
-  <h2>我订阅的服务 </h2>
+<div class="page-header" style="margin-top:-30px;">
+  <h3>我订阅的服务 </h3>
 </div>
 
 <?php   $subscriptions = $this->subscriptions;
@@ -49,7 +49,7 @@ $this->headTitle($title);
     	           case 3: echo "大于等于";break;
     	           case 4: echo "小于等于";break;
     	           case 5: echo "等于";break;
-    	           case 6: echo "不等于";break;}?><?php echo $subscription->threshold_value;?></td>
+    	           case 6: echo "不等于";break;}?><?php if($subscription->filter !=0) echo $subscription->threshold_value;?></td>
     <td><?php switch($subscription->send_frequency){
                      case 1: echo "一分钟一次";break;
                      case 2: echo "一小时一次";break;

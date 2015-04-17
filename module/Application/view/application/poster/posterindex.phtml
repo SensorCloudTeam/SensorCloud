@@ -1,9 +1,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>SensorCloud</title>
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=EZfQrPMLSMR4YvDnDMwO9r81"></script>
-<script type="text/javascript" src="http://api.map.baidu.com/library/MarkerTool/1.2/src/MarkerTool_min.js"></script>
+
+<!-- 
 <style type="text/css">
     /* ��ʽѡ��������css */
     #divStyle {
@@ -47,21 +47,28 @@
         color: #ff0000;
     }
 </style>
+ -->
 </head>
 <body>
-<p>&nbsp;</p>
-<p align="center"><strong>发布首页</strong></p>
-<p>&nbsp;</p>
-
+<ol class="breadcrumb">
+  <li><a href="<?php echo $this->url('home', array(
+		                                        'action' => 'index'));?>">首页</a></li>
+  <li class="active">服务发布</li>
+</ol>
 <?php
     $form = $this->form;
     $form->prepare();
     echo $this->form()->openTag($form);
     ?>
-    <input type="button" value="选择标注" onclick="openStylePnl()" />
-<input type="button" value="关闭" onclick="mkrTool.close()" />
-<div style="width:100%;height:650px;border:1px solid gray" id="container"></div>
+     <div class="col-md-offset-10 ">
+    <img role="button" src="../images/marker.gif" onclick="selectMarker()" />
+    <input type="button" value="关闭" onclick="mkrTool.close()" />
+    </div>
+<div style="height:600px;border:#ccc solid 1px;width:80%;margin-left:auto;margin-right:auto" id="container" ></div>
 
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=EZfQrPMLSMR4YvDnDMwO9r81"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/MarkerTool/1.2/src/MarkerTool_min.js"></script>
+<!--
 <div id="divStyle" >
     <ul>
         <li>
@@ -98,8 +105,7 @@
         </li>
     </ul>
 </div>
-</body>
-</html>
+ -->
 <script type="text/javascript">
 var map = new BMap.Map("container");
 var centerPoint = new BMap.Point(110.404, 37.915);
@@ -114,21 +120,21 @@ mkrTool.addEventListener("markend", function(evt){
     var point = curMkr.getPosition();
    
     var html = [];
-	html.push('<span style="font-size:12px">节点信息: </span><br/>');
-	html.push('<table border="0" cellpadding="1" cellspacing="1" >');
+	html.push('<span style="font-size:12px"><h4>节点信息:</h4> </span>');
+	html.push('<table class="table-condensed" >');
 	html.push('  <tr>'); 
-	html.push('      <td align="left" class="common">名称：</td>');
+	html.push('      <td>名称</td>');
 	html.push('      <td colspan="2"> <input type = "text" id="name" name="name"> </td>');
-	html.push('	     <td valign="top"><span class="star">*</span></td>');
+	html.push('	     <td valign="center"><span class="star" style="color:red">*必填</span></td>');
 	html.push(' </tr>');
 	html.push('  <tr>');
 	html.push('      <td ><input type="hidden" id = "longitude" name = "longitude" value="'+point.lng+'" > </td> '); 
 	html.push('      <td ><input type="hidden" id = "latitude" name = "latitude" value="'+point.lat+'" > </td> ');                
 	html.push('  </tr>');
 	html.push('  <tr>');
-	html.push('      <td align="left" class="common">描述：</td>');
-	html.push('      <td colspan="2"><textarea rows="2" cols="15"  id="areaDesc"></textarea></td>');
-	html.push('	     <td valign="top"></td>');
+	html.push('      <td >描述</td>');
+	html.push('      <td colspan="2"><textarea class="form-control" rows="2" colspan="2"  id="areaDesc"></textarea></td>');
+	html.push('	     ');
 	html.push('  </tr>');
 	html.push('  <tr>');
 	html.push('	     <td  align="center" colspan="3">');
@@ -141,6 +147,7 @@ mkrTool.addEventListener("markend", function(evt){
 	
 });
 
+/*
 function openStylePnl(){
     document.getElementById("divStyle").style.display = "block";
 }
@@ -150,6 +157,14 @@ function selectStyle(index){
     var icon = BMapLib.MarkerTool.SYS_ICONS[index]; 
     mkrTool.setIcon(icon); 
     document.getElementById("divStyle").style.display = "none";    
+}
+*/
+function selectMarker(){
+	mkrTool.open(); 
+	var icon = new BMap.Icon('../images/marker.gif',new BMap.Size(14,23),{
+		anchor:new BMap.Size(7,25)
+	});
+    mkrTool.setIcon(icon); 
 }
 
 </script>
@@ -170,3 +185,5 @@ map.addOverlay(marker);
 ?>
 	
 <?php endforeach;?>
+</body>
+</html>

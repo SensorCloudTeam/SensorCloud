@@ -1,68 +1,40 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-   
-<div class="benner">
-				<!-- slider -->
-				<!--- img-slider --->
-				<div class="img-slider">
-						<!----start-slider-script---->
-					<script src="./js/responsiveslides.min.js"></script>
-					 <script>
-					    // You can also use "$(window).load(function() {"
-					    $(function () {
-					      // Slideshow 4
-					      $("#slider4").responsiveSlides({
-					        auto: true,
-					        pager: true,
-					        nav: true,
-					        speed: 500,
-					        namespace: "callbacks",
-					        before: function () {
-					          $('.events').append("<li>before event fired.</li>");
-					        },
-					        after: function () {
-					          $('.events').append("<li>after event fired.</li>");
-					        }
-					      });
-					
-					    });
-					  </script>
-					<!----//End-slider-script---->
-					<!-- Slideshow 4 -->
-					    <div  id="top" class="callbacks_container">
-					      <ul class="rslides" id="slider4">
-					        <li>
-					          <img class="img-responsive" src="./images/cloud2.jpg" alt="">
+ <div id="myCarousel" class="carousel slide block-center" style="margin:0 40px 0 40px">
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+  <!-- Carousel items -->
+  <div class="carousel-inner">
+    <div class="active item callbacks_container rslides">
+        <img class="img-responsive" src="./images/cloud2.jpg" alt="">
 					          <div class="slider-caption">
 					          	<h1>SCloud<span>+</span></h1>
 					         	 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sollicitudin lectus in quam elementum aliquet. Quisque gravida fringilla velit nec ornare. </p>
 					         	 <a class="caption-btn" href="#">ReadMore</a>
 					          </div>
-					        </li>
-					        <li>
-					          <img src="./images/cloud2.jpg" alt="">
-					           <div class="slider-caption">
-					          	<h1>medical<span>+</span></h1>
-					          	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sollicitudin lectus in quam elementum aliquet. Quisque gravida fringilla velit nec ornare. </p>
-					            <a class="caption-btn" href="#">ReadMore</a>
-					          </div>
-					        </li>
-					        <li>
-					          <img src="./images/cloud2.jpg" alt="">
-					           <div class="slider-caption">
-					           	<h1>medical<span>+</span></h1>
-					           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sollicitudin lectus in quam elementum aliquet. Quisque gravida fringilla velit nec ornare. </p>
-					           <a class="caption-btn" href="#">ReadMore</a>
-					          </div>
-					        </li>
-					      </ul>
-					    </div>
-					    <div class="clearfix"> </div>
-					</div>
-						<!-- slider -->
+    </div>
+    <div class="item callbacks_container rslides"><img class="img-responsive" src="./images/cloud2.jpg" alt="">
+					          <div class="slider-caption">
+					          	<h1>SCloud<span>+</span></h1>
+					         	 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sollicitudin lectus in quam elementum aliquet. Quisque gravida fringilla velit nec ornare. </p>
+					         	 <a class="caption-btn" href="#">ReadMore</a>
+					          </div></div>
+    <div class="item callbacks_container rslides"><img class="img-responsive" src="./images/cloud2.jpg" alt="">
+					          <div class="slider-caption">
+					          	<h1>SCloud<span>+</span></h1>
+					         	 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sollicitudin lectus in quam elementum aliquet. Quisque gravida fringilla velit nec ornare. </p>
+					         	 <a class="caption-btn" href="#">ReadMore</a>
+					          </div></div>
+  </div>
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#myCarousel" data-slide="prev"></a>
+  <a class="carousel-control right" href="#myCarousel" data-slide="next"></a>
 </div>
-<!-- /banner -->
-    
+</div>
+
 <div class="top-grids text-center">
 			<div class="">
 		

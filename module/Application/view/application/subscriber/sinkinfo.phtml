@@ -1,166 +1,182 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<link href="./css/bootstrap.min.css" rel='stylesheet' type='text/css' />
-<script src="/SensorCloud/public/js/jquery.min.js"></script>
-<!-- Custom Theme files -->
-<link href="/SensorCloud/public/css/style.css" rel='stylesheet'
-	type='text/css' />
-</head>
-<script type="text/javascript"></script>
-<style>
-.black_overlay{
-display: none;
-position: absolute;
-top: 0%;
-left: 0%;
-width: 100%;
-height: 100%;
-background-color: black;
-z-index:1001;
--moz-opacity: 0.8;
-opacity:.80;
-filter: alpha(opacity=80);
-}
-.white_content {
-display: none;
-position: absolute;
-top: 30%;
-left: 30%;
-width: 40%;
-height: 45%;
-border: 16px solid #99CCFF;
-background-color: white;
-z-index:1002;
 
-}
-
-</style>
-<script type="text/javascript">
-//弹出隐藏层
-function ShowDiv(show_div,bg_div){
-document.getElementById(show_div).style.display='block';
-document.getElementById(bg_div).style.display='block' ;
-var bgdiv = document.getElementById(bg_div);
-bgdiv.style.width = document.body.scrollWidth;
-// bgdiv.style.height = $(document).height();
-$("#"+bg_div).height($(document).height());
-};
-//关闭弹出层
-function CloseDiv(show_div,bg_div)
-{
-document.getElementById(show_div).style.display='none';
-document.getElementById(bg_div).style.display='none';
-};
-</script>
 <body >
     
-    <!-- <div class="col-md-2" > <img alt="" src="/SensorCloud/public/images/cloud.jpeg" style="height:650px"> </div>
-     -->
-    <div class="col-md-offset-2 col-md-6 " >
+
+<ol class="breadcrumb">
+  <li><a href="<?php echo $this->url('home', array(
+		                                        'action' => 'index'));?>">首页</a></li>
+  <li><a href="<?php echo $this->url('subscriber',array('action' => 'subscriberindex'));?>">服务订阅</a></li>
+  <li class="active">节点信息</li>
+</ol>
+<div class="col-md-offset-3 col-md-6 " >
 	<p>&nbsp;</p>
 
-	<div style="padding-left: 100px">
-		<a		href="<?php echo $this->url('home', array(
-		                                        'action' => 'index'));?>">首页</a>
-		<bdo>- > </bdo>
-		<a
-			href="<?php echo $this->url('subscriber',array('action' => 'subscriberindex'));?>">服务订阅</a>
-		<bdo>- > 节点信息</bdo>
-	</div>
+	
 
-    <div class="list-group">
-  <a href="#" class="list-group-item ">
-    <h4 class="list-group-item-heading">节点信息</h4>
-    <p class="list-group-item-text">
-       <table class="table table-bordered table-hover">
-        <tr><th>名字</th><td><?php echo $this->sink->name ?></td></tr>
-        <tr><th>位置</th><td>(<?php echo $this->sink->latitude ?>,<?php echo $this->sink->longitude ?>)</td></tr>
-        <tr><th>发布者</th><td><?php echo $this->sink->user_id ?></td></tr>
-        </table>
-    </p>
-  </a>
-  
-
-  <a href="#" class="list-group-item ">
+    <div class="center-block" >
+      <div class="panel panel-primary ">
+        <div class="panel-heading">节点信息</div>
  
-    <h4 class="list-group-item-heading">传感器列表</h4>
-    <p class="list-group-item-text">
         <table class="table table-bordered table-hover">
+            <tr><th>名字</th><td><?php echo $this->sink->name ?></td></tr>
+            <tr><th>位置</th><td>(<?php echo $this->sink->latitude ?>,<?php echo $this->sink->longitude ?>)</td></tr>
+            <tr><th>发布者</th><td><?php echo $this->sink->user_id ?></td></tr>
+            
+        </table>
         
-        <?php 
-    $sensors = $this->sensors;
-    if (count($sensors) == 0) {
-    ?>
-    <p align="center">此节点下没有传感器</p>
-    <?php }else{ ?>
-			<tr>
-				<th width="110">传感器名称</th>
-				<th width="110">传感器类型</th>
-				<th width="50">&nbsp;</th>
-			</tr>
-			<?php foreach ($sensors as $sensor) : ?>
-			<tr>
-				<td><?php echo $sensor->name;?></td>
-				<td><?php echo $sensor->type;?></td>
-				<td><input id="Button1" type="button" value="订阅" onclick="ShowDiv('MyDiv','fade')" />
-				</td>
-			</tr>
-			
-			<?php
-    $form = $this->form;
-    $form->prepare();
-    echo $this->form()->openTag($form);
-    ?>
-          <!--弹出层时背景层DIV-->
-       <div id="fade" class="black_overlay"></div>
-       <div id="MyDiv" class="white_content" align="center">
-           <div style="text-align: right; cursor: default; height: 40px;">
-           <span style="font-size: 16px;" onclick="CloseDiv('MyDiv','fade')">关闭</span>
-           </div>
-            <div>     
-           <label><font color = "red">推送方式</font><?php echo $this->formSelect($form->get('send_method'));?></label>
-           </div>
-           <div>     
-           <label><FONT color = "red">推送地址</FONT><?php echo $this->formRow($form->get('address'));?></label>
-           </div>
-           <div>     
-           <label><font color = "red">过滤条件</font><?php echo $this->formSelect($form->get('filter'));?></label>
-           </div>
-           <div>     
-           <label><font color = "red">条件阈值</font><?php echo $this->formRow($form->get('threshold_value'));?></label>
-           </div>
-           <div>     
-           <label><font color = "red">推送频率</font><?php echo $this->formSelect($form->get('send_frequency'));?></label>
-           </div>
-           <div>     
-           <label><?php $sensor_id = $form->get('sensor_id');
-                 $sensor_id->setValue($sensor->id);echo $this->formHidden($form->get('sensor_id'));?></label>
-           </div>
-
-           <div><?php echo $this->formSubmit($form->get('subscribe'));
-                  echo $this->form()->closeTag()?>
-           </div>  
-       
+      </div>
+      
+    
+      <div class="panel panel-success ">
+     
+        <div class="panel-heading">传感器列表</div>
+     
+            <?php 
+        $sensors = $this->sensors;
+        if (count($sensors) == 0) {
+        ?>
+        <div class="panel-body">
+        <p class="panel-body">此节点下没有传感器</p>
+        </div>
+        <?php }else{ ?>
+        <table class="table table-bordered table-hover">
+    			<tr>
+    				<th width="110">传感器名称</th>
+    				<th width="110">传感器类型</th>
+    				<th width="50">&nbsp;</th>
+    			</tr>
+    			<?php foreach ($sensors as $sensor) : ?>
+    			<tr>
+    				<td><?php echo $sensor->name;?></td>
+    				<td><?php echo $sensor->type;?></td>
+    				<td><a class="btn btn-primary" data-toggle="modal" data-target="#myModal" >订阅</a>
+    				</td>
+    			</tr>
+    			
+    			<?php
+        $form = $this->form;
+        $form->prepare();
+        echo $this->form()->openTag($form);
+        ?>
+                   <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" >
+<div class="modal-dialog">
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel" >订阅 </h3><h4 style="color:#48cfad">&nbsp;&nbsp;&nbsp;<?php  echo $sensor->name?><h4>
     </div>
-			<?php endforeach; ?>
-		</table>
-		<?php }?>
-       
 
-    </p>
-  </a>
-  
-  
+    <div class="modal-body">
+
+        <form class="form-inline">
+          
+            <div class="form-group">
+        
+                <!-- Single button -->
+<!--                 <div class="btn-group"> -->
+<!--                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> -->
+<!--                         推送方式 <span class="caret"></span> -->
+<!--                     </button> -->
+<!--                     <ul class="dropdown-menu" role="menu" id="send_method" name="send_method"> -->
+                   
+<!--                     </ul> -->
+<!--                 </div> -->
+                     
+                    <label>推送方式</label> <?php echo $this->formSelect($form->get('send_method'));?>
+            </div>
+            <div class="form-group">
+                <label for="address">邮箱</label>
+                <input type="email" class="form-control" id="address" name="address" placeholder="example@example.com">         
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">手机号码</label>
+                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="10210021002">
+            </div>
+
+            <div class="form-group ">
+                <!-- Single button -->
+<!--                 <div class="btn-group"> -->
+<!--                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> -->
+<!--                         推送方式 <span class="caret"></span> -->
+<!--                     </button> -->
+<!--                     <ul class="dropdown-menu" role="menu" id="filter" name="filter"> -->
+<!--                         <li value="0">无<</li> -->
+<!--                         <li value="1">大于</li> -->
+<!--                         <li value="2">小于</li> -->
+                       
+<!--                         <li value="3">大于等于</li> -->
+<!--                         <li value="4">小于等于</li> -->
+<!--                         <li value="5">等于</li> -->
+<!--                         <li value="6">不等于</li> -->
+<!--                     </ul> -->
+<!--                 </div> -->
+                <label>过滤条件</label><?php echo $this->formSelect($form->get('filter'));?>
+            </div>
+            <div class="form-group">
+                <label for="threshold_value">条件阈值</label>
+                <input type="number" class="form-control" id="threshold_value" name="threshold_value" placeholder="10">
+            </div>
+
+            <div class="form-group">
+               <label>推送频率</label>
+               <?php echo $this->formSelect($form->get('send_frequency'));?>
+               
+<!--                 <div class="btn-group"> -->
+<!--                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> -->
+<!--                         推送频率 <span class="caret"></span> -->
+<!--                     </button> -->
+<!--                     <ul class="dropdown-menu" role="menu" id="send_frequency" name="send_frequency"> -->
+<!--                         <li><a href="#">Action</a></li> -->
+<!--                         <li><a href="#">Another action</a></li> -->
+<!--                         <li><a href="#">Something else here</a></li> -->
+<!--                         <li class="divider"></li> -->
+<!--                         <li><a href="#">Separated link</a></li> -->
+<!--                     </ul> -->
+<!--                 </div> -->
+            </div>
+            <div class="form-group">
+            <label><?php $sensor_id = $form->get('sensor_id');
+                $sensor_id->setValue($sensor->id);echo $this->formHidden($form->get('sensor_id'));?></label>
+                
+            </div>
+        </form>
+
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+        <button type="submit" class="btn btn-primary" data-dismiss="modal" name="subscribe">确定推送</button>
+
+    </div>
+    </div>
+    </div>
+</div>
+<?php 
+                  echo $this->form()->closeTag()?>
+    			<?php 
+    			endforeach; ?>
+    			
+    		</table>
+    		
+    		<?php }?>
+           
+      </div>
+      
+      
+    </div>
+    
+    
 </div>
 
+ 
+             
+         
+<div class="clearfix"></div>
 
 
-	</div>
-	</div>
-	 <div class="col-md-2 " ></div>
-	<div class="clearfix"></div>
-	<!--  <div class="col-md-2" > <img alt="" src="/SensorCloud/public/images/cloud.jpeg" style="height:650px"> </div>
--->
 </body>
 </html>

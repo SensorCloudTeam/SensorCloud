@@ -18,13 +18,8 @@
       <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-        <!-- Scripts -->
-        <?php echo $this->headScript()->prependFile($this->basePath() . 'http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js')
-                                      ->prependFile($this->basePath() . '/js/bootstrap.min.js')
-                                      ?>
-                                      
-        <?php $session = new \Zend\Session\Container('user');?>
-        
+       
+      <?php $session = new \Zend\Session\Container('user');?>  
      </head>
      <body class="home-template">  
         <div class="navbar navbar-inverse navbar-fixed-top">
@@ -70,5 +65,11 @@
             </footer>
         </div> <!-- /container -->
         <?php echo $this->inlineScript() ?>
+        
+         <!-- Scripts -->
+         <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+        <?php echo $this->headScript()->prependFile($this->basePath() . '/js/bootstrap.min.js')
+                                      ?>
+                                      
     </body>
 </html>
