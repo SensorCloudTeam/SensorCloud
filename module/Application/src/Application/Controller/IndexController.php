@@ -115,7 +115,7 @@ class IndexController extends AbstractActionController
         $session = new Container('user');
         unset($_SESSION["username"]);
         session_destroy();
-        echo "<script>alert('已退出登录');window.location.href='/SensorCloud/public/application/index';</script>";  
+        echo "<script>alert('已退出登录');window.location.href='/SensorCloud/public/';</script>";  
     }
     
     /*用户中心*/
