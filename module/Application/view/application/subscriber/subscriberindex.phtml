@@ -1,63 +1,104 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<!--  
-<p>&nbsp;</p>
-<p align="center"><strong>订阅首页</strong></p>
-<p>&nbsp;</p>
--->
- 
-<!--引用百度地图API-->
 
+ 
+
+<body>
 <ol class="breadcrumb">
   <li><a href="<?php echo $this->url('home', array(
 		                                        'action' => 'index'));?>">首页</a></li>
   <li class="active">服务订阅</li>
 </ol>
+
 <div style="height:600px;border:#ccc solid 1px;width:80%;margin-left:auto;margin-right:auto" id="allmap" ></div>
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=EZfQrPMLSMR4YvDnDMwO9r81"></script>
-<script type="text/javascript">
-var map = new BMap.Map("allmap");            
-var centerPoint = new BMap.Point(110.404, 37.915);
-var testPoint = new BMap.Point(116.404,39.915);
-map.centerAndZoom(centerPoint,5);                     
-map.enableScrollWheelZoom();  
 
-var myIcon = new BMap.Icon("../images/marker.gif",new BMap.Size(100,190),{
-	anchor:new BMap.Size(7,25)
-});
-var centerMarker = new BMap.Marker(centerPoint,{icon:myIcon});
-var testMarker = new BMap.Marker(testPoint,{icon:myIcon});
-// map.addOverlay(centerMarker);
-// map.addOverlay(testMarker);
+<?php $html = file_get_contents('http://pv.sohu.com/cityjson?ie=utf-8'); //调用搜狐提供的ip对应城市的服务
+$data = preg_split("/=|;/",$html);
+$jsondata = json_decode($data[1]);
+$city =substr($jsondata->cname,0,strlen($jsondata->cname)-3);
+// var_dump($city);
 
-var tilelayer=new BMap.TileLayer();
-tilelayer.getTilesUrl=function(){
- return "layer.gif";
-};
-map.addTileLayer(tilelayer);
-
-</script>
-
-<?php  $sinks = $this->sinks;
-foreach ($sinks as $sink) :?>
-<?php
-echo "<script> 
-var name = \"$sink->name\";
-var longitude = \"$sink->longitude\";
-var altitude = \"$sink->latitude\";
-var point = new BMap.Point(longitude, altitude);
-var myIcon = new BMap.Icon('../images/marker.gif',new BMap.Size(14,23),{
-	anchor:new BMap.Size(7,25)
-});
-var marker = new BMap.Marker(point,{icon:myIcon}); 
-marker.setTitle(name);
-	marker.addEventListener(\"click\",function(e){
-		showSinkInfo(\"$sink->id\");
-	});
-map.addOverlay(marker);
- </script>";
-?>
+echo "
+<script type=\"text/javascript\">
+		                                            
+//百度地图API功能
+    function loadJScript() {
+		var script = document.createElement(\"script\");
+		script.type = \"text/javascript\";
+		script.src = \"http://api.map.baidu.com/api?v=1.5&ak=EZfQrPMLSMR4YvDnDMwO9r81&callback=init\";
+		document.body.appendChild(script);
+    }
 	
-<?php endforeach;?>
+    var datas;
+    function init() {		                                            
+    var map = new BMap.Map(\"allmap\");
+    // var centerPoint = new BMap.Point(110.404, 37.915);
+    var city= \"".$city."\";
+    map.centerAndZoom(city,12);
+    map.enableScrollWheelZoom();
+    map.addControl(new BMap.NavigationControl());    
+    map.addControl(new BMap.ScaleControl());    
+    map.addControl(new BMap.OverviewMapControl());
+    
+    var myIcon = new BMap.Icon(\"../images/marker.gif\",new BMap.Size(100,190),{
+    	anchor:new BMap.Size(7,25)
+    });
+    // var centerMarker = new BMap.Marker(centerPoint,{icon:myIcon});
+    // map.addOverlay(centerMarker);
+		    
+    datas.forEach(function(data){
+            var name = data.name;
+            var longitude = data.longitude;
+            var latitude = data.latitude;
+            var point = new BMap.Point(longitude, latitude);
+            var marker = new BMap.Marker(point);
+		    marker.setIcon(myIcon);
+            marker.setTitle(name);
+            map.addOverlay(marker);
+    });
+		    
+//     var tilelayer=new BMap.TileLayer();
+//     tilelayer.getTilesUrl=function(){
+//      return \"layer.gif\";
+//     };
+//     map.addTileLayer(tilelayer);
+		    
+    
+    }
+
+    function initData(d){
+		 datas = d;
+    }
+    
+    window.onload = loadJScript;  //异步加载地图		
+                                                    
+ </script>
+		                                            ";
+
+?>
+
+
+<?php
+
+$sinks = $this->sinks;
+// var_dump($sink);
+$i=0;
+$datas = array();
+foreach ($sinks as $sink):
+// var_dump($sink);
+    $item = array();
+    $item["name"] = $sink->name;
+    $item["longitude"]= $sink->longitude;
+    $item["latitude"] = $sink->latitude;
+    $datas[$i] = $item;
+    $i = $i + 1;
+endforeach;
+// var_dump($datas);
+$sinksData = json_encode($datas);
+// echo "Begin:".$sinksData;
+echo "<script>initData($sinksData)</script>";
+
+?>
+
 <script type="text/javascript">
 function showSinkInfo(sink_id){
 	var url = "/SensorCloud/public/subscriber/sinkinfo/";
@@ -65,3 +106,4 @@ function showSinkInfo(sink_id){
 	window.location.href=url;
 }
 </script>
+</body>

@@ -1,189 +1,179 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>SensorCloud</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>SensorCloud</title>
 
-<!-- 
-<style type="text/css">
-    /* ��ʽѡ��������css */
-    #divStyle {
-        width: 280px;
-        height: 160px;
-        border: solid 1px gray;
-        display:block;
-        margin: 2px; 0px;
-        display:none;
-    }
-    #divStyle ul{
-        list-style-type: none;
-        padding: 2px 2px;
-        margin: 2px 2px
-    }
-    #divStyle ul li a{
-        cursor: pointer;
-        margin: 2px 2px;
-        width: 30px;
-        height: 30px;
-        display: inline-block;
-        border: solid 1px #ffffff;
-        text-align: center;
-    }
-
-    #divStyle ul li a:hover{
-        background:none;
-        border: solid 1px gray;     
-    }
-    
-    #divStyle ul li img{
-        border: none;
-        background:url('http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/icon.gif');
-    }
-
-    /* infowindow���css */
-    .common {
-        font-size: 12px;
-    }
-    .star {
-        color: #ff0000;
-    }
-</style>
- -->
 </head>
 <body>
 <ol class="breadcrumb">
-  <li><a href="<?php echo $this->url('home', array(
-		                                        'action' => 'index'));?>">首页</a></li>
-  <li class="active">服务发布</li>
+    <li><a href="<?php echo $this->url('home', array(
+            'action' => 'index')); ?>">首页</a></li>
+    <li class="active">服务发布</li>
 </ol>
+<?php
+$form = $this->form;
+$form->prepare();
+echo $this->form()->openTag($form);
+?>
+<div class="col-md-offset-10 ">
+    <img role="button" src="../images/marker.gif" onclick="selectMarker()"/>
+    <input type="button" value="关闭" onclick="mkrTool.close()"/>
+</div>
+<div style="height:600px;border:#ccc solid 1px;width:80%;margin-left:auto;margin-right:auto" id="container"></div>
+
+
 <?php
     $form = $this->form;
     $form->prepare();
     echo $this->form()->openTag($form);
+    
+    $html = file_get_contents('http://pv.sohu.com/cityjson?ie=utf-8'); //调用搜狐提供的ip对应城市的服务
+    $data = preg_split("/=|;/",$html);
+    $jsondata = json_decode($data[1]);
+    $city =substr($jsondata->cname,0,strlen($jsondata->cname)-3);
+    echo "<input type=\"hidden\" id=\"city\" value=\"$city\" >"; 
     ?>
-     <div class="col-md-offset-10 ">
-    <img role="button" src="../images/marker.gif" onclick="selectMarker()" />
-    <input type="button" value="关闭" onclick="mkrTool.close()" />
-    </div>
-<div style="height:600px;border:#ccc solid 1px;width:80%;margin-left:auto;margin-right:auto" id="container" ></div>
-
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=EZfQrPMLSMR4YvDnDMwO9r81"></script>
-<script type="text/javascript" src="http://api.map.baidu.com/library/MarkerTool/1.2/src/MarkerTool_min.js"></script>
-<!--
-<div id="divStyle" >
-    <ul>
-        <li>
-            <a onclick="selectStyle(0)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:12px;height:21px;background-position: 0 0" /></a>
-            <a onclick="selectStyle(1)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:12px;height:21px;background-position: -23px 0" /></a>
-            <a onclick="selectStyle(2)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:12px;height:21px;background-position: -46px 0" /></a>
-            <a onclick="selectStyle(3)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:12px;height:21px;background-position: -69px 0" /></a>
-            <a onclick="selectStyle(4)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:12px;height:21px;background-position: -92px 0" /></a>
-            <a onclick="selectStyle(5)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:12px;height:21px;background-position: -115px 0" /></a>
-        </li>
-        <li>
-            <a onclick="selectStyle(6)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:19px;height:25px;background-position: 0 -21px" /></a>
-            <a onclick="selectStyle(7)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:19px;height:25px;background-position: -23px -21px" /></a>
-            <a onclick="selectStyle(8)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:19px;height:25px;background-position: -46px  -21px " /></a>
-            <a onclick="selectStyle(9)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:19px;height:25px;background-position: -69px  -21px " /></a>
-            <a onclick="selectStyle(10)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:19px;height:25px;background-position: -92px  -21px " /></a>
-            <a onclick="selectStyle(11)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:19px;height:25px;background-position: -115px  -21px " /></a>
-        </li>
-        <li>
-            <a onclick="selectStyle(12)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:17px;height:21px;background-position: 0 -46px " /></a>
-            <a onclick="selectStyle(13)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:17px;height:21px;background-position: -23px  -46px " /></a>
-            <a onclick="selectStyle(14)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:17px;height:21px;background-position: -46px  -46px " /></a>
-            <a onclick="selectStyle(15)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:17px;height:21px;background-position: -69px  -46px " /></a>
-            <a onclick="selectStyle(16)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:17px;height:21px;background-position: -92px  -46px " /></a>
-            <a onclick="selectStyle(17)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:17px;height:21px;background-position: -115px  -46px " /></a>
-        </li>
-        <li>
-            <a onclick="selectStyle(18)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:25px;height:25px;background-position: 0 -67px " /></a>
-            <a onclick="selectStyle(19)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:25px;height:25px;background-position: -25px  -67px " /></a>
-            <a onclick="selectStyle(20)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:25px;height:25px;background-position: -50px  -67px " /></a>
-            <a onclick="selectStyle(21)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:25px;height:25px;background-position: -75px  -67px " /></a>
-            <a onclick="selectStyle(22)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:25px;height:25px;background-position: -100px  -67px " /></a>
-            <a onclick="selectStyle(23)" href = 'javascript:void(0)'><img src="http://api.map.baidu.com/library/MarkerTool/1.2/examples/images/transparent.gif" style="width:19px;height:25px;background-position: -125px  -67px " /></a>
-        </li>
-    </ul>
-</div>
- -->
 <script type="text/javascript">
-var map = new BMap.Map("container");
-var centerPoint = new BMap.Point(110.404, 37.915);
-map.centerAndZoom(centerPoint,5); 
-map.enableScrollWheelZoom();
 
-var curMkr = null; // 记录当前添加的Mkr
-var mkrTool = new BMapLib.MarkerTool(map,{followText: "选择节点位置",autoClose: true});
+    var map;
+    var mkrTool;
+    var markerList = [];
+    var sinksData ;
+    function loadJScript() {
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "http://api.map.baidu.com/api?v=1.5&ak=EZfQrPMLSMR4YvDnDMwO9r81&callback=init";
+        document.body.appendChild(script);
+    }
 
-mkrTool.addEventListener("markend", function(evt){ 
-    curMkr = evt.marker; 
-    var point = curMkr.getPosition();
-   
-    var html = [];
-	html.push('<span style="font-size:12px"><h4>节点信息:</h4> </span>');
-	html.push('<table class="table-condensed" >');
-	html.push('  <tr>'); 
-	html.push('      <td>名称</td>');
-	html.push('      <td colspan="2"> <input type = "text" id="name" name="name"> </td>');
-	html.push('	     <td valign="center"><span class="star" style="color:red">*必填</span></td>');
-	html.push(' </tr>');
-	html.push('  <tr>');
-	html.push('      <td ><input type="hidden" id = "longitude" name = "longitude" value="'+point.lng+'" > </td> '); 
-	html.push('      <td ><input type="hidden" id = "latitude" name = "latitude" value="'+point.lat+'" > </td> ');                
-	html.push('  </tr>');
-	html.push('  <tr>');
-	html.push('      <td >描述</td>');
-	html.push('      <td colspan="2"><textarea class="form-control" rows="2" colspan="2"  id="areaDesc"></textarea></td>');
-	html.push('	     ');
-	html.push('  </tr>');
-	html.push('  <tr>');
-	html.push('	     <td  align="center" colspan="3">');
-	html.push('          <?php echo $this->formSubmit($form->get('addsink')); echo $this->form()->closeTag()?>');
-	html.push('	     </td>');
-	html.push('  </tr>');
-	html.push('</table>');	
-	var infoWin = new BMap.InfoWindow(html.join(""), {offset: new BMap.Size(0, -10)});
-    curMkr.openInfoWindow(infoWin);
-	
-});
+    function init() {
 
-/*
-function openStylePnl(){
-    document.getElementById("divStyle").style.display = "block";
-}
+        console.log("init");
+        map = new BMap.Map("container");
+//         var centerPoint = new BMap.Point(110.404, 37.915);
+        var city = document.getElementById("city").value;
+        map.centerAndZoom(city, 12);
+        map.enableScrollWheelZoom();
 
-function selectStyle(index){
-    mkrTool.open(); 
-    var icon = BMapLib.MarkerTool.SYS_ICONS[index]; 
-    mkrTool.setIcon(icon); 
-    document.getElementById("divStyle").style.display = "none";    
-}
-*/
-function selectMarker(){
-	mkrTool.open(); 
-	var icon = new BMap.Icon('../images/marker.gif',new BMap.Size(14,23),{
-		anchor:new BMap.Size(7,25)
-	});
-    mkrTool.setIcon(icon); 
-}
+        map.addControl(new BMap.NavigationControl());    
+        map.addControl(new BMap.ScaleControl());    
+        map.addControl(new BMap.OverviewMapControl());
+        
+//         console.log(sinksData.toString());
+//         console.log(sinksData);
+        var myIcon = new BMap.Icon("../images/marker.gif",new BMap.Size(100,190),{
+            	anchor:new BMap.Size(7,25)
+            });
+        sinksData.forEach(function(data){
+            var name = data.name;
+            var longitude = data.longitude;
+            var latitude = data.latitude;
+            var point = new BMap.Point(longitude, latitude);
+            var marker = new BMap.Marker(point);
+            marker.setIcon(myIcon);
+            marker.setTitle(name);
+            map.addOverlay(marker);
+        });
 
+        initMarkerLib();
+    }
+
+    function selectMarker() {
+        
+        if(mkrTool) {
+            mkrTool.open();
+            var icon = new BMap.Icon('../images/marker.gif', new BMap.Size(14, 23), {
+                anchor: new BMap.Size(7, 25)
+            });
+            mkrTool.setIcon(icon);
+        }
+    }
+
+    function initData(datas){
+        console.log("initData");
+
+        sinksData = datas;
+        
+    }
+
+    function initMarkerLib(){
+        console.log("initMarkerLib");
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "http://api.map.baidu.com/library/MarkerTool/1.2/src/MarkerTool_min.js";
+        script.onload = script.onreadystatechange = function() {
+            console.log(this.readyState);
+            if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) {
+                setMarkLib();
+                // Handle memory leak in IE
+                script.onload = script.onreadystatechange = null;
+            } };
+        
+        document.body.appendChild(script);
+
+    }
+
+    function setMarkLib(){
+        console.log("setMarkLib");
+        var curMkr = null; // 记录当前添加的Mkr
+        mkrTool = new BMapLib.MarkerTool(map, {followText: "选择节点位置", autoClose: true});
+
+        mkrTool.addEventListener("markend", function (evt) {
+            curMkr = evt.marker;
+            var point = curMkr.getPosition();
+
+            var html = [];
+            html.push('<span style="font-size:12px"><h4>节点信息:</h4> </span>');
+            html.push('<table class="table-condensed" >');
+            html.push('  <tr>');
+            html.push('      <td>名称</td>');
+            html.push('      <td colspan="2"> <input type = "text" id="name" name="name"> </td>');
+            html.push('	     <td valign="center"><span class="star" style="color:red">*必填</span></td>');
+            html.push(' </tr>');
+            html.push('  <tr>');
+            html.push('      <td ><input type="hidden" id = "longitude" name = "longitude" value="' + point.lng + '" > </td> ');
+            html.push('      <td ><input type="hidden" id = "latitude" name = "latitude" value="' + point.lat + '" > </td> ');
+            html.push('  </tr>');
+            html.push('  <tr>');
+            html.push('      <td >描述</td>');
+            html.push('      <td colspan="2"><textarea class="form-control" rows="2" colspan="2"  id="areaDesc"></textarea></td>');
+            html.push('	     ');
+            html.push('  </tr>');
+            html.push('  <tr>');
+            html.push('	     <td  align="center" colspan="3">');
+            html.push('          <?php echo $this->formSubmit($form->get('addsink')); echo $this->form()->closeTag()?>');
+            html.push('	     </td>');
+            html.push('  </tr>');
+            html.push('</table>');
+            var infoWin = new BMap.InfoWindow(html.join(""), {offset: new BMap.Size(0, -10)});
+            curMkr.openInfoWindow(infoWin);
+
+        });
+    }
+    window.onload = loadJScript;  //异步加载地图
 </script>
-
-
-<?php  $sinks = $this->sinks;
-foreach ($sinks as $sink) :?>
 <?php
-echo "<script> 
-var name = \"$sink->name\";
-var longitude = \"$sink->longitude\";
-var altitude = \"$sink->latitude\";
-var point = new BMap.Point(longitude, altitude);
-var marker = new BMap.Marker(point); 
-marker.setTitle(name);
-map.addOverlay(marker);
- </script>";
+
+$sinks = $this->sinks;
+// var_dump($sink);
+$i=0;
+$datas = array();
+foreach ($sinks as $sink):
+// var_dump($sink);
+    $item = array();
+    $item["name"] = $sink->name;
+    $item["longitude"]= $sink->longitude;
+    $item["latitude"] = $sink->latitude;
+    $datas[$i] = $item;
+    $i = $i + 1;
+endforeach;
+// var_dump($datas);
+$sinksData = json_encode($datas);
+// echo "Begin:".$sinksData;
+echo "<script>initData($sinksData)</script>";
+
 ?>
-	
-<?php endforeach;?>
+
+
 </body>
 </html>
