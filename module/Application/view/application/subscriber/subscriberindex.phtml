@@ -46,6 +46,7 @@ echo "
     // map.addOverlay(centerMarker);
 		    
     datas.forEach(function(data){
+            var id = data.id;
             var name = data.name;
             var longitude = data.longitude;
             var latitude = data.latitude;
@@ -54,6 +55,9 @@ echo "
 		    marker.setIcon(myIcon);
             marker.setTitle(name);
             map.addOverlay(marker);
+		    marker.addEventListener(\"click\",function(e){
+		    showSinkInfo(id);
+	});
     });
 		    
 //     var tilelayer=new BMap.TileLayer();
@@ -86,6 +90,7 @@ $datas = array();
 foreach ($sinks as $sink):
 // var_dump($sink);
     $item = array();
+    $item["id"] = $sink->id;
     $item["name"] = $sink->name;
     $item["longitude"]= $sink->longitude;
     $item["latitude"] = $sink->latitude;
