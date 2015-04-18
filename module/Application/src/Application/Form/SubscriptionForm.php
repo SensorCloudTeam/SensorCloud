@@ -69,8 +69,9 @@ class SubscriptionForm extends Form
             'name' => 'subscribe',
             'type' => 'Submit',
             'attributes' => array(
-                'value' => '确定',
+                'value' => '确认订阅',
                 'id' => 'subscribebutton',
+                'class' => 'btn btn-primary',
             ),
         ));
         

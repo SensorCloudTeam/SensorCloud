@@ -149,7 +149,8 @@
                                     
                                     <div class="modal-footer">
                                         <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-                                        <button type="submit" class="btn btn-primary" data-dismiss="modal" name="subscribe">确定推送</button>
+                                        <?php echo $this->formSubmit($form->get('subscribe'));
+                  echo $this->form()->closeTag()?>
 
                                     </div>
 
