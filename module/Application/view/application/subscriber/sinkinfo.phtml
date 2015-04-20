@@ -50,7 +50,7 @@
                     </tr>
                     <?php foreach ($sensors as $sensor) : ?>
                         <tr>
-                            <td><?php echo $sensor->name.$sensor->sensor_id;?></td>
+                            <td><?php echo $sensor->name?></td>
                             <td><?php echo $sensor->type;?></td>
                             <td><a class="btn btn-primary" data-toggle="modal" data-target="#myModal<?php echo $sensor->sensor_id; ?>" >订阅</a>
                             </td>
