@@ -28,6 +28,7 @@ class SubscriberController extends AbstractActionController
     /*节点信息及服务订阅*/
     public function sinkinfoAction()
     {
+        date_default_timezone_set('Asia/Taipei'); //设置默认的时区,临时的局部设置，以后要修改
         $form = new SubscriptionForm();
        
         $sink_id = $this->params()->fromRoute('sink_id',0);

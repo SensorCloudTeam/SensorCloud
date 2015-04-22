@@ -16,8 +16,8 @@ $form->prepare();
 echo $this->form()->openTag($form);
 ?>
 <div class="col-md-offset-10 ">
-    <img role="button" src="../images/marker.gif" onclick="selectMarker()"/>
-    <input type="button" value="关闭" onclick="mkrTool.close()"/>
+    <img role="button" src="../images/marker.gif" onclick="selectMarker()" tag="marker" role="button"/>
+    <input type="button" value="取消" onclick="mkrTool.close()"/>
 </div>
 <div style="height:600px;border:#ccc solid 1px;width:80%;margin-left:auto;margin-right:auto" id="container"></div>
 
@@ -42,7 +42,7 @@ echo $this->form()->openTag($form);
     function loadJScript() {
         var script = document.createElement("script");
         script.type = "text/javascript";
-        script.src = "http://api.map.baidu.com/api?v=1.5&ak=EZfQrPMLSMR4YvDnDMwO9r81&callback=init";
+        script.src = "http://api.map.baidu.com/api?v=2.0&ak=EZfQrPMLSMR4YvDnDMwO9r81&callback=init";
         document.body.appendChild(script);
     }
 
@@ -128,7 +128,7 @@ echo $this->form()->openTag($form);
             html.push('  <tr>');
             html.push('      <td>名称</td>');
             html.push('      <td colspan="2"> <input type = "text" id="name" name="name"> </td>');
-            html.push('	     <td valign="center"><span class="star" style="color:red">*必填</span></td>');
+            html.push('	     <td valign="center"><span class="star" style="color:red">*</span></td>');
             html.push(' </tr>');
             html.push('  <tr>');
             html.push('      <td ><input type="hidden" id = "longitude" name = "longitude" value="' + point.lng + '" > </td> ');
