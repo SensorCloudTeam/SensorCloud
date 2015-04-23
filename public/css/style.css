@@ -316,7 +316,7 @@ body {
 	top: 59%;
 	background: rgba(25, 181, 254, 0.21);
 	padding: 1em;
-	width: 42%;
+	width: 34%;
 }
 .slider-caption h1{
 	font-weight: 700;
@@ -333,11 +333,14 @@ body {
 	color:#2C3E50;
 }
 .slider-caption p{
-	color: #808080;
+	color: #bbb;
 	font-weight: 100;
 	font-size: 1em;
 	width: 89%;
 	line-height: 1.6em;
+}
+.slider-caption p:hover{
+	color: #2C3E50;
 }
 a.caption-btn{
 	background:#2C3E50;

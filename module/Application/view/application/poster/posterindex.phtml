@@ -147,6 +147,9 @@ echo $this->form()->openTag($form);
             html.push('</table>');
             var infoWin = new BMap.InfoWindow(html.join(""), {offset: new BMap.Size(0, -10)});
             curMkr.openInfoWindow(infoWin);
+            curMkr.addEventListener("infowindowclose",function(evt,type){
+            	map.removeOverlay(curMkr);
+                });
 
         });
     }
