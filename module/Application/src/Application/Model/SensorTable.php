@@ -156,8 +156,9 @@ class SensorTable
             $sensor_type = $row->type;
             $sensor_value = $row->value;
             $sensor_symbol = $row->symbol;
+            $sensor_time = $row->data_time;
             
-            $message = $title."\n".$sensor_name.' '.$sensor_type.': '.$sensor_value.$sensor_symbol."\n"."\n"."From：SensorCloud传感云平台"."\n"."上海市中山北路3663号 华东师范大学";       
+            $message = $title."\n".$sensor_name.' '.$sensor_type.': '.$sensor_value.$sensor_symbol."\n"."数据最近更新时间:".$sensor_time."\n"."\n"."From：SensorCloud传感云平台"."\n"."上海市中山北路3663号 华东师范大学";       
         }
         return $message;
     }
