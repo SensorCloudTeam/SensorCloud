@@ -54,7 +54,8 @@ body {
 	border-color:#19b5fe;
 }
 .top-grid h3{
-	color: #2C3E50;
+	/*color: #2C3E50;*/
+	color:#fff;
 	font-size: 1.4em;
 	text-transform: uppercase;
 	margin: 0;
@@ -319,7 +320,7 @@ body {
 }
 .slider-caption h1{
 	font-weight: 700;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 	font-size: 3.5em;
 	margin: 0;
 	padding: 0;
