@@ -89,9 +89,10 @@
                                                 <!--  <label>推送方式</label> <?php echo $this->formSelect($form->get('send_method'));?> -->
                                                 <label for="send_method">过滤条件</label>
                                                 <div class="btn-group">
-                                                    <select class="form-control" id="send_method" name="send_method">
-                                                        <option value="1">电子邮件</option>
-                                                        <option value="2">手机短信</option>
+                                                    <select class="form-control" id="send_method" name="send_method" onclick="pushtype()">
+                                                        <option value="1">全部</option>
+                                                        <option value="2">电子邮件</option>
+                                                        <option value="3">手机短信</option>
 
 
                                                     </select>
@@ -105,7 +106,7 @@
                                             <div class="form-group">
                                                 <label for="phoneNumber" class="gray">手机号码</label>
 
-                                                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="稍后推出！" disabled="disabled" >
+                                                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="13688886666">
                                             </div>
 
                                             <div class="form-group ">
@@ -192,5 +193,28 @@
 <div class="clearfix"></div>
 
 
+
+<script>
+function pushtype()
+{
+	var value=document.getElementById("send_method").value;
+	if(2==value)
+	{
+		document.getElementById("address").type="email";
+		document.getElementById("phoneNumber").type="hidden";
+		}
+	else if(3==value)
+	{
+		document.getElementById("address").type="hidden";
+		document.getElementById("phoneNumber").type="text";
+	}
+	else
+	{
+		document.getElementById("address").type="email";
+		document.getElementById("phoneNumber").type="text";
+	}
+}
+		
+</script>
 </body>
 </html>
