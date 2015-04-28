@@ -47,7 +47,7 @@ class SensorForm extends Form
             'name' => 'addsensor',
             'type' => 'Submit',
             'attributes' => array(
-                'value' => '添加传感器',
+                'value' => '添加传感云服务',
                 'id' => 'addsensorbutton',
             ),
         ));
