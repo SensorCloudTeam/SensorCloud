@@ -1,63 +1,63 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
-<link href="/SensorCloud/public/css/bootstrap.css" rel='stylesheet'
-	type='text/css' />
-<!-- Custom Theme files -->
-<link href="/SensorCloud/public/css/style.css" rel='stylesheet'
-	type='text/css' />
-<!-- Custom Theme files -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- webfonts -->
-<link href='http://fonts.googleapis.com/css?family=Arimo:400,700'
-	rel='stylesheet' type='text/css'>
-<!-- webfonts -->
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="/SensorCloud/public/css/bootstrap.css" rel='stylesheet'
+          type='text/css' />
+    <!-- Custom Theme files -->
+    <link href="/SensorCloud/public/css/style.css" rel='stylesheet'
+          type='text/css' />
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- webfonts -->
+    <link href='http://fonts.googleapis.com/css?family=Arimo:400,700'
+          rel='stylesheet' type='text/css'>
+    <!-- webfonts -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 </head>
-   <?php
-   $title = '添加传感器';
-   $this->headTitle($title);
-   ?>
-   <?php
-    $form = $this->form;
-    $form->prepare();
-    echo $this->form()->openTag($form);
-    ?>
-       
+<?php
+$title = '添加传感云服务';
+$this->headTitle($title);
+?>
+<?php
+$form = $this->form;
+$form->prepare();
+echo $this->form()->openTag($form);
+?>
+
 <body>
 <div class="page-header" style="margin-top:-30px;">
-  <h3>添加传感器</h3>
+    <h3>添加传感云服务</h3>
 </div>
 
- <ol class="breadcrumb">
-  <li><a href="<?php echo $this->url('poster',
+<ol class="breadcrumb">
+    <li><a href="<?php echo $this->url('poster',
             array('action'=>'mysink'));?>">节点列表</a></li>
-  <li><a href="<?php echo $this->url('poster',array('action' => 'mysensor','sink_id' => $this->sink_id));?>"><?php echo $this->sink_name?></a> </li>
-  <li class="active">添加传感器</li>
+    <li><a href="<?php echo $this->url('poster',array('action' => 'mysensor','sink_id' => $this->sink_id));?>"><?php echo $this->sink_name?></a> </li>
+    <li class="active">添加传感云服务</li>
 </ol>
 
-   <div >  
-       <table class="table" align="center" width="100%" >
-       <tr>
-           <td align="right">&nbsp;请输入传感器名称&nbsp;&nbsp;</td>
-           <td align="left"><?php echo $this->formRow($form->get('name'));?></td>
-       </tr>   
-       <tr>
-           <td align="right">请选择传感器类型&nbsp;&nbsp;</td>
-           <td align="left">&nbsp;<?php echo $this->formSelect($form->get('type_id'));?></td>
-       </tr>
-             
-        <tr>    
-           <td colspan=2  align="center"><label>现在是否发布？<?php echo $this->formradio($form->get('post'),\Zend\form\view\helper\FormRadio::LABEL_PREPEND);?></label></td>
-       </tr>
-       <p>&nbsp;</p>
-       <tr>
-       <td colspan=2  align="center"><?php echo $this->formSubmit($form->get('addsensor'));
-                  echo $this->form()->closeTag()?>
-       </td>
-       </tr>
-       </table>
-   </div>
- <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
-<script src="/SensorCloud/public/js/bootstrap.min.js"></script>      
+<div >
+    <table class="table" align="center" width="100%" >
+        <tr>
+            <td align="right">&nbsp;请输入传感云服务名称&nbsp;&nbsp;</td>
+            <td align="left"><?php echo $this->formRow($form->get('name'));?></td>
+        </tr>
+        <tr>
+            <td align="right">请选择传感云服务类型&nbsp;&nbsp;</td>
+            <td align="left">&nbsp;<?php echo $this->formSelect($form->get('type_id'));?></td>
+        </tr>
+
+        <tr>
+            <td colspan=2  align="center"><label>现在是否发布？<?php echo $this->formradio($form->get('post'),\Zend\form\view\helper\FormRadio::LABEL_PREPEND);?></label></td>
+        </tr>
+        <p>&nbsp;</p>
+        <tr>
+            <td colspan=2  align="center"><?php echo $this->formSubmit($form->get('addsensor'));
+                echo $this->form()->closeTag()?>
+            </td>
+        </tr>
+    </table>
+</div>
+<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+<script src="/SensorCloud/public/js/bootstrap.min.js"></script>
 </body>
